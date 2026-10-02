@@ -1,0 +1,42 @@
+name: Monday company job refresh
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 18 * * 1'
+      timezone: 'America/Toronto'
+permissions:
+  contents: read
+concurrency:
+  group: earthwork-refresh
+  cancel-in-progress: false
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    env:
+      SITE_ORIGIN: ${{ secrets.EARTHWORK_SITE_URL }}
+      UPDATER_SECRET: ${{ secrets.EARTHWORK_UPDATER_SECRET }}
+      VERCEL_AUTOMATION_BYPASS_SECRET: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
+      PUBLIC_FETCH_MODE: direct
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Check configuration
+        run: |
+          python - <<'PY'
+          import os
+          assert os.environ.get('SITE_ORIGIN','').startswith('https://'), 'Set EARTHWORK_SITE_URL in repository secrets.'
+          assert len(os.environ.get('UPDATER_SECRET','')) >= 32, 'Set EARTHWORK_UPDATER_SECRET in repository secrets.'
+          PY
+      - name: Collect, verify and update company postings
+        run: python scripts/refresh_jobs.py
+      - name: Mark schedule connected
+        run: |
+          python - <<'PY'
+          import importlib.util
+          s=importlib.util.spec_from_file_location('collector','scripts/refresh_jobs.py')
+          m=importlib.util.module_from_spec(s);s.loader.exec_module(m)
+          m.api('settings',{'schedule_enabled':True,'schedule_label':'Mondays, 6 p.m. Toronto'})
+          PY

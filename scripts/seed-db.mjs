@@ -12,5 +12,8 @@ for(const table of ['sources','jobs','runs','settings']){
  console.log(`${table}: ${rows.length} exported records processed (existing records preserved).`);
 }
 // A copied old-host schedule must not imply that GitHub scheduling is connected.
-await sql.query("INSERT INTO settings(key,value) VALUES('schedule_enabled','false') ON CONFLICT(key) DO UPDATE SET value='false'");
+await sql.transaction([
+ sql.query("INSERT INTO settings(key,value) VALUES('schedule_enabled','false') ON CONFLICT(key) DO UPDATE SET value='false'"),
+ sql.query("INSERT INTO settings(key,value) VALUES('initial_import_complete','true') ON CONFLICT(key) DO UPDATE SET value='true'")
+]);
 console.log('Import complete. Enable the schedule only after its first successful GitHub run.');

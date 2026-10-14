@@ -11,4 +11,7 @@ if(process.env.VERCEL_ENV!=='production'){
  const marker=await sql.query("SELECT value FROM settings WHERE key='initial_import_complete'");
  if(marker[0]?.value!=='true')await import('./seed-db.mjs');
  else console.log('Initial import already completed; current jobs and schedule status preserved.');
+ await import('./seed-discovery.mjs');
+ await import('./apply-source-repairs.mjs');
 }
+

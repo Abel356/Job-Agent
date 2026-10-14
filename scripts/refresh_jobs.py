@@ -2,7 +2,7 @@
 """Scheduled company job collection. Standard library only; no AI services."""
 import argparse, concurrent.futures as cf, datetime as dt, hashlib, html, json, os, re, sys, time, threading
 from html.parser import HTMLParser
-from urllib.parse import urlsplit, urljoin, quote, unquote
+from urllib.parse import urlsplit, urljoin, quote, unquote, parse_qs
 from urllib.request import Request, urlopen, build_opener, HTTPRedirectHandler
 from urllib.error import HTTPError
 from zoneinfo import ZoneInfo
@@ -39,15 +39,16 @@ def fetch(url,data=None,source=None):
     if ORIGIN and source and not DIRECT:
         with PUBLIC_LIMIT:
             result=api('public-fetch',{'source_id':source['id'],'url':url,**({'request_data':data} if data is not None else {})})
-        if result['status']!=200:raise SourceFailure(result['status'],plain(result.get('body','')))
+        if result['status']!=200:raise SourceFailure(result['status'],visible_text(result.get('body','')))
         return result['body'],result['url']
     payload=json.dumps(data).encode() if data is not None else None
     headers={'User-Agent':'EarthworkJobs/1.0','Accept':'application/json,text/html,text/plain'}
     if payload is not None:headers['Content-Type']='application/json'
     with PUBLIC_LIMIT:
         with urlopen(Request(url,data=payload,headers=headers),timeout=18) as r:
-            body=r.read(5_000_001)
-            if len(body)>5_000_000:raise ValueError('Source exceeds the 5 MB limit')
+            limit=25_000_000 if urlsplit(url).hostname in ['api.ashbyhq.com','boards-api.greenhouse.io','api.lever.co','api.eu.lever.co'] else 5_000_000
+            body=r.read(limit+1)
+            if len(body)>limit:raise ValueError(f'Source exceeds the {limit//1_000_000} MB limit')
             return body.decode('utf-8',errors='replace'),r.geturl()
 
 def ident(url):
@@ -56,16 +57,19 @@ def ident(url):
     return hashlib.sha256((p.netloc.lower()+path).encode()).hexdigest()[:32]
 
 def plain(s):return re.sub(r'[ \t]+',' ',html.unescape(re.sub(r'<[^>]*>',' ',s or ''))).strip()
+def visible_text(s):return plain(re.sub(r'<(script|style)\b[^>]*>[\s\S]*?</\1>','',s or '',flags=re.I))
 class Page(HTMLParser):
     def __init__(self,body):
-        super().__init__();self.links=[];self.schemas=[];self.ld=False;self.buf='';self.feed(body)
+        super().__init__();self.links=[];self.link_text={};self.anchor=None;self.schemas=[];self.ld=False;self.buf='';self.feed(body)
     def handle_starttag(self,tag,attrs):
         a=dict(attrs)
-        if tag=='a' and a.get('href'):self.links.append(a['href'])
+        if tag=='a' and a.get('href'):self.links.append(a['href']);self.anchor=a['href']
         if tag=='script' and a.get('type')=='application/ld+json':self.ld=True;self.buf=''
     def handle_data(self,data):
         if self.ld:self.buf+=data
+        if self.anchor:self.link_text[self.anchor]=self.link_text.get(self.anchor,'')+' '+data
     def handle_endtag(self,tag):
+        if tag=='a':self.anchor=None
         if tag=='script' and self.ld:
             try:self.schemas.append(json.loads(self.buf))
             except:pass
@@ -147,7 +151,6 @@ def normalize(j,s,existing):
     if not url.startswith(('http://','https://')):return None
     if not str(j.get('title') or '').strip():return None
     reason=eligible(j)
-    if not reason:return None
     key=ident(url);old=existing.get(key,{})
     desc=plain(j.get('descriptionPlain') or j.get('descriptionHtml') or '')
     digest=hashlib.sha256(desc.encode()).hexdigest()
@@ -161,6 +164,7 @@ def normalize(j,s,existing):
     if old.get('date_basis','').startswith('Posting date') or old.get('date_basis','').startswith('First published'):
         row['posting_date']=old['posting_date'];row['date_basis']=old['date_basis']
     row['deadline_iso']=deadline_iso(row['deadline'])
+    row['country_codes']=[c for c in [((j.get('address') or {}).get('postalAddress') or {}).get('addressCountry','')]+j.get('countryCodes',[])+[(v.get('address') or {}).get('addressCountry','') for v in j.get('secondaryLocations',[])] if isinstance(c,str) and c]
     row['link_status']='Verification pending';row['link_error']=''
     try:
         body,final=fetch(url,source=s);page=Page(body)
@@ -204,7 +208,129 @@ def schema_normalize(j,url):
             a=x.get('address') or {};a=a if isinstance(a,dict) else {};names.append(', '.join(str(a[k]) for k in ['addressLocality','addressRegion','addressCountry'] if a.get(k)))
     es=j.get('applicantLocationRequirements',[]);es=es if isinstance(es,list) else [es]
     names.extend(x.get('name','') for x in es if isinstance(x,dict))
-    return {'title':j.get('title'),'location':' | '.join(names),'descriptionPlain':plain(j.get('description','')),'isRemote':j.get('jobLocationType')=='TELECOMMUTE','workplaceType':'Remote' if j.get('jobLocationType')=='TELECOMMUTE' else '', 'publishedAt':j.get('datePosted'),'dateBasis':'Posting date (website metadata)','validThrough':j.get('validThrough'),'employmentType':j.get('employmentType'),'jobUrl':j.get('url') or url,'applyUrl':j.get('url') or url,'baseSalary':j.get('baseSalary')}
+    org=j.get('hiringOrganization') or {};org=org if isinstance(org,dict) else {}
+    codes=[]
+    for x in ls:
+        a=x.get('address',{}) if isinstance(x,dict) else {}
+        c=a.get('addressCountry') if isinstance(a,dict) else None
+        if isinstance(c,dict):c=c.get('name','')
+        if c:codes.append(c)
+    return {'title':j.get('title'),'location':' | '.join(names),'countryCodes':codes,'employerName':org.get('name'),'employerWebsite':org.get('url') or org.get('sameAs'),'descriptionPlain':plain(j.get('description','')),'isRemote':j.get('jobLocationType')=='TELECOMMUTE','workplaceType':'Remote' if j.get('jobLocationType')=='TELECOMMUTE' else '', 'publishedAt':j.get('datePosted'),'dateBasis':'Posting date (website metadata)','validThrough':j.get('validThrough'),'employmentType':j.get('employmentType'),'jobUrl':urljoin(url,j.get('url') or url),'applyUrl':urljoin(url,j.get('url') or url),'baseSalary':j.get('baseSalary')}
+
+SPEEDRUN={'id':'portfolio:speedrun','kind':'speedrun','name':'a16z Speedrun portfolio','url':'https://speedrun.a16z.com/companies'}
+
+def website_key(url):
+    p=urlsplit(url or '');host=(p.hostname or '').lower().removeprefix('www.')
+    if p.scheme not in ['http','https'] or not host or p.username or p.password or host=='localhost' or host.endswith(('.local','.internal')) or ':' in host or re.fullmatch(r'[\d.]+',host):return ''
+    return 'website:'+host
+
+def company_source(name,url,origin):
+    key=website_key(url)
+    if not key:return None
+    # Social links identify a profile, not a verified employer careers source.
+    host=key[8:]
+    if any(host==d or host.endswith('.'+d) for d in ['linkedin.com','twitter.com','x.com','facebook.com','instagram.com','youtube.com','github.com']):return None
+    board=feed_source(url,name)
+    return {**(board or {'id':key,'kind':'html','name':name,'url':url,'website':url}),'discovered_from':origin}
+
+def source_keys(s):
+    return {s['id']}|({s['canonical_feed_id']} if s.get('canonical_feed_id') else set())|({website_key(s['website'])} if s.get('website') and s['kind'] not in ['speedrun-company','fortune-company'] else set())-{''}
+
+def company_name_key(value):
+    return re.sub(r'[^a-z0-9]','',re.sub(r'\b(?:the|inc|incorporated|llc|ltd|limited|corporation|corp)\b','',value or '',flags=re.I).lower())
+
+def ashby_candidates(s):
+    values=[s.get('slug',''),s.get('name','')]
+    if s.get('website'):values.append((urlsplit(s['website']).hostname or '').removeprefix('www.').split('.')[0])
+    out=[]
+    for value in values:
+        if not value or re.fullmatch(r'[a-f0-9]{8}-[a-f0-9-]{27,}',value,re.I):continue
+        for slug in [re.sub(r'[^A-Za-z0-9._-]','',value),re.sub(r'[^a-z0-9._-]','',value.lower()),re.sub(r'[^a-z0-9]+','-',value.lower()).strip('-'),company_name_key(value)]:
+            if 2<=len(slug)<=80 and slug not in out:out.append(slug)
+    return out[:8]
+
+def ashby_identity(body,s,board_url):
+    match=re.search(r'"organization"\s*:\s*(\{)',body)
+    if not match:return None
+    try:org,_=json.JSONDecoder().raw_decode(body[match.start(1):])
+    except (ValueError,TypeError):return None
+    website=org.get('publicWebsite') or '';key=website_key(website)
+    known={website_key(s.get(k,'')) for k in ['website','careers_url']}-{''}
+    # For a generic employer website, its URL is itself a verified identity anchor.
+    if s['kind']=='html' and not feed_source(s['url'],s['name']):known.add(website_key(s['url']))
+    if key and key in known:return {'website':website,'matched_by':'Official website domain matches the registered employer'}
+    name=company_name_key(s['name'])
+    if not key or known or not name or name!=company_name_key(org.get('name','')):return None
+    # Unknown domains require an official-site backlink, not just a similar slug.
+    try:
+        employer_page,final=fetch(website)
+        if any((f:=feed_source(urljoin(final,u),s['name'])) and f['id']==feed_source(board_url,s['name'])['id'] for u in Page(employer_page).links):
+            return {'website':website,'matched_by':'Employer name matches and official website links back to this Ashby board'}
+    except Exception:pass
+    return None
+
+def recover_ashby(s,existing,known,original_error,current):
+    attempts=[]
+    for slug in ashby_candidates(s):
+        url='https://jobs.ashbyhq.com/'+quote(slug,safe='')
+        try:
+            body,final=fetch(url,source=s);proof=ashby_identity(body,s,final)
+            if not proof:attempts.append({'url':url,'result':'No matching employer identity'});continue
+            candidate=feed_source(final,s['name'])
+            if not candidate:continue
+            feed,_=fetch(candidate['url'],source=s);data=json.loads(feed)
+            if not isinstance(data.get('jobs'),list):raise ValueError('No valid Ashby job feed')
+            repaired={**s,**candidate,'id':s['id'],'canonical_feed_id':candidate['id'],'website':proof['website']}
+            # A successful current feed does not need to recheck every job a second time.
+            result={**current,'source':repaired} if current['complete'] and s.get('kind')=='ashby' and candidate['id'] in [s['id'],s.get('canonical_feed_id')] else collect(repaired,existing,known,allow_fallback=False)
+            if not result['complete']:attempts.append({'url':url,'result':'Ashby collection incomplete'});continue
+            result['error']='; '.join(e for e in result['error'].split('; ') if not e.startswith('Company website:'))
+            result['source']['recovery']={'checked_at':NOW(),'board_url':final,'previous_issue':original_error,'matched_by':proof['matched_by'],'note':'Jobs checked through Ashby; the original source issue is retained here for reference.'}
+            result['source']['ashby_fallback']={'checked_at':NOW(),'outcome':'Verified board recovered','attempts':attempts+[{'url':url,'result':'Employer verified; job feed checked'}]}
+            return result
+        except Exception as e:attempts.append({'url':url,'result':str(e)[:160]})
+    s['ashby_fallback']={'checked_at':NOW(),'outcome':'No verified replacement found','attempts':attempts}
+    return None
+
+def speedrun_profiles(fetcher=fetch):
+    # Same public endpoint used by the directory, without the newest-cohort filter.
+    out={};offset=0
+    while True:
+        url=f'https://speedrun.a16z.com/api/companies/companyparams?limit=96&offset={offset}'
+        body,_=fetcher(url,source=SPEEDRUN);data=json.loads(body);batch=data.get('results')
+        if not isinstance(batch,list) or not isinstance(data.get('count'),int):raise ValueError('Speedrun directory format changed')
+        before=len(out)
+        for c in batch:
+            if not c.get('id') or not c.get('name') or not re.fullmatch(r'[a-zA-Z0-9_-]+',c.get('slug','')):raise ValueError('Speedrun company record is incomplete')
+            out[c['id']]={'id':'speedrun:'+c['id'],'kind':'speedrun-company','name':c['name'],'url':'https://speedrun.a16z.com/companies/'+c['slug'],'portfolio_url':SPEEDRUN['url'],'headquarters_country':c.get('country',''),'cohort':c.get('cohort',''),'discovered_from':SPEEDRUN['url']}
+        offset+=len(batch)
+        if offset>=data['count'] and not data.get('next'):break
+        if not batch or len(out)==before or offset>10000:raise ValueError('Speedrun pagination incomplete')
+    if not out:raise ValueError('Speedrun returned an empty portfolio; existing companies preserved')
+    return list(out.values())
+
+def speedrun_company(body,s):
+    m=re.search(r'<script\b[^>]*\bid=[\"\']__NEXT_DATA__[\"\'][^>]*>([\s\S]*?)</script>',body,re.I)
+    if not m:raise ValueError('Speedrun company metadata unavailable')
+    company=json.loads(m.group(1)).get('props',{}).get('pageProps',{}).get('company')
+    if not isinstance(company,dict) or not company.get('name'):raise ValueError('Speedrun company metadata changed')
+    url=company.get('website_url','');source=company_source(company['name'],url,s['url'])
+    if not source:raise ValueError('Company has no public official website in Speedrun yet')
+    s['website']=url;s['headquarters_country']=company.get('country','')
+    return source
+
+def fortune_company(body,s):
+    # Only the publicly displayed Company Information website link is used.
+    m=re.search(r'aria-label=[\"\']Visit the company website[\"\']',body,re.I)
+    link=None
+    if m:
+        start=body.rfind('<a ',0,m.start());tag=body[start:body.find('>',m.end())]
+        href=re.search(r'href=[\"\']([^\"\']+)',tag)
+        if href:link=html.unescape(href.group(1))
+    source=company_source(s['name'],link or s.get('website',''),s['url'])
+    if not source:raise ValueError('Official employer website not available in public company information')
+    s['website']=source.get('website',link);source['fortune_year']=s.get('fortune_year');source['fortune_rank']=s.get('fortune_rank')
+    return source
 
 def workable(s,body):
     if '/llms.txt' not in s['url']:return None
@@ -233,7 +359,6 @@ def workday(s):
         if not batch or offset>4000:raise ValueError('Workday pagination incomplete')
     def detail(item):
         loc=item.get('locationsText','')
-        if loc and not CANADA.search(US_CITY.sub('',loc)) and not re.search(r'locations|remote',loc,re.I):return None
         b,_=fetch(base+item['externalPath'],source=s);info=json.loads(b).get('jobPostingInfo')
         if not isinstance(info,dict):raise ValueError('Workday posting metadata unavailable')
         country=info.get('country') or {};country=country.get('descriptor','') if isinstance(country,dict) else country
@@ -242,11 +367,14 @@ def workday(s):
         return {'title':info.get('title') or item['title'],'location':str(info.get('location') or loc)+', '+str(country),'secondaryLocations':secondary,'descriptionPlain':plain(info.get('jobDescription','')),'workplaceType':'Remote' if 'remote' in str(info.get('remoteType','')).lower() else '', 'publishedAt':info.get('startDate'),'dateBasis':'Posting date (Workday metadata)' if info.get('startDate') else '', 'jobUrl':url,'applyUrl':url,'employmentType':info.get('timeType') or ''}
     with cf.ThreadPoolExecutor(max_workers=4) as pool:return [j for j in pool.map(detail,items) if j]
 
-def collect(s,existing,known):
+def collect(s,existing,known,allow_fallback=True):
     jobs=[];seen=[];closed=[];errors=[];complete=False;discovered=[];raw=[]
     try:
-        body,_=('',s['url']) if s['kind']=='workday' else fetch(s['url']+('&' if '?' in s['url'] else '?')+'includeCompensation=true' if s['kind']=='ashby' and 'includeCompensation' not in s['url'] else s['url'],source=s)
-        if s['kind']=='workday':raw=workday(s);complete=True
+        body,_=('',s['url']) if s['kind'] in ['workday','speedrun'] or (s['kind']=='fortune-company' and s.get('website')) else fetch(s['url']+('&' if '?' in s['url'] else '?')+'includeCompensation=true' if s['kind']=='ashby' and 'includeCompensation' not in s['url'] else s['url'],source=s)
+        if s['kind']=='speedrun':discovered=speedrun_profiles();complete=True
+        elif s['kind']=='speedrun-company':discovered=[speedrun_company(body,s)];complete=True
+        elif s['kind']=='fortune-company':discovered=[fortune_company(body,s)];complete=True
+        elif s['kind']=='workday':raw=workday(s);complete=True
         elif s['kind']=='workable' and '/llms.txt' in s['url']:raw=workable(s,body);complete=True
         elif s['kind'] in ['ashby','greenhouse','lever','lever-eu']:
             data=json.loads(body);items=data if isinstance(data,list) else data.get('jobs')
@@ -257,7 +385,7 @@ def collect(s,existing,known):
                 if s['kind']=='ashby':j=item
                 elif s['kind']=='greenhouse':
                     j={'title':item.get('title'),'location':(item.get('location') or {}).get('name',''),'descriptionPlain':plain(item.get('content','')),'isRemote':'remote' in (item.get('location') or {}).get('name','').lower(),'department':', '.join(d.get('name','') for d in item.get('departments',[])),'jobUrl':item.get('absolute_url'),'applyUrl':item.get('absolute_url')}
-                    if eligible(j):
+                    if item.get('id'):
                         details,_=fetch(f"https://boards-api.greenhouse.io/v1/boards/{quote(s['slug'],safe='')}/jobs/{item['id']}",source=s)
                         d=json.loads(details);j.update(publishedAt=d.get('first_published'),dateBasis='First published (Greenhouse)' if d.get('first_published') else '',validThrough=d.get('application_deadline'))
                 else:
@@ -271,10 +399,17 @@ def collect(s,existing,known):
             for u in page.links:
                 f=feed_source(urljoin(s['url'],u),s['name'])
                 if f and f['id'] not in known:discovered.append(f)
+            # JSON-LD listings may belong to employers outside the existing registry.
+            for j in raw:
+                name=j.get('employerName') or s['name']
+                for u in [j.get('employerWebsite'),j.get('jobUrl')]:
+                    if not isinstance(u,str):continue
+                    f=company_source(name,u,s['url']) if u==j.get('employerWebsite') else feed_source(u,name)
+                    if f and f['id'] not in known:discovered.append(f)
             if not complete and not discovered:errors.append('Careers page has no accessible job feed; verification incomplete')
         def check(j):
             u=j.get('applyUrl') or j.get('jobUrl') or ''
-            if u and eligible(j):seen.append(ident(u))
+            if u:seen.append(ident(u))
             try:
                 row=normalize(j,s,existing)
                 if row and row.get('closed'):closed.append(row['id'])
@@ -283,13 +418,13 @@ def collect(s,existing,known):
         with cf.ThreadPoolExecutor(max_workers=4) as checks:list(checks.map(check,raw))
     except Exception as e:errors.append('Job feed: '+str(e)[:200])
     # Recheck official website and up to two careers pages to discover changed boards.
-    if s.get('website'):
+    if s.get('website') and s['kind'] not in ['speedrun','speedrun-company','fortune-company']:
         try:
             body,landing=fetch(s['website'],source=s);page=Page(body);urls=[]
             for u in page.links:
                 url=urljoin(landing,u);f=feed_source(url,s['name'])
                 if f and f['id'] not in known:discovered.append(f)
-                if re.search(r'career|jobs|join-us|join-our-team',url,re.I) and urlsplit(url).hostname==urlsplit(landing).hostname and url not in urls:urls.append(url)
+                if (re.search(r'career|jobs|join-us|join-our-team',url,re.I) or re.search(r'\bcareers?\b|\bjobs\b|join our team',page.link_text.get(u,''),re.I)) and company_source(s['name'],url,landing) and url not in urls:urls.append(url)
             if s.get('careers_url') and s['careers_url'] not in urls:urls.insert(0,s['careers_url'])
             for url in urls[:2]:
                 if feed_source(url,s['name']):continue
@@ -297,17 +432,52 @@ def collect(s,existing,known):
                 for u in p.links:
                     f=feed_source(urljoin(final,u),s['name'])
                     if f and f['id'] not in known:discovered.append(f)
-                discovered.extend({'id':'html:'+hashlib.sha256(final.encode()).hexdigest()[:16],'name':s['name'],'kind':'html','url':final} for d in p.schemas if any(True for _ in schemas(d)))
+                if final!=s['url']:
+                    discovered.append({'id':'html:'+hashlib.sha256(final.encode()).hexdigest()[:16],'name':s['name'],'kind':'html','url':final,'discovered_from':s['url']})
         except Exception as e:errors.append('Company website: '+str(e)[:180])
     # A website failure does not invalidate a complete feed, but all gaps stay visible.
     incomplete=sum(j.get('link_status')=='Check incomplete' for j in jobs)
     if incomplete:errors.append(f'Application links: {incomplete} verification incomplete')
     source_error='; '.join(dict.fromkeys(errors))
-    return {'source':s,'jobs':jobs,'seen_ids':seen,'closed_ids':closed,'complete':complete and not any(e.startswith(('Job feed:','Application check:')) for e in errors),'error':source_error,'discovered':discovered}
+    for f in discovered:
+        f.setdefault('discovered_from',s['url'])
+        if s.get('portfolio_url'):f.setdefault('portfolio_url',s['portfolio_url'])
+        if s.get('fortune_year'):f.setdefault('fortune_year',s['fortune_year']);f.setdefault('fortune_rank',s.get('fortune_rank'))
+    result={'source':s,'jobs':jobs,'seen_ids':seen,'closed_ids':closed,'complete':complete and not any(e.startswith(('Job feed:','Application check:')) for e in errors),'error':source_error,'discovered':discovered}
+    if not source_error and result['complete'] and s.get('recovery'):
+        s['recovery']={**s['recovery'],'checked_at':NOW(),'note':'Jobs checked through the verified Ashby board; the original source issue is retained for reference.'}
+    if source_error and allow_fallback and s['kind']!='speedrun':
+        recovered=recover_ashby(s,existing,known,source_error,result)
+        if recovered:return recovered
+        result['error']+='; Ashby fallback: no verified replacement found'
+    return result
+
+def save_result(result):
+    # Keep each write comfortably below Vercel's request body limit. Only the
+    # final packet advances source coverage and missing-job checks.
+    jobs=result['jobs'];batch=[];size=0
+    for job in jobs:
+        encoded=len(json.dumps(job).encode())
+        if batch and (size+encoded>1_500_000 or len(batch)>=60):
+            api('ingest',{**result,'jobs':batch,'seen_ids':[],'closed_ids':[],'complete':False,'partial':True});batch=[];size=0
+        batch.append(job);size+=encoded
+    if batch:api('ingest',{**result,'jobs':batch,'seen_ids':[],'closed_ids':[],'complete':False,'partial':True})
+    return api('ingest',{**result,'jobs':[],'partial':False})
 
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--limit',type=int,default=0);parser.add_argument('--source');args=parser.parse_args()
-    state=api('sources');existing={j['id']:j for j in state['existing']};sources=state['sources'];known={s['id'] for s in sources}
+    state=api('sources');existing={};cursor=''
+    while True:
+        page=api('existing-jobs'+('?after='+quote(cursor,safe='') if cursor else ''))
+        existing.update((j['id'],j) for j in page['existing']);cursor=page.get('next_cursor')
+        if not cursor:break
+    sources=state['sources'];known=set().union(*(source_keys(s) for s in sources))
+    if SPEEDRUN['id'] not in known:
+        api('register-source',{'source':SPEEDRUN});sources.append(SPEEDRUN);known.add(SPEEDRUN['id'])
+    # Existing opportunities can reveal ATS boards absent from the registry.
+    for job in existing.values():
+        f=feed_source(job.get('apply_url',''),job.get('company') or 'Discovered employer')
+        if f and f['id'] not in known:api('register-source',{'source':f});sources.append(f);known.update(source_keys(f))
     if args.source:sources=[s for s in sources if s['id']==args.source]
     if args.limit:sources=sources[:args.limit]
     global FX
@@ -327,12 +497,12 @@ def main():
             while futures:
                 done,_=cf.wait(futures,return_when=cf.FIRST_COMPLETED)
                 for future in done:
-                    futures.pop(future);result=future.result();new=result.pop('discovered');result['run_id']=run
+                    futures.pop(future);result=future.result();known.update(source_keys(result['source']));new=result.pop('discovered');result['run_id']=run
                     if result['error']:failed+=1
-                    saves[writers.submit(api,'ingest',result)]=result['source']
+                    saves[writers.submit(save_result,result)]=result['source']
                     for source in new:
                         if source['id'] not in known:
-                            known.add(source['id']);api('register-source',{'source':source});futures[pool.submit(collect,source,existing,known)]=source
+                            known.update(source_keys(source));api('register-source',{'source':source});futures[pool.submit(collect,source,existing,known)]=source
                 for f in list(saves):
                     if f.done():collect_save(f)
                 if len(saves)>40:
@@ -347,3 +517,4 @@ def main():
         except:pass
         raise
 if __name__=='__main__':main()
+

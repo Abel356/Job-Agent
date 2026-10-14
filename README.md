@@ -1,6 +1,6 @@
-# Earthwork · Canada Jobs
+# Earthwork · Global Jobs
 
-A private Canadian jobs dashboard with an earthy, minimal interface, real application links, category and location filters, relevance search, salary/date sorting, and a scripted Monday refresh. No OpenAI API key or AI service is required. Applications are submitted by you on the employer's website.
+A private jobs dashboard with an earthy, minimal interface, international location and employer-stated sponsorship filters, real application links, relevance search, salary/date sorting, and a scripted Monday refresh. Canada is the initial country filter; Clear all includes every country. No OpenAI API key or AI service is required. Applications are submitted by you on the employer's website.
 
 ## Included data
 
@@ -25,7 +25,7 @@ Add these repository Actions secrets:
 
 | Secret | Value |
 |---|---|
-| `EARTHWORK_SITE_URL` | Your stable production Vercel origin, e.g. `https://your-project.vercel.app` |
+| `EARTHWORK_SITE_URL` | Optional override; defaults to `https://earthwork-jobs.vercel.app` |
 | `EARTHWORK_UPDATER_SECRET` | Exactly the server's `UPDATER_SECRET` |
 | `VERCEL_AUTOMATION_BYPASS_SECRET` | Optional Vercel protection bypass secret if Deployment Protection blocks the automation URL |
 
@@ -33,7 +33,18 @@ Enable Actions, then run the workflow manually and verify its results in **Refre
 
 The Python collector uses public Ashby, Greenhouse, Lever, Workable and Workday feeds and employer job metadata. It discovers additional ATS links, checks individual application pages, extracts supplied dates and compensation, and reports incomplete checks. In direct mode, owner/updater credentials are sent only to your Earthwork API; public employer requests never receive them. Set `PUBLIC_FETCH_MODE=proxy` only if the server-side allowlisted public-fetch fallback is needed.
 
-## Closed postings and classification
+## Company discovery and international coverage
+
+- Production bootstrap idempotently registers the 321 Speedrun company profiles discovered on October 14, 2026, its directory, and all 500 companies in the 2026 Fortune 500 public directory. These are tracked sources, not a claim that 821 companies currently have accessible jobs. Existing records are preserved.
+- Every full Monday refresh paginates Speedrun's public directory across all cohorts and registers new profiles. Profile pages provide official employer websites; official careers links lead to supported ATS boards. The Fortune roster is dated 2026 and sourced from the public SheetSteps directory linked to Fortune company profiles. Public Fortune Company Information resolves official websites; saved websites are reused. Rankings and subscription content are not imported.
+- New employers found in JobPosting metadata and new ATS links in opportunities are persisted immediately. Discovery uses canonical website/board identities, not employer name alone. Jobs are retained across countries; job location is distinct from headquarters. Unclear locations remain unspecified.
+- Every failed employer source receives a final bounded Ashby lookup using name, case and slug variants. A healthy feed must pass an employer-identity check (registered official domain, or matching name plus an official-site backlink). A verified replacement preserves the original source ID, records the prior issue, and is used in later refreshes. Remaining application-link failures stay flagged. No verified replacement means the failure remains visible with the attempts recorded. UUID-only unknown names cannot be safely guessed.
+- The October 14 Ashby recheck covers all 308 saved failures. Production bootstrap applies its repair/history data only when the source URL, original check timestamp and error are unchanged and no newer fallback exists. Verified boards are labelled awaiting refresh; these probes do not import jobs or mark a complete refresh. Subsequent builds leave updated records alone.
+- The job list and existing-job state are paginated. Refresh writes are bounded batches; only the final batch advances coverage and missing-job checks. Large official ATS JSON feeds can be read up to 25 MB in direct mode; other pages remain limited to 5 MB.
+- Filters include country, explicit US sponsorship, general sponsorship (offered, unavailable, conditional, unknown), internships/co-ops, entry-level/new-grad, OPT/CPT mentions, remote geography, and stated citizenship/permanent-residency/clearance requirements. Evidence appears in job details. Missing or contradictory sponsorship wording remains unclear. Generic sponsorship on a multi-country role does not establish US sponsorship.
+- Labels describe employer wording, not immigration advice or a guarantee of eligibility. Canadian work authorization does not grant US work authorization. Remote work for a US employer from Canada is a separate location/employment question. OPT/CPT refers to US student programs.
+
+### Deadline and classification rules
 
 - A known, unambiguous deadline hides the job immediately when the dashboard loads and archives it during refresh. Date-only deadlines remain open through the Toronto calendar day; yearless/ambiguous dates are preserved.
 - Employer-confirmed closure hides a job during refresh. A missing role is archived after two successful source checks. Temporary website/network errors preserve existing roles and are flagged for review.
@@ -47,3 +58,4 @@ Use Node.js 24 and pnpm 11.25.0. Copy `.env.example` to `.env.local` and set the
 Run `corepack pnpm check`, `python scripts/verify_collector.py`, and `corepack pnpm build`. The checks cover real-data filter results, relevance/date/salary ordering, deadline boundaries, private access, password/session revocation, SQL parameters, and public-request credential isolation. Database and deployed end-to-end checks require configured resources.
 
 An authenticated `GET /api/migration-export` returns all persisted jobs, sources, runs and settings for future backup or migration. Keep exports private. Runtime job changes live in Postgres; they do not require Git commits. Source code changes on `main` redeploy through Vercel's Git integration once connected.
+

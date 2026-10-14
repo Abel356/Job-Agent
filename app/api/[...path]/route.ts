@@ -12,9 +12,19 @@ function rowJob(r:any){const j=decorate(JSON.parse(r.data));return {...j,first_s
 export async function GET(req:Request){if(!authorized(req))return response({error:'Please sign in.'},401);try{
  const p=path(req);
  if(p==='migration-export'){const [jobs,sources,runs,settings]=await Promise.all([all<any>('SELECT * FROM jobs'),all<any>('SELECT * FROM sources'),all<any>('SELECT * FROM runs'),all<any>('SELECT * FROM settings')]);return response({schema_version:1,exported_at:new Date().toISOString(),jobs,sources,runs,settings});}
- if(p==='jobs'){const rows=await all<any>("SELECT id,(data::jsonb - 'description')::text AS data,first_seen,last_seen,category_override FROM jobs WHERE active=1");const [settings,runs]=await Promise.all([all<any>('SELECT key,value FROM settings'),all<any>('SELECT * FROM runs ORDER BY started DESC LIMIT 12')]);return response({jobs:rows.map(rowJob).filter(j=>!deadlinePassed(j.deadline_iso||j.deadline||'')),settings:Object.fromEntries(settings.map(r=>[r.key,JSON.parse(r.value)])),runs});}
+ if(p==='jobs'){
+  const cursor=new URL(req.url).searchParams.get('after')||'';
+  const rows=await all<any>("SELECT id,CASE WHEN jsonb_exists(data::jsonb,'international') THEN (data::jsonb - 'description')::text ELSE data END AS data,first_seen,last_seen,category_override FROM jobs WHERE active=1 AND id>? ORDER BY id LIMIT 250",[cursor]);
+  const [settings,runs]=await Promise.all([all<any>('SELECT key,value FROM settings'),all<any>('SELECT * FROM runs ORDER BY started DESC LIMIT 12')]);
+  return response({jobs:rows.map(rowJob).filter(j=>!deadlinePassed(j.deadline_iso||j.deadline||'')).map(({description,...j})=>j),next_cursor:rows.length===250?rows.at(-1).id:null,settings:Object.fromEntries(settings.map(r=>[r.key,JSON.parse(r.value)])),runs});
+ }
  if(p.startsWith('job/')){const r=await db().prepare('SELECT * FROM jobs WHERE id=?').bind(p.slice(4)).first<any>();return r?response(rowJob(r)):response({error:'Role not found'},404);}
- if(p==='sources')return response({sources:(await all<any>('SELECT * FROM sources')).map(r=>({...JSON.parse(r.data),status:r.status,checked:r.checked,error:r.error})),existing:(await all<any>("SELECT id,source_id,data FROM jobs WHERE active=1")).map(r=>{const j=JSON.parse(r.data);return {id:r.id,source_id:r.source_id,position:j.position,apply_url:j.apply_url,posting_date:j.posting_date,description_hash:j.description_hash,date_basis:j.date_basis,deadline:j.deadline,deadline_iso:j.deadline_iso,deadline_evidence:j.deadline_evidence,link_checked_at:j.link_checked_at,compensation:j.compensation};})});
+ if(p==='sources')return response({sources:(await all<any>('SELECT * FROM sources')).map(r=>({...JSON.parse(r.data),status:r.status,checked:r.checked,error:r.error}))});
+ if(p==='existing-jobs'){
+  const cursor=new URL(req.url).searchParams.get('after')||'';
+  const rows=await all<any>("SELECT id,source_id,(data::jsonb - 'description' - 'international')::text AS data FROM jobs WHERE active=1 AND id>? ORDER BY id LIMIT 500",[cursor]);
+  return response({existing:rows.map(r=>{const j=JSON.parse(r.data);return {id:r.id,source_id:r.source_id,company:j.company,position:j.position,apply_url:j.apply_url,posting_date:j.posting_date,description_hash:j.description_hash,date_basis:j.date_basis,deadline:j.deadline,deadline_iso:j.deadline_iso,deadline_evidence:j.deadline_evidence,link_checked_at:j.link_checked_at,compensation:j.compensation};}),next_cursor:rows.length===500?rows.at(-1).id:null});
+ }
  if(p==='rates'){try{const r=await fetch('https://www.bankofcanada.ca/valet/observations/FXUSDCAD,FXEURCAD,FXGBPCAD/json?recent=1',{signal:AbortSignal.timeout(15000)});if(!r.ok)throw Error('FX unavailable');const d:any=await r.json(),o=d.observations?.at(-1);return response({date:o?.d,rates:{CAD:1,USD:Number(o?.FXUSDCAD?.v)||null,EUR:Number(o?.FXEURCAD?.v)||null,GBP:Number(o?.FXGBPCAD?.v)||null}});}catch{return response({date:'',rates:{CAD:1}});}}
  if(p==='updater')return new Response(updater,{headers:{'Content-Type':'text/plain; charset=utf-8','Cache-Control':'private, no-store'}});
  return response({error:'Not found'},404);
@@ -23,7 +33,7 @@ export async function POST(req:Request){if(!authorized(req))return response({err
  // Maintenance uses a separate bearer secret; visitors use owner sessions.
  const origin=req.headers.get('origin');if(origin&&origin!==new URL(req.url).origin)return response({error:'Cross-origin write denied'},403);
  const p=path(req),body:any=await req.json(),database=db();
- if(p==='register-source'){const s=body.source;if(!s?.id||!s.name||!['ashby','greenhouse','lever','lever-eu','html','workday','workable'].includes(s.kind)||!/^https?:\/\//.test(s.url))return response({error:'Invalid source'},400);await database.prepare('INSERT INTO sources(id,data,status) VALUES(?,?,?) ON CONFLICT(id) DO NOTHING').bind(s.id,JSON.stringify(s),'New source').run();return response({saved:true});}
+ if(p==='register-source'){const s=body.source;if(!s?.id||!s.name||!['ashby','greenhouse','lever','lever-eu','html','workday','workable','speedrun','speedrun-company','fortune-company'].includes(s.kind)||!/^https?:\/\//.test(s.url))return response({error:'Invalid source'},400);await database.prepare('INSERT INTO sources(id,data,status) VALUES(?,?,?) ON CONFLICT(id) DO NOTHING').bind(s.id,JSON.stringify(s),'New source').run();return response({saved:true});}
  if(p==='public-fetch'){
   if(typeof body.url!=='string'||typeof body.source_id!=='string')return response({error:'Invalid source request'},400);
   const source=await database.prepare('SELECT data FROM sources WHERE id=?').bind(body.source_id).first<any>();if(!source)return response({error:'Unknown source'},404);
@@ -37,7 +47,7 @@ export async function POST(req:Request){if(!authorized(req))return response({err
  if(p==='import'){
   if(!Array.isArray(body.jobs)||body.jobs.length>100||!Array.isArray(body.sources)||body.sources.length>100)return response({error:'Invalid import batch'},400);
   const now=body.checked_at||new Date().toISOString();const statements=[];
-  for(const s of body.sources){if(!s.id||!s.name||!['ashby','greenhouse','lever','lever-eu','html','workable','workday'].includes(s.kind))throw Error('Invalid source');statements.push(database.prepare('INSERT INTO sources(id,data,checked,status,error) VALUES(?,?,?,?,?) ON CONFLICT(id) DO NOTHING').bind(s.id,JSON.stringify(s),s.checked||now,s.status||'Imported',s.error||''));}
+  for(const s of body.sources){if(!s.id||!s.name||!['ashby','greenhouse','lever','lever-eu','html','workable','workday','speedrun','speedrun-company','fortune-company'].includes(s.kind))throw Error('Invalid source');statements.push(database.prepare('INSERT INTO sources(id,data,checked,status,error) VALUES(?,?,?,?,?) ON CONFLICT(id) DO NOTHING').bind(s.id,JSON.stringify(s),s.checked||now,s.status||'Imported',s.error||''));}
   for(const raw of body.jobs){if(!raw.id||!raw.source_id||!/^https?:\/\//.test(raw.apply_url))throw Error('Invalid job');const j=decorate(raw);statements.push(database.prepare('INSERT INTO jobs(id,source_id,data,active,first_seen,last_seen) VALUES(?,?,?,1,?,?) ON CONFLICT(id) DO NOTHING').bind(j.id,j.source_id,JSON.stringify(j),now,j.link_checked_at||now));}
   for(let i=0;i<statements.length;i+=80)await database.batch(statements.slice(i,i+80));return response({imported:statements.length});
  }
@@ -58,18 +68,19 @@ export async function POST(req:Request){if(!authorized(req))return response({err
   return result[2]?.length?response({id}):response({error:'A refresh is already running'},409);
  }
  if(p==='ingest'){
-  if(!body.source||!body.run_id||!Array.isArray(body.jobs)||body.jobs.length>1000)return response({error:'Invalid refresh batch'},400);
+  if(!body.source||!body.run_id||!Array.isArray(body.jobs)||body.jobs.length>100)return response({error:'Invalid refresh batch'},400);
   const source=body.source,now=new Date().toISOString();let added=0,changed=0,closed=0;
   const run=await database.prepare("SELECT id FROM runs WHERE id=? AND status='running'").bind(body.run_id).first();if(!run)return response({error:'Refresh is not running'},409);
-  const old=await all<any>('SELECT id,data,missing_runs,active FROM jobs WHERE source_id=?',[source.id]);const oldMap=new Map(old.map(j=>[j.id,j]));const statements=[];
-  statements.push(database.prepare('INSERT INTO sources(id,data,checked,status,error) VALUES(?,?,?,?,?) ON CONFLICT(id) DO UPDATE SET data=excluded.data,checked=excluded.checked,status=excluded.status,error=excluded.error').bind(source.id,JSON.stringify(source),now,body.error?'Check incomplete':'Checked',String(body.error||'').slice(0,2000)));
+  const old=await all<any>("SELECT id,(data::jsonb - 'description' - 'international')::text AS data,missing_runs,active FROM jobs WHERE source_id=?",[source.id]);const oldMap=new Map(old.map(j=>[j.id,j]));const statements=[];
+  statements.push(database.prepare('INSERT INTO sources(id,data,checked,status,error) VALUES(?,?,?,?,?) ON CONFLICT(id) DO UPDATE SET data=excluded.data,checked=excluded.checked,status=excluded.status,error=excluded.error').bind(source.id,JSON.stringify(source),now,body.error?'Check incomplete':source.recovery?'Recovered via Ashby':'Checked',String(body.error||'').slice(0,2000)));
   for(const raw of body.jobs){if(!raw.id||!/^https?:\/\//.test(raw.apply_url))continue;const j=decorate({...raw,source_id:source.id});const previous=oldMap.get(j.id);if(deadlinePassed(j.deadline_iso||j.deadline||'')){if(previous?.active){closed++;statements.push(database.prepare("UPDATE jobs SET active=0,data=(data::jsonb || jsonb_build_object('closure_reason','Application deadline passed','closed_at',?::text))::text WHERE id=?").bind(now,j.id));}continue;}if(!previous)added++;else{const o=JSON.parse(previous.data);if(o.position!==j.position||o.posting_date!==j.posting_date||o.description_hash!==j.description_hash)changed++;}
    statements.push(database.prepare('INSERT INTO jobs(id,source_id,data,active,missing_runs,first_seen,last_seen) VALUES(?,?,?,1,0,?,?) ON CONFLICT(id) DO UPDATE SET data=excluded.data,active=1,missing_runs=0,last_seen=excluded.last_seen').bind(j.id,source.id,JSON.stringify(j),now,now));}
   for(const id of body.closed_ids||[]){if(oldMap.get(id)?.active){closed++;statements.push(database.prepare("UPDATE jobs SET active=0,data=(data::jsonb || jsonb_build_object('closure_reason','Employer closed the application page','closed_at',?::text))::text WHERE id=? AND source_id=?").bind(now,id,source.id));}}
-  if(body.complete&&!body.error){const seen=new Set(body.seen_ids||body.jobs.map((j:any)=>j.id));for(const oldJob of old)if(oldJob.active&&!seen.has(oldJob.id)){const miss=oldJob.missing_runs+1;if(miss>=2)closed++;statements.push(database.prepare('UPDATE jobs SET missing_runs=?,active=? WHERE id=?').bind(miss,miss>=2?0:1,oldJob.id));}}
+  if(!body.partial&&body.complete&&!body.error){const seen=new Set(body.seen_ids||body.jobs.map((j:any)=>j.id));for(const oldJob of old)if(oldJob.active&&!seen.has(oldJob.id)){const miss=oldJob.missing_runs+1;if(miss>=2)closed++;statements.push(database.prepare('UPDATE jobs SET missing_runs=?,active=? WHERE id=?').bind(miss,miss>=2?0:1,oldJob.id));}}
   for(let i=0;i<statements.length;i+=80)await database.batch(statements.slice(i,i+80));
-  await database.prepare('UPDATE runs SET checked=checked+1,failed=failed+?,added=added+?,changed=changed+?,closed=closed+? WHERE id=? AND status=\'running\'').bind(body.error?1:0,added,changed,closed,body.run_id).run();return response({added,changed,closed});
+  await database.prepare('UPDATE runs SET checked=checked+?,failed=failed+?,added=added+?,changed=changed+?,closed=closed+? WHERE id=? AND status=\'running\'').bind(body.partial?0:1,!body.partial&&body.error?1:0,added,changed,closed,body.run_id).run();return response({added,changed,closed});
  }
  if(p==='finish-run'){await database.prepare("UPDATE runs SET finished=?,status=? WHERE id=? AND status='running'").bind(new Date().toISOString(),body.error?'partial':'completed',body.run_id).run();return response({finished:true});}
  return response({error:'Not found'},404);
  }catch(e){console.error(e);return response({error:'The update could not be saved. Please retry.'},500);}}
+

@@ -1,0 +1,5002 @@
+[
+  {
+    "id": "fortune2026:amazon-com",
+    "kind": "fortune-company",
+    "name": "Amazon",
+    "url": "https://fortune.com/company/amazon-com/",
+    "fortune_year": 2026,
+    "fortune_rank": 1,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:walmart",
+    "kind": "fortune-company",
+    "name": "Walmart",
+    "url": "https://fortune.com/company/walmart/",
+    "fortune_year": 2026,
+    "fortune_rank": 2,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:unitedhealth-group",
+    "kind": "fortune-company",
+    "name": "UnitedHealth Group",
+    "url": "https://fortune.com/company/unitedhealth-group/",
+    "fortune_year": 2026,
+    "fortune_rank": 3,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:apple",
+    "kind": "fortune-company",
+    "name": "Apple",
+    "url": "https://fortune.com/company/apple/",
+    "fortune_year": 2026,
+    "fortune_rank": 4,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:alphabet",
+    "kind": "fortune-company",
+    "name": "Alphabet",
+    "url": "https://fortune.com/company/alphabet/",
+    "fortune_year": 2026,
+    "fortune_rank": 5,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:cvs-health",
+    "kind": "fortune-company",
+    "name": "CVS Health",
+    "url": "https://fortune.com/company/cvs-health/",
+    "fortune_year": 2026,
+    "fortune_rank": 6,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:berkshire-hathaway",
+    "kind": "fortune-company",
+    "name": "Berkshire Hathaway",
+    "url": "https://fortune.com/company/berkshire-hathaway/",
+    "fortune_year": 2026,
+    "fortune_rank": 7,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:mckesson",
+    "kind": "fortune-company",
+    "name": "McKesson",
+    "url": "https://fortune.com/company/mckesson/",
+    "fortune_year": 2026,
+    "fortune_rank": 8,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:exxon-mobil",
+    "kind": "fortune-company",
+    "name": "ExxonMobil Holdings",
+    "url": "https://fortune.com/company/exxon-mobil/",
+    "fortune_year": 2026,
+    "fortune_rank": 9,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:amerisourcebergen",
+    "kind": "fortune-company",
+    "name": "Cencora",
+    "url": "https://fortune.com/company/amerisourcebergen/",
+    "fortune_year": 2026,
+    "fortune_rank": 10,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:microsoft",
+    "kind": "fortune-company",
+    "name": "Microsoft",
+    "url": "https://fortune.com/company/microsoft/",
+    "fortune_year": 2026,
+    "fortune_rank": 11,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:jpmorgan-chase",
+    "kind": "fortune-company",
+    "name": "JPMorgan Chase",
+    "url": "https://fortune.com/company/jpmorgan-chase/",
+    "fortune_year": 2026,
+    "fortune_rank": 12,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:costco",
+    "kind": "fortune-company",
+    "name": "Costco Wholesale",
+    "url": "https://fortune.com/company/costco/",
+    "fortune_year": 2026,
+    "fortune_rank": 13,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:cigna",
+    "kind": "fortune-company",
+    "name": "Cigna Group",
+    "url": "https://fortune.com/company/cigna/",
+    "fortune_year": 2026,
+    "fortune_rank": 14,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:cardinal-health",
+    "kind": "fortune-company",
+    "name": "Cardinal Health",
+    "url": "https://fortune.com/company/cardinal-health/",
+    "fortune_year": 2026,
+    "fortune_rank": 15,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:nvidia",
+    "kind": "fortune-company",
+    "name": "Nvidia",
+    "url": "https://fortune.com/company/nvidia/",
+    "fortune_year": 2026,
+    "fortune_rank": 16,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:facebook",
+    "kind": "fortune-company",
+    "name": "Meta Platforms",
+    "url": "https://fortune.com/company/facebook/",
+    "fortune_year": 2026,
+    "fortune_rank": 17,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:elevance-health",
+    "kind": "fortune-company",
+    "name": "Elevance Health",
+    "url": "https://fortune.com/company/elevance-health/",
+    "fortune_year": 2026,
+    "fortune_rank": 18,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:centene",
+    "kind": "fortune-company",
+    "name": "Centene",
+    "url": "https://fortune.com/company/centene/",
+    "fortune_year": 2026,
+    "fortune_rank": 19,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:bank-of-america-corp",
+    "kind": "fortune-company",
+    "name": "Bank of America",
+    "url": "https://fortune.com/company/bank-of-america-corp/",
+    "fortune_year": 2026,
+    "fortune_rank": 20,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:chevron",
+    "kind": "fortune-company",
+    "name": "Chevron",
+    "url": "https://fortune.com/company/chevron/",
+    "fortune_year": 2026,
+    "fortune_rank": 21,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:ford-motor",
+    "kind": "fortune-company",
+    "name": "Ford Motor",
+    "url": "https://fortune.com/company/ford-motor/",
+    "fortune_year": 2026,
+    "fortune_rank": 22,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:general-motors",
+    "kind": "fortune-company",
+    "name": "General Motors",
+    "url": "https://fortune.com/company/general-motors/",
+    "fortune_year": 2026,
+    "fortune_rank": 23,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:citigroup",
+    "kind": "fortune-company",
+    "name": "Citigroup",
+    "url": "https://fortune.com/company/citigroup/",
+    "fortune_year": 2026,
+    "fortune_rank": 24,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:home-depot",
+    "kind": "fortune-company",
+    "name": "Home Depot",
+    "url": "https://fortune.com/company/home-depot/",
+    "fortune_year": 2026,
+    "fortune_rank": 25,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:fannie-mae",
+    "kind": "fortune-company",
+    "name": "Fannie Mae",
+    "url": "https://fortune.com/company/fannie-mae/",
+    "fortune_year": 2026,
+    "fortune_rank": 26,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:kroger",
+    "kind": "fortune-company",
+    "name": "Kroger",
+    "url": "https://fortune.com/company/kroger/",
+    "fortune_year": 2026,
+    "fortune_rank": 27,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:verizon",
+    "kind": "fortune-company",
+    "name": "Verizon Communications",
+    "url": "https://fortune.com/company/verizon/",
+    "fortune_year": 2026,
+    "fortune_rank": 28,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:phillips",
+    "kind": "fortune-company",
+    "name": "Phillips 66",
+    "url": "https://fortune.com/company/phillips/",
+    "fortune_year": 2026,
+    "fortune_rank": 29,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:marathon-petroleum",
+    "kind": "fortune-company",
+    "name": "Marathon Petroleum",
+    "url": "https://fortune.com/company/marathon-petroleum/",
+    "fortune_year": 2026,
+    "fortune_rank": 30,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:stonex-group",
+    "kind": "fortune-company",
+    "name": "StoneX Group",
+    "url": "https://fortune.com/company/stonex-group/",
+    "fortune_year": 2026,
+    "fortune_rank": 31,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:state-farm-insurance-cos",
+    "kind": "fortune-company",
+    "name": "State Farm Insurance",
+    "url": "https://fortune.com/company/state-farm-insurance-cos/",
+    "fortune_year": 2026,
+    "fortune_rank": 32,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:freddie-mac",
+    "kind": "fortune-company",
+    "name": "Freddie Mac",
+    "url": "https://fortune.com/company/freddie-mac/",
+    "fortune_year": 2026,
+    "fortune_rank": 33,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:humana",
+    "kind": "fortune-company",
+    "name": "Humana",
+    "url": "https://fortune.com/company/humana/",
+    "fortune_year": 2026,
+    "fortune_rank": 34,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:att",
+    "kind": "fortune-company",
+    "name": "AT&T",
+    "url": "https://fortune.com/company/att/",
+    "fortune_year": 2026,
+    "fortune_rank": 35,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:goldman-sachs-group",
+    "kind": "fortune-company",
+    "name": "Goldman Sachs Group",
+    "url": "https://fortune.com/company/goldman-sachs-group/",
+    "fortune_year": 2026,
+    "fortune_rank": 36,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:comcast",
+    "kind": "fortune-company",
+    "name": "Comcast",
+    "url": "https://fortune.com/company/comcast/",
+    "fortune_year": 2026,
+    "fortune_rank": 37,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:wells-fargo",
+    "kind": "fortune-company",
+    "name": "Wells Fargo",
+    "url": "https://fortune.com/company/wells-fargo/",
+    "fortune_year": 2026,
+    "fortune_rank": 38,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:morgan-stanley",
+    "kind": "fortune-company",
+    "name": "Morgan Stanley",
+    "url": "https://fortune.com/company/morgan-stanley/",
+    "fortune_year": 2026,
+    "fortune_rank": 39,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:valero-energy",
+    "kind": "fortune-company",
+    "name": "Valero Energy",
+    "url": "https://fortune.com/company/valero-energy/",
+    "fortune_year": 2026,
+    "fortune_rank": 40,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:dell-technologies",
+    "kind": "fortune-company",
+    "name": "Dell Technologies",
+    "url": "https://fortune.com/company/dell-technologies/",
+    "fortune_year": 2026,
+    "fortune_rank": 41,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:target",
+    "kind": "fortune-company",
+    "name": "Target",
+    "url": "https://fortune.com/company/target/",
+    "fortune_year": 2026,
+    "fortune_rank": 42,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:tesla",
+    "kind": "fortune-company",
+    "name": "Tesla",
+    "url": "https://fortune.com/company/tesla/",
+    "fortune_year": 2026,
+    "fortune_rank": 43,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:disney",
+    "kind": "fortune-company",
+    "name": "Walt Disney",
+    "url": "https://fortune.com/company/disney/",
+    "fortune_year": 2026,
+    "fortune_rank": 44,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:johnson-johnson",
+    "kind": "fortune-company",
+    "name": "Johnson & Johnson",
+    "url": "https://fortune.com/company/johnson-johnson/",
+    "fortune_year": 2026,
+    "fortune_rank": 45,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:pepsico",
+    "kind": "fortune-company",
+    "name": "PepsiCo",
+    "url": "https://fortune.com/company/pepsico/",
+    "fortune_year": 2026,
+    "fortune_rank": 46,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:boeing",
+    "kind": "fortune-company",
+    "name": "Boeing",
+    "url": "https://fortune.com/company/boeing/",
+    "fortune_year": 2026,
+    "fortune_rank": 47,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:ups",
+    "kind": "fortune-company",
+    "name": "United Parcel Service",
+    "url": "https://fortune.com/company/ups/",
+    "fortune_year": 2026,
+    "fortune_rank": 48,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:raytheon-technologies",
+    "kind": "fortune-company",
+    "name": "RTX",
+    "url": "https://fortune.com/company/raytheon-technologies/",
+    "fortune_year": 2026,
+    "fortune_rank": 49,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:fedex",
+    "kind": "fortune-company",
+    "name": "FedEx",
+    "url": "https://fortune.com/company/fedex/",
+    "fortune_year": 2026,
+    "fortune_rank": 50,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:progressive",
+    "kind": "fortune-company",
+    "name": "Progressive",
+    "url": "https://fortune.com/company/progressive/",
+    "fortune_year": 2026,
+    "fortune_rank": 51,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:lowes",
+    "kind": "fortune-company",
+    "name": "Lowe's",
+    "url": "https://fortune.com/company/lowes/",
+    "fortune_year": 2026,
+    "fortune_rank": 52,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:energy-transfer-equity",
+    "kind": "fortune-company",
+    "name": "Energy Transfer",
+    "url": "https://fortune.com/company/energy-transfer-equity/",
+    "fortune_year": 2026,
+    "fortune_rank": 53,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:procter-gamble",
+    "kind": "fortune-company",
+    "name": "Procter & Gamble",
+    "url": "https://fortune.com/company/procter-gamble/",
+    "fortune_year": 2026,
+    "fortune_rank": 54,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:sysco",
+    "kind": "fortune-company",
+    "name": "Sysco",
+    "url": "https://fortune.com/company/sysco/",
+    "fortune_year": 2026,
+    "fortune_rank": 55,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:american-express",
+    "kind": "fortune-company",
+    "name": "American Express",
+    "url": "https://fortune.com/company/american-express/",
+    "fortune_year": 2026,
+    "fortune_rank": 56,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:albertsons-cos",
+    "kind": "fortune-company",
+    "name": "Albertsons",
+    "url": "https://fortune.com/company/albertsons-cos/",
+    "fortune_year": 2026,
+    "fortune_rank": 57,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:archer-daniels-midland",
+    "kind": "fortune-company",
+    "name": "Archer Daniels Midland",
+    "url": "https://fortune.com/company/archer-daniels-midland/",
+    "fortune_year": 2026,
+    "fortune_rank": 58,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:metlife",
+    "kind": "fortune-company",
+    "name": "MetLife",
+    "url": "https://fortune.com/company/metlife/",
+    "fortune_year": 2026,
+    "fortune_rank": 59,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:hca-holdings",
+    "kind": "fortune-company",
+    "name": "HCA Healthcare",
+    "url": "https://fortune.com/company/hca-holdings/",
+    "fortune_year": 2026,
+    "fortune_rank": 60,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:lockheed-martin",
+    "kind": "fortune-company",
+    "name": "Lockheed Martin",
+    "url": "https://fortune.com/company/lockheed-martin/",
+    "fortune_year": 2026,
+    "fortune_rank": 61,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:new-york-life-insurance",
+    "kind": "fortune-company",
+    "name": "New York Life Insurance",
+    "url": "https://fortune.com/company/new-york-life-insurance/",
+    "fortune_year": 2026,
+    "fortune_rank": 62,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:capital-one-financial",
+    "kind": "fortune-company",
+    "name": "Capital One Financial",
+    "url": "https://fortune.com/company/capital-one-financial/",
+    "fortune_year": 2026,
+    "fortune_rank": 63,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:allstate",
+    "kind": "fortune-company",
+    "name": "Allstate",
+    "url": "https://fortune.com/company/allstate/",
+    "fortune_year": 2026,
+    "fortune_rank": 64,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:caterpillar",
+    "kind": "fortune-company",
+    "name": "Caterpillar",
+    "url": "https://fortune.com/company/caterpillar/",
+    "fortune_year": 2026,
+    "fortune_rank": 65,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:ibm",
+    "kind": "fortune-company",
+    "name": "International Business Machines",
+    "url": "https://fortune.com/company/ibm/",
+    "fortune_year": 2026,
+    "fortune_rank": 66,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:eli-lilly",
+    "kind": "fortune-company",
+    "name": "Eli Lilly",
+    "url": "https://fortune.com/company/eli-lilly/",
+    "fortune_year": 2026,
+    "fortune_rank": 67,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:merck",
+    "kind": "fortune-company",
+    "name": "Merck",
+    "url": "https://fortune.com/company/merck/",
+    "fortune_year": 2026,
+    "fortune_rank": 68,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:nationwide",
+    "kind": "fortune-company",
+    "name": "Nationwide",
+    "url": "https://fortune.com/company/nationwide/",
+    "fortune_year": 2026,
+    "fortune_rank": 69,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:broadcom",
+    "kind": "fortune-company",
+    "name": "Broadcom",
+    "url": "https://fortune.com/company/broadcom/",
+    "fortune_year": 2026,
+    "fortune_rank": 70,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:delta-air-lines",
+    "kind": "fortune-company",
+    "name": "Delta Air Lines",
+    "url": "https://fortune.com/company/delta-air-lines/",
+    "fortune_year": 2026,
+    "fortune_rank": 71,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:publix-super-markets",
+    "kind": "fortune-company",
+    "name": "Publix Super Markets",
+    "url": "https://fortune.com/company/publix-super-markets/",
+    "fortune_year": 2026,
+    "fortune_rank": 72,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:pfizer",
+    "kind": "fortune-company",
+    "name": "Pfizer",
+    "url": "https://fortune.com/company/pfizer/",
+    "fortune_year": 2026,
+    "fortune_rank": 73,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:synnex",
+    "kind": "fortune-company",
+    "name": "TD Synnex",
+    "url": "https://fortune.com/company/synnex/",
+    "fortune_year": 2026,
+    "fortune_rank": 74,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:conocophillips",
+    "kind": "fortune-company",
+    "name": "ConocoPhillips",
+    "url": "https://fortune.com/company/conocophillips/",
+    "fortune_year": 2026,
+    "fortune_rank": 75,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:galaxy-digital",
+    "kind": "fortune-company",
+    "name": "Galaxy Digital",
+    "url": "https://fortune.com/company/galaxy-digital/",
+    "fortune_year": 2026,
+    "fortune_rank": 76,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:abbvie",
+    "kind": "fortune-company",
+    "name": "AbbVie",
+    "url": "https://fortune.com/company/abbvie/",
+    "fortune_year": 2026,
+    "fortune_rank": 77,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:prudential-financial",
+    "kind": "fortune-company",
+    "name": "Prudential Financial",
+    "url": "https://fortune.com/company/prudential-financial/",
+    "fortune_year": 2026,
+    "fortune_rank": 78,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:tjx",
+    "kind": "fortune-company",
+    "name": "TJX",
+    "url": "https://fortune.com/company/tjx/",
+    "fortune_year": 2026,
+    "fortune_rank": 79,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:performance-food-group",
+    "kind": "fortune-company",
+    "name": "Performance Food Group",
+    "url": "https://fortune.com/company/performance-food-group/",
+    "fortune_year": 2026,
+    "fortune_rank": 80,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:united-continental-holdings",
+    "kind": "fortune-company",
+    "name": "United Airlines Holdings",
+    "url": "https://fortune.com/company/united-continental-holdings/",
+    "fortune_year": 2026,
+    "fortune_rank": 81,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:oracle",
+    "kind": "fortune-company",
+    "name": "Oracle",
+    "url": "https://fortune.com/company/oracle/",
+    "fortune_year": 2026,
+    "fortune_rank": 82,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:cisco-systems-inc",
+    "kind": "fortune-company",
+    "name": "Cisco Systems",
+    "url": "https://fortune.com/company/cisco-systems-inc/",
+    "fortune_year": 2026,
+    "fortune_rank": 83,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:hp",
+    "kind": "fortune-company",
+    "name": "HP",
+    "url": "https://fortune.com/company/hp/",
+    "fortune_year": 2026,
+    "fortune_rank": 84,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:charter-communications",
+    "kind": "fortune-company",
+    "name": "Charter Communications",
+    "url": "https://fortune.com/company/charter-communications/",
+    "fortune_year": 2026,
+    "fortune_rank": 85,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:american-airlines-group",
+    "kind": "fortune-company",
+    "name": "American Airlines Group",
+    "url": "https://fortune.com/company/american-airlines-group/",
+    "fortune_year": 2026,
+    "fortune_rank": 86,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:tyson-foods",
+    "kind": "fortune-company",
+    "name": "Tyson Foods",
+    "url": "https://fortune.com/company/tyson-foods/",
+    "fortune_year": 2026,
+    "fortune_rank": 87,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:intel",
+    "kind": "fortune-company",
+    "name": "Intel",
+    "url": "https://fortune.com/company/intel/",
+    "fortune_year": 2026,
+    "fortune_rank": 88,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:enterprise-products-partners",
+    "kind": "fortune-company",
+    "name": "Enterprise Products Partners",
+    "url": "https://fortune.com/company/enterprise-products-partners/",
+    "fortune_year": 2026,
+    "fortune_rank": 89,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:ingram-micro",
+    "kind": "fortune-company",
+    "name": "Ingram Micro Holding",
+    "url": "https://fortune.com/company/ingram-micro/",
+    "fortune_year": 2026,
+    "fortune_rank": 90,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:general-dynamics",
+    "kind": "fortune-company",
+    "name": "General Dynamics",
+    "url": "https://fortune.com/company/general-dynamics/",
+    "fortune_year": 2026,
+    "fortune_rank": 91,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:uber-technologies",
+    "kind": "fortune-company",
+    "name": "Uber Technologies",
+    "url": "https://fortune.com/company/uber-technologies/",
+    "fortune_year": 2026,
+    "fortune_rank": 92,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:usaa",
+    "kind": "fortune-company",
+    "name": "United Services Automobile Assn.",
+    "url": "https://fortune.com/company/usaa/",
+    "fortune_year": 2026,
+    "fortune_rank": 93,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:tiaa",
+    "kind": "fortune-company",
+    "name": "TIAA",
+    "url": "https://fortune.com/company/tiaa/",
+    "fortune_year": 2026,
+    "fortune_rank": 94,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:liberty-mutual-insurance-group",
+    "kind": "fortune-company",
+    "name": "Liberty Mutual Insurance Group",
+    "url": "https://fortune.com/company/liberty-mutual-insurance-group/",
+    "fortune_year": 2026,
+    "fortune_rank": 95,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:travelers-cos",
+    "kind": "fortune-company",
+    "name": "Travelers",
+    "url": "https://fortune.com/company/travelers-cos/",
+    "fortune_year": 2026,
+    "fortune_rank": 96,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:bristol-myers-squibb",
+    "kind": "fortune-company",
+    "name": "Bristol-Myers Squibb",
+    "url": "https://fortune.com/company/bristol-myers-squibb/",
+    "fortune_year": 2026,
+    "fortune_rank": 97,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:coca-cola",
+    "kind": "fortune-company",
+    "name": "Coca-Cola",
+    "url": "https://fortune.com/company/coca-cola/",
+    "fortune_year": 2026,
+    "fortune_rank": 98,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:nike",
+    "kind": "fortune-company",
+    "name": "Nike",
+    "url": "https://fortune.com/company/nike/",
+    "fortune_year": 2026,
+    "fortune_rank": 99,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:massachusetts-mutual-life-insurance",
+    "kind": "fortune-company",
+    "name": "Massachusetts Mutual Life Insurance",
+    "url": "https://fortune.com/company/massachusetts-mutual-life-insurance/",
+    "fortune_year": 2026,
+    "fortune_rank": 100,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:general-electric",
+    "kind": "fortune-company",
+    "name": "GE Aerospace",
+    "url": "https://fortune.com/company/general-electric/",
+    "fortune_year": 2026,
+    "fortune_rank": 101,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:deere",
+    "kind": "fortune-company",
+    "name": "Deere",
+    "url": "https://fortune.com/company/deere/",
+    "fortune_year": 2026,
+    "fortune_rank": 102,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:plains-gp-holdings",
+    "kind": "fortune-company",
+    "name": "Plains GP Holdings",
+    "url": "https://fortune.com/company/plains-gp-holdings/",
+    "fortune_year": 2026,
+    "fortune_rank": 103,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:molina-healthcare",
+    "kind": "fortune-company",
+    "name": "Molina Healthcare",
+    "url": "https://fortune.com/company/molina-healthcare/",
+    "fortune_year": 2026,
+    "fortune_rank": 104,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:netflix",
+    "kind": "fortune-company",
+    "name": "Netflix",
+    "url": "https://fortune.com/company/netflix/",
+    "fortune_year": 2026,
+    "fortune_rank": 105,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:thermo-fisher-scientific",
+    "kind": "fortune-company",
+    "name": "Thermo Fisher Scientific",
+    "url": "https://fortune.com/company/thermo-fisher-scientific/",
+    "fortune_year": 2026,
+    "fortune_rank": 106,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:abbott-laboratories",
+    "kind": "fortune-company",
+    "name": "Abbott Laboratories",
+    "url": "https://fortune.com/company/abbott-laboratories/",
+    "fortune_year": 2026,
+    "fortune_rank": 107,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:qualcomm",
+    "kind": "fortune-company",
+    "name": "Qualcomm",
+    "url": "https://fortune.com/company/qualcomm/",
+    "fortune_year": 2026,
+    "fortune_rank": 108,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:northwestern-mutual",
+    "kind": "fortune-company",
+    "name": "Northwestern Mutual",
+    "url": "https://fortune.com/company/northwestern-mutual/",
+    "fortune_year": 2026,
+    "fortune_rank": 109,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:u-s-bancorp",
+    "kind": "fortune-company",
+    "name": "U.S. Bancorp",
+    "url": "https://fortune.com/company/u-s-bancorp/",
+    "fortune_year": 2026,
+    "fortune_rank": 110,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:dollar-general",
+    "kind": "fortune-company",
+    "name": "Dollar General",
+    "url": "https://fortune.com/company/dollar-general/",
+    "fortune_year": 2026,
+    "fortune_rank": 111,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:northrop-grumman",
+    "kind": "fortune-company",
+    "name": "Northrop Grumman",
+    "url": "https://fortune.com/company/northrop-grumman/",
+    "fortune_year": 2026,
+    "fortune_rank": 112,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:best-buy",
+    "kind": "fortune-company",
+    "name": "Best Buy",
+    "url": "https://fortune.com/company/best-buy/",
+    "fortune_year": 2026,
+    "fortune_rank": 113,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:salesforce-com",
+    "kind": "fortune-company",
+    "name": "Salesforce",
+    "url": "https://fortune.com/company/salesforce-com/",
+    "fortune_year": 2026,
+    "fortune_rank": 114,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:bank-of-new-york-mellon-corp",
+    "kind": "fortune-company",
+    "name": "Bank of New York (BNY)",
+    "url": "https://fortune.com/company/bank-of-new-york-mellon-corp/",
+    "fortune_year": 2026,
+    "fortune_rank": 115,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:honeywell-international",
+    "kind": "fortune-company",
+    "name": "Honeywell Technologies",
+    "url": "https://fortune.com/company/honeywell-international/",
+    "fortune_year": 2026,
+    "fortune_rank": 116,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:philip-morris-international",
+    "kind": "fortune-company",
+    "name": "Philip Morris International",
+    "url": "https://fortune.com/company/philip-morris-international/",
+    "fortune_year": 2026,
+    "fortune_rank": 117,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:cbre-group",
+    "kind": "fortune-company",
+    "name": "CBRE Group",
+    "url": "https://fortune.com/company/cbre-group/",
+    "fortune_year": 2026,
+    "fortune_rank": 118,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:visa",
+    "kind": "fortune-company",
+    "name": "Visa",
+    "url": "https://fortune.com/company/visa/",
+    "fortune_year": 2026,
+    "fortune_rank": 119,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:dow",
+    "kind": "fortune-company",
+    "name": "Dow",
+    "url": "https://fortune.com/company/dow/",
+    "fortune_year": 2026,
+    "fortune_rank": 120,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:us-foods-holding",
+    "kind": "fortune-company",
+    "name": "US Foods Holding",
+    "url": "https://fortune.com/company/us-foods-holding/",
+    "fortune_year": 2026,
+    "fortune_rank": 121,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:mondelez-international",
+    "kind": "fortune-company",
+    "name": "Mondelēz International",
+    "url": "https://fortune.com/company/mondelez-international/",
+    "fortune_year": 2026,
+    "fortune_rank": 122,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:lithia-motors",
+    "kind": "fortune-company",
+    "name": "Lithia Motors",
+    "url": "https://fortune.com/company/lithia-motors/",
+    "fortune_year": 2026,
+    "fortune_rank": 123,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:gevernova",
+    "kind": "fortune-company",
+    "name": "GE Vernova",
+    "url": "https://fortune.com/company/gevernova/",
+    "fortune_year": 2026,
+    "fortune_rank": 124,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:micron-technology",
+    "kind": "fortune-company",
+    "name": "Micron Technology",
+    "url": "https://fortune.com/company/micron-technology/",
+    "fortune_year": 2026,
+    "fortune_rank": 125,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:discovery",
+    "kind": "fortune-company",
+    "name": "Warner Bros. Discovery",
+    "url": "https://fortune.com/company/discovery/",
+    "fortune_year": 2026,
+    "fortune_rank": 126,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:starbucks",
+    "kind": "fortune-company",
+    "name": "Starbucks",
+    "url": "https://fortune.com/company/starbucks/",
+    "fortune_year": 2026,
+    "fortune_rank": 127,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:world-fuel-services",
+    "kind": "fortune-company",
+    "name": "World Kinect",
+    "url": "https://fortune.com/company/world-fuel-services/",
+    "fortune_year": 2026,
+    "fortune_rank": 128,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:amgen",
+    "kind": "fortune-company",
+    "name": "Amgen",
+    "url": "https://fortune.com/company/amgen/",
+    "fortune_year": 2026,
+    "fortune_rank": 129,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:chs",
+    "kind": "fortune-company",
+    "name": "CHS",
+    "url": "https://fortune.com/company/chs/",
+    "fortune_year": 2026,
+    "fortune_rank": 130,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:advanced-micro-devices",
+    "kind": "fortune-company",
+    "name": "Advanced Micro Devices",
+    "url": "https://fortune.com/company/advanced-micro-devices/",
+    "fortune_year": 2026,
+    "fortune_rank": 131,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:coupang",
+    "kind": "fortune-company",
+    "name": "Coupang",
+    "url": "https://fortune.com/company/coupang/",
+    "fortune_year": 2026,
+    "fortune_rank": 132,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:hewlett-packard-enterprise",
+    "kind": "fortune-company",
+    "name": "Hewlett Packard Enterprise",
+    "url": "https://fortune.com/company/hewlett-packard-enterprise/",
+    "fortune_year": 2026,
+    "fortune_rank": 133,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:d-r-horton",
+    "kind": "fortune-company",
+    "name": "D.R. Horton",
+    "url": "https://fortune.com/company/d-r-horton/",
+    "fortune_year": 2026,
+    "fortune_rank": 134,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:lennar",
+    "kind": "fortune-company",
+    "name": "Lennar",
+    "url": "https://fortune.com/company/lennar/",
+    "fortune_year": 2026,
+    "fortune_rank": 135,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:pnc-financial-services",
+    "kind": "fortune-company",
+    "name": "PNC Financial Services Group",
+    "url": "https://fortune.com/company/pnc-financial-services/",
+    "fortune_year": 2026,
+    "fortune_rank": 136,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:cummins",
+    "kind": "fortune-company",
+    "name": "Cummins",
+    "url": "https://fortune.com/company/cummins/",
+    "fortune_year": 2026,
+    "fortune_rank": 137,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:oneok",
+    "kind": "fortune-company",
+    "name": "Oneok",
+    "url": "https://fortune.com/company/oneok/",
+    "fortune_year": 2026,
+    "fortune_rank": 138,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:paypal-holdings",
+    "kind": "fortune-company",
+    "name": "PayPal Holdings",
+    "url": "https://fortune.com/company/paypal-holdings/",
+    "fortune_year": 2026,
+    "fortune_rank": 139,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:guidewell-mutual-holding",
+    "kind": "fortune-company",
+    "name": "GuideWell Mutual Holding",
+    "url": "https://fortune.com/company/guidewell-mutual-holding/",
+    "fortune_year": 2026,
+    "fortune_rank": 140,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:mastercard",
+    "kind": "fortune-company",
+    "name": "Mastercard",
+    "url": "https://fortune.com/company/mastercard/",
+    "fortune_year": 2026,
+    "fortune_rank": 141,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:nucor",
+    "kind": "fortune-company",
+    "name": "Nucor",
+    "url": "https://fortune.com/company/nucor/",
+    "fortune_year": 2026,
+    "fortune_rank": 142,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:apollo-global-management",
+    "kind": "fortune-company",
+    "name": "Apollo Global Management",
+    "url": "https://fortune.com/company/apollo-global-management/",
+    "fortune_year": 2026,
+    "fortune_rank": 143,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:penske-automotive-group",
+    "kind": "fortune-company",
+    "name": "Penske Automotive Group",
+    "url": "https://fortune.com/company/penske-automotive-group/",
+    "fortune_year": 2026,
+    "fortune_rank": 144,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:duke-energy",
+    "kind": "fortune-company",
+    "name": "Duke Energy",
+    "url": "https://fortune.com/company/duke-energy/",
+    "fortune_year": 2026,
+    "fortune_rank": 145,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:united-natural-foods",
+    "kind": "fortune-company",
+    "name": "United Natural Foods",
+    "url": "https://fortune.com/company/united-natural-foods/",
+    "fortune_year": 2026,
+    "fortune_rank": 146,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:ferguson",
+    "kind": "fortune-company",
+    "name": "Ferguson Enterprises",
+    "url": "https://fortune.com/company/ferguson/",
+    "fortune_year": 2026,
+    "fortune_rank": 147,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:arrow-electronics",
+    "kind": "fortune-company",
+    "name": "Arrow Electronics",
+    "url": "https://fortune.com/company/arrow-electronics/",
+    "fortune_year": 2026,
+    "fortune_rank": 148,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:nrg-energy",
+    "kind": "fortune-company",
+    "name": "NRG Energy",
+    "url": "https://fortune.com/company/nrg-energy/",
+    "fortune_year": 2026,
+    "fortune_rank": 149,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:bbt-corp",
+    "kind": "fortune-company",
+    "name": "Truist Financial",
+    "url": "https://fortune.com/company/bbt-corp/",
+    "fortune_year": 2026,
+    "fortune_rank": 150,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:jabil-circuit",
+    "kind": "fortune-company",
+    "name": "Jabil",
+    "url": "https://fortune.com/company/jabil-circuit/",
+    "fortune_year": 2026,
+    "fortune_rank": 151,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:southern",
+    "kind": "fortune-company",
+    "name": "Southern",
+    "url": "https://fortune.com/company/southern/",
+    "fortune_year": 2026,
+    "fortune_rank": 152,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:gilead-sciences",
+    "kind": "fortune-company",
+    "name": "Gilead Sciences",
+    "url": "https://fortune.com/company/gilead-sciences/",
+    "fortune_year": 2026,
+    "fortune_rank": 153,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:pbf-energy",
+    "kind": "fortune-company",
+    "name": "PBF Energy",
+    "url": "https://fortune.com/company/pbf-energy/",
+    "fortune_year": 2026,
+    "fortune_rank": 154,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:cbs",
+    "kind": "fortune-company",
+    "name": "Paramount Skydance",
+    "url": "https://fortune.com/company/cbs/",
+    "fortune_year": 2026,
+    "fortune_rank": 155,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:kkr",
+    "kind": "fortune-company",
+    "name": "KKR",
+    "url": "https://fortune.com/company/kkr/",
+    "fortune_year": 2026,
+    "fortune_rank": 156,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:quanta-services",
+    "kind": "fortune-company",
+    "name": "Quanta Services",
+    "url": "https://fortune.com/company/quanta-services/",
+    "fortune_year": 2026,
+    "fortune_rank": 157,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:paccar",
+    "kind": "fortune-company",
+    "name": "Paccar",
+    "url": "https://fortune.com/company/paccar/",
+    "fortune_year": 2026,
+    "fortune_rank": 158,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:medline",
+    "kind": "fortune-company",
+    "name": "Medline",
+    "url": "https://fortune.com/company/medline/",
+    "fortune_year": 2026,
+    "fortune_rank": 159,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:applied-materials",
+    "kind": "fortune-company",
+    "name": "Applied Materials",
+    "url": "https://fortune.com/company/applied-materials/",
+    "fortune_year": 2026,
+    "fortune_rank": 160,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:hartford-financial-services",
+    "kind": "fortune-company",
+    "name": "Hartford Insurance Group",
+    "url": "https://fortune.com/company/hartford-financial-services/",
+    "fortune_year": 2026,
+    "fortune_rank": 160,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:carmax",
+    "kind": "fortune-company",
+    "name": "CarMax",
+    "url": "https://fortune.com/company/carmax/",
+    "fortune_year": 2026,
+    "fortune_rank": 162,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:southwest-airlines",
+    "kind": "fortune-company",
+    "name": "Southwest Airlines",
+    "url": "https://fortune.com/company/southwest-airlines/",
+    "fortune_year": 2026,
+    "fortune_rank": 163,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:baker-hughes",
+    "kind": "fortune-company",
+    "name": "Baker Hughes",
+    "url": "https://fortune.com/company/baker-hughes/",
+    "fortune_year": 2026,
+    "fortune_rank": 164,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:charles-schwab",
+    "kind": "fortune-company",
+    "name": "Charles Schwab",
+    "url": "https://fortune.com/company/charles-schwab/",
+    "fortune_year": 2026,
+    "fortune_rank": 165,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:auto-nation",
+    "kind": "fortune-company",
+    "name": "AutoNation",
+    "url": "https://fortune.com/company/auto-nation/",
+    "fortune_year": 2026,
+    "fortune_rank": 166,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:nextera-energy",
+    "kind": "fortune-company",
+    "name": "NextEra Energy",
+    "url": "https://fortune.com/company/nextera-energy/",
+    "fortune_year": 2026,
+    "fortune_rank": 167,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:marsh-mclennan",
+    "kind": "fortune-company",
+    "name": "Marsh & McLennan",
+    "url": "https://fortune.com/company/marsh-mclennan/",
+    "fortune_year": 2026,
+    "fortune_rank": 168,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:booking-holdings",
+    "kind": "fortune-company",
+    "name": "Booking Holdings",
+    "url": "https://fortune.com/company/booking-holdings/",
+    "fortune_year": 2026,
+    "fortune_rank": 169,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:mcdonalds",
+    "kind": "fortune-company",
+    "name": "McDonald's",
+    "url": "https://fortune.com/company/mcdonalds/",
+    "fortune_year": 2026,
+    "fortune_rank": 170,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:hollyfrontier",
+    "kind": "fortune-company",
+    "name": "HF Sinclair",
+    "url": "https://fortune.com/company/hollyfrontier/",
+    "fortune_year": 2026,
+    "fortune_rank": 171,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:aig",
+    "kind": "fortune-company",
+    "name": "AIG",
+    "url": "https://fortune.com/company/aig/",
+    "fortune_year": 2026,
+    "fortune_rank": 172,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:occidental-petroleum",
+    "kind": "fortune-company",
+    "name": "Occidental Petroleum",
+    "url": "https://fortune.com/company/occidental-petroleum/",
+    "fortune_year": 2026,
+    "fortune_rank": 173,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:marriott-international",
+    "kind": "fortune-company",
+    "name": "Marriott International",
+    "url": "https://fortune.com/company/marriott-international/",
+    "fortune_year": 2026,
+    "fortune_rank": 174,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:jones-lang-lasalle",
+    "kind": "fortune-company",
+    "name": "Jones Lang LaSalle",
+    "url": "https://fortune.com/company/jones-lang-lasalle/",
+    "fortune_year": 2026,
+    "fortune_rank": 175,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:international-paper",
+    "kind": "fortune-company",
+    "name": "International Paper",
+    "url": "https://fortune.com/company/international-paper/",
+    "fortune_year": 2026,
+    "fortune_rank": 176,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:freeport-mcmoran",
+    "kind": "fortune-company",
+    "name": "Freeport-McMoRan",
+    "url": "https://fortune.com/company/freeport-mcmoran/",
+    "fortune_year": 2026,
+    "fortune_rank": 177,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:constellation-energy",
+    "kind": "fortune-company",
+    "name": "Constellation Energy",
+    "url": "https://fortune.com/company/constellation-energy/",
+    "fortune_year": 2026,
+    "fortune_rank": 178,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:waste-management",
+    "kind": "fortune-company",
+    "name": "Waste Management",
+    "url": "https://fortune.com/company/waste-management/",
+    "fortune_year": 2026,
+    "fortune_rank": 179,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:live-nation-entertainment",
+    "kind": "fortune-company",
+    "name": "Live Nation Entertainment",
+    "url": "https://fortune.com/company/live-nation-entertainment/",
+    "fortune_year": 2026,
+    "fortune_rank": 180,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:stryker",
+    "kind": "fortune-company",
+    "name": "Stryker",
+    "url": "https://fortune.com/company/stryker/",
+    "fortune_year": 2026,
+    "fortune_rank": 181,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:dollar-tree",
+    "kind": "fortune-company",
+    "name": "Dollar Tree",
+    "url": "https://fortune.com/company/dollar-tree/",
+    "fortune_year": 2026,
+    "fortune_rank": 182,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:3m",
+    "kind": "fortune-company",
+    "name": "3M",
+    "url": "https://fortune.com/company/3m/",
+    "fortune_year": 2026,
+    "fortune_rank": 183,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:kraft-heinz",
+    "kind": "fortune-company",
+    "name": "Kraft Heinz",
+    "url": "https://fortune.com/company/kraft-heinz/",
+    "fortune_year": 2026,
+    "fortune_rank": 184,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:pge-corp",
+    "kind": "fortune-company",
+    "name": "PG&E",
+    "url": "https://fortune.com/company/pge-corp/",
+    "fortune_year": 2026,
+    "fortune_rank": 185,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:danaher",
+    "kind": "fortune-company",
+    "name": "Danaher",
+    "url": "https://fortune.com/company/danaher/",
+    "fortune_year": 2026,
+    "fortune_rank": 186,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:union-pacific",
+    "kind": "fortune-company",
+    "name": "Union Pacific",
+    "url": "https://fortune.com/company/union-pacific/",
+    "fortune_year": 2026,
+    "fortune_rank": 187,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:genuine-parts",
+    "kind": "fortune-company",
+    "name": "Genuine Parts",
+    "url": "https://fortune.com/company/genuine-parts/",
+    "fortune_year": 2026,
+    "fortune_rank": 188,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:exelon",
+    "kind": "fortune-company",
+    "name": "Exelon",
+    "url": "https://fortune.com/company/exelon/",
+    "fortune_year": 2026,
+    "fortune_rank": 189,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:blackrock",
+    "kind": "fortune-company",
+    "name": "BlackRock",
+    "url": "https://fortune.com/company/blackrock/",
+    "fortune_year": 2026,
+    "fortune_rank": 190,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:square",
+    "kind": "fortune-company",
+    "name": "Block",
+    "url": "https://fortune.com/company/square/",
+    "fortune_year": 2026,
+    "fortune_rank": 191,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:adobe-systems",
+    "kind": "fortune-company",
+    "name": "Adobe",
+    "url": "https://fortune.com/company/adobe-systems/",
+    "fortune_year": 2026,
+    "fortune_rank": 192,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:reinsurance-group-of-america",
+    "kind": "fortune-company",
+    "name": "Reinsurance Group of America",
+    "url": "https://fortune.com/company/reinsurance-group-of-america/",
+    "fortune_year": 2026,
+    "fortune_rank": 193,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:sherwin-williams",
+    "kind": "fortune-company",
+    "name": "Sherwin-Williams",
+    "url": "https://fortune.com/company/sherwin-williams/",
+    "fortune_year": 2026,
+    "fortune_rank": 194,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:wesco-international",
+    "kind": "fortune-company",
+    "name": "WESCO International",
+    "url": "https://fortune.com/company/wesco-international/",
+    "fortune_year": 2026,
+    "fortune_rank": 195,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:lear",
+    "kind": "fortune-company",
+    "name": "Lear",
+    "url": "https://fortune.com/company/lear/",
+    "fortune_year": 2026,
+    "fortune_rank": 196,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:synchrony-financial",
+    "kind": "fortune-company",
+    "name": "Synchrony",
+    "url": "https://fortune.com/company/synchrony-financial/",
+    "fortune_year": 2026,
+    "fortune_rank": 197,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:amphenol",
+    "kind": "fortune-company",
+    "name": "Amphenol",
+    "url": "https://fortune.com/company/amphenol/",
+    "fortune_year": 2026,
+    "fortune_rank": 198,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:ross-stores",
+    "kind": "fortune-company",
+    "name": "Ross Stores",
+    "url": "https://fortune.com/company/ross-stores/",
+    "fortune_year": 2026,
+    "fortune_rank": 199,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:newmont-mining",
+    "kind": "fortune-company",
+    "name": "Newmont",
+    "url": "https://fortune.com/company/newmont-mining/",
+    "fortune_year": 2026,
+    "fortune_rank": 200,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:eog-resources",
+    "kind": "fortune-company",
+    "name": "EOG Resources",
+    "url": "https://fortune.com/company/eog-resources/",
+    "fortune_year": 2026,
+    "fortune_rank": 201,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:state-street-corp",
+    "kind": "fortune-company",
+    "name": "State Street",
+    "url": "https://fortune.com/company/state-street-corp/",
+    "fortune_year": 2026,
+    "fortune_rank": 202,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:macys",
+    "kind": "fortune-company",
+    "name": "Macy's",
+    "url": "https://fortune.com/company/macys/",
+    "fortune_year": 2026,
+    "fortune_rank": 203,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:group-1-automotive",
+    "kind": "fortune-company",
+    "name": "Group 1 Automotive",
+    "url": "https://fortune.com/company/group-1-automotive/",
+    "fortune_year": 2026,
+    "fortune_rank": 204,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:cdw",
+    "kind": "fortune-company",
+    "name": "CDW",
+    "url": "https://fortune.com/company/cdw/",
+    "fortune_year": 2026,
+    "fortune_rank": 205,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:avnet",
+    "kind": "fortune-company",
+    "name": "Avnet",
+    "url": "https://fortune.com/company/avnet/",
+    "fortune_year": 2026,
+    "fortune_rank": 206,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:halliburton",
+    "kind": "fortune-company",
+    "name": "Halliburton",
+    "url": "https://fortune.com/company/halliburton/",
+    "fortune_year": 2026,
+    "fortune_rank": 207,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:super-micro-computer",
+    "kind": "fortune-company",
+    "name": "Super Micro Computer",
+    "url": "https://fortune.com/company/super-micro-computer/",
+    "fortune_year": 2026,
+    "fortune_rank": 208,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:american-electric-power",
+    "kind": "fortune-company",
+    "name": "American Electric Power",
+    "url": "https://fortune.com/company/american-electric-power/",
+    "fortune_year": 2026,
+    "fortune_rank": 209,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:harris",
+    "kind": "fortune-company",
+    "name": "L3Harris Technologies",
+    "url": "https://fortune.com/company/harris/",
+    "fortune_year": 2026,
+    "fortune_rank": 210,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:becton-dickinson",
+    "kind": "fortune-company",
+    "name": "Becton Dickinson",
+    "url": "https://fortune.com/company/becton-dickinson/",
+    "fortune_year": 2026,
+    "fortune_rank": 211,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:carrier-global",
+    "kind": "fortune-company",
+    "name": "Carrier Global",
+    "url": "https://fortune.com/company/carrier-global/",
+    "fortune_year": 2026,
+    "fortune_rank": 212,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:bjs-wholesale-club",
+    "kind": "fortune-company",
+    "name": "BJ's Wholesale Club",
+    "url": "https://fortune.com/company/bjs-wholesale-club/",
+    "fortune_year": 2026,
+    "fortune_rank": 213,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:tenet-healthcare",
+    "kind": "fortune-company",
+    "name": "Tenet Healthcare",
+    "url": "https://fortune.com/company/tenet-healthcare/",
+    "fortune_year": 2026,
+    "fortune_rank": 214,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:fiserv",
+    "kind": "fortune-company",
+    "name": "Fiserv",
+    "url": "https://fortune.com/company/fiserv/",
+    "fortune_year": 2026,
+    "fortune_rank": 215,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:cognizant-technology-solutions",
+    "kind": "fortune-company",
+    "name": "Cognizant Technology Solutions",
+    "url": "https://fortune.com/company/cognizant-technology-solutions/",
+    "fortune_year": 2026,
+    "fortune_rank": 216,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:ge-healthcare-technologies",
+    "kind": "fortune-company",
+    "name": "GE HealthCare Technologies",
+    "url": "https://fortune.com/company/ge-healthcare-technologies/",
+    "fortune_year": 2026,
+    "fortune_rank": 217,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:adp",
+    "kind": "fortune-company",
+    "name": "Automatic Data Processing",
+    "url": "https://fortune.com/company/adp/",
+    "fortune_year": 2026,
+    "fortune_rank": 218,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:colgate-palmolive",
+    "kind": "fortune-company",
+    "name": "Colgate-Palmolive",
+    "url": "https://fortune.com/company/colgate-palmolive/",
+    "fortune_year": 2026,
+    "fortune_rank": 219,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:carvana",
+    "kind": "fortune-company",
+    "name": "Carvana",
+    "url": "https://fortune.com/company/carvana/",
+    "fortune_year": 2026,
+    "fortune_rank": 220,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:altria-group",
+    "kind": "fortune-company",
+    "name": "Altria Group",
+    "url": "https://fortune.com/company/altria-group/",
+    "fortune_year": 2026,
+    "fortune_rank": 221,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:boston-scientific",
+    "kind": "fortune-company",
+    "name": "Boston Scientific",
+    "url": "https://fortune.com/company/boston-scientific/",
+    "fortune_year": 2026,
+    "fortune_rank": 222,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:cheniere-energy",
+    "kind": "fortune-company",
+    "name": "Cheniere Energy",
+    "url": "https://fortune.com/company/cheniere-energy/",
+    "fortune_year": 2026,
+    "fortune_rank": 223,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:parker-hannifin",
+    "kind": "fortune-company",
+    "name": "Parker-Hannifin",
+    "url": "https://fortune.com/company/parker-hannifin/",
+    "fortune_year": 2026,
+    "fortune_rank": 224,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:kimberly-clark",
+    "kind": "fortune-company",
+    "name": "Kimberly-Clark",
+    "url": "https://fortune.com/company/kimberly-clark/",
+    "fortune_year": 2026,
+    "fortune_rank": 225,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:american-family-insurance-group",
+    "kind": "fortune-company",
+    "name": "American Family Insurance Group",
+    "url": "https://fortune.com/company/american-family-insurance-group/",
+    "fortune_year": 2026,
+    "fortune_rank": 226,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:general-mills",
+    "kind": "fortune-company",
+    "name": "General Mills",
+    "url": "https://fortune.com/company/general-mills/",
+    "fortune_year": 2026,
+    "fortune_rank": 227,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:edison-international",
+    "kind": "fortune-company",
+    "name": "Edison International",
+    "url": "https://fortune.com/company/edison-international/",
+    "fortune_year": 2026,
+    "fortune_rank": 228,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:autozone",
+    "kind": "fortune-company",
+    "name": "AutoZone",
+    "url": "https://fortune.com/company/autozone/",
+    "fortune_year": 2026,
+    "fortune_rank": 229,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:ameriprise-financial",
+    "kind": "fortune-company",
+    "name": "Ameriprise Financial",
+    "url": "https://fortune.com/company/ameriprise-financial/",
+    "fortune_year": 2026,
+    "fortune_rank": 230,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:intuit",
+    "kind": "fortune-company",
+    "name": "Intuit",
+    "url": "https://fortune.com/company/intuit/",
+    "fortune_year": 2026,
+    "fortune_rank": 231,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:guardian-life-ins-co-of-america",
+    "kind": "fortune-company",
+    "name": "Guardian Life Ins. Co. of America",
+    "url": "https://fortune.com/company/guardian-life-ins-co-of-america/",
+    "fortune_year": 2026,
+    "fortune_rank": 232,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:cleveland-cliffs",
+    "kind": "fortune-company",
+    "name": "Cleveland-Cliffs",
+    "url": "https://fortune.com/company/cleveland-cliffs/",
+    "fortune_year": 2026,
+    "fortune_rank": 233,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:global-partners",
+    "kind": "fortune-company",
+    "name": "Global Partners",
+    "url": "https://fortune.com/company/global-partners/",
+    "fortune_year": 2026,
+    "fortune_rank": 234,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:aramark",
+    "kind": "fortune-company",
+    "name": "Aramark",
+    "url": "https://fortune.com/company/aramark/",
+    "fortune_year": 2026,
+    "fortune_rank": 235,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:corebridge-financial",
+    "kind": "fortune-company",
+    "name": "Corebridge Financial",
+    "url": "https://fortune.com/company/corebridge-financial/",
+    "fortune_year": 2026,
+    "fortune_rank": 236,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:loews",
+    "kind": "fortune-company",
+    "name": "Loews",
+    "url": "https://fortune.com/company/loews/",
+    "fortune_year": 2026,
+    "fortune_rank": 237,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:lam-research",
+    "kind": "fortune-company",
+    "name": "Lam Research",
+    "url": "https://fortune.com/company/lam-research/",
+    "fortune_year": 2026,
+    "fortune_rank": 238,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:goodyear-tire-rubber",
+    "kind": "fortune-company",
+    "name": "Goodyear Tire & Rubber",
+    "url": "https://fortune.com/company/goodyear-tire-rubber/",
+    "fortune_year": 2026,
+    "fortune_rank": 239,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:pacific-life",
+    "kind": "fortune-company",
+    "name": "Pacific Life",
+    "url": "https://fortune.com/company/pacific-life/",
+    "fortune_year": 2026,
+    "fortune_rank": 240,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:auto-owners-insurance",
+    "kind": "fortune-company",
+    "name": "Auto-Owners Insurance",
+    "url": "https://fortune.com/company/auto-owners-insurance/",
+    "fortune_year": 2026,
+    "fortune_rank": 241,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:peter-kiewit-sons",
+    "kind": "fortune-company",
+    "name": "Peter Kiewit Sons'",
+    "url": "https://fortune.com/company/peter-kiewit-sons/",
+    "fortune_year": 2026,
+    "fortune_rank": 242,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:lincoln-national",
+    "kind": "fortune-company",
+    "name": "Lincoln National",
+    "url": "https://fortune.com/company/lincoln-national/",
+    "fortune_year": 2026,
+    "fortune_rank": 243,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:steel-dynamics",
+    "kind": "fortune-company",
+    "name": "Steel Dynamics",
+    "url": "https://fortune.com/company/steel-dynamics/",
+    "fortune_year": 2026,
+    "fortune_rank": 244,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:emerson-electric",
+    "kind": "fortune-company",
+    "name": "Emerson Electric",
+    "url": "https://fortune.com/company/emerson-electric/",
+    "fortune_year": 2026,
+    "fortune_rank": 245,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:asbury-automotive-group",
+    "kind": "fortune-company",
+    "name": "Asbury Automotive Group",
+    "url": "https://fortune.com/company/asbury-automotive-group/",
+    "fortune_year": 2026,
+    "fortune_rank": 246,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:manpowergroup",
+    "kind": "fortune-company",
+    "name": "ManpowerGroup",
+    "url": "https://fortune.com/company/manpowergroup/",
+    "fortune_year": 2026,
+    "fortune_rank": 247,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:w-w-grainger",
+    "kind": "fortune-company",
+    "name": "W.W. Grainger",
+    "url": "https://fortune.com/company/w-w-grainger/",
+    "fortune_year": 2026,
+    "fortune_rank": 248,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:edward-jones",
+    "kind": "fortune-company",
+    "name": "Jones Financial (Edward Jones)",
+    "url": "https://fortune.com/company/edward-jones/",
+    "fortune_year": 2026,
+    "fortune_rank": 249,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:oreilly-automotive",
+    "kind": "fortune-company",
+    "name": "O'Reilly Automotive",
+    "url": "https://fortune.com/company/oreilly-automotive/",
+    "fortune_year": 2026,
+    "fortune_rank": 250,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:vistra-energy",
+    "kind": "fortune-company",
+    "name": "Vistra",
+    "url": "https://fortune.com/company/vistra-energy/",
+    "fortune_year": 2026,
+    "fortune_rank": 251,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:texas-instruments",
+    "kind": "fortune-company",
+    "name": "Texas Instruments",
+    "url": "https://fortune.com/company/texas-instruments/",
+    "fortune_year": 2026,
+    "fortune_rank": 252,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:mgm-resorts-international",
+    "kind": "fortune-company",
+    "name": "MGM Resorts International",
+    "url": "https://fortune.com/company/mgm-resorts-international/",
+    "fortune_year": 2026,
+    "fortune_rank": 253,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:corteva",
+    "kind": "fortune-company",
+    "name": "Corteva",
+    "url": "https://fortune.com/company/corteva/",
+    "fortune_year": 2026,
+    "fortune_rank": 254,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:universal-health-services",
+    "kind": "fortune-company",
+    "name": "Universal Health Services",
+    "url": "https://fortune.com/company/universal-health-services/",
+    "fortune_year": 2026,
+    "fortune_rank": 255,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:pultegroup",
+    "kind": "fortune-company",
+    "name": "PulteGroup",
+    "url": "https://fortune.com/company/pultegroup/",
+    "fortune_year": 2026,
+    "fortune_rank": 256,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:omnicom-group",
+    "kind": "fortune-company",
+    "name": "Omnicom Group",
+    "url": "https://fortune.com/company/omnicom-group/",
+    "fortune_year": 2026,
+    "fortune_rank": 257,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:dicks-sporting-goods",
+    "kind": "fortune-company",
+    "name": "Dick's Sporting Goods",
+    "url": "https://fortune.com/company/dicks-sporting-goods/",
+    "fortune_year": 2026,
+    "fortune_rank": 258,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:devon-energy",
+    "kind": "fortune-company",
+    "name": "Devon Energy",
+    "url": "https://fortune.com/company/devon-energy/",
+    "fortune_year": 2026,
+    "fortune_rank": 259,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:leidos-holdings",
+    "kind": "fortune-company",
+    "name": "Leidos Holdings",
+    "url": "https://fortune.com/company/leidos-holdings/",
+    "fortune_year": 2026,
+    "fortune_rank": 260,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:aflac",
+    "kind": "fortune-company",
+    "name": "Aflac",
+    "url": "https://fortune.com/company/aflac/",
+    "fortune_year": 2026,
+    "fortune_rank": 261,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:targa-resources",
+    "kind": "fortune-company",
+    "name": "Targa Resources",
+    "url": "https://fortune.com/company/targa-resources/",
+    "fortune_year": 2026,
+    "fortune_rank": 262,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:murphy-usa",
+    "kind": "fortune-company",
+    "name": "Murphy USA",
+    "url": "https://fortune.com/company/murphy-usa/",
+    "fortune_year": 2026,
+    "fortune_rank": 263,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:lpl-financial-holdings",
+    "kind": "fortune-company",
+    "name": "LPL Financial Holdings",
+    "url": "https://fortune.com/company/lpl-financial-holdings/",
+    "fortune_year": 2026,
+    "fortune_rank": 264,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:emcor-group",
+    "kind": "fortune-company",
+    "name": "EMCOR Group",
+    "url": "https://fortune.com/company/emcor-group/",
+    "fortune_year": 2026,
+    "fortune_rank": 265,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:kinder-morgan",
+    "kind": "fortune-company",
+    "name": "Kinder Morgan",
+    "url": "https://fortune.com/company/kinder-morgan/",
+    "fortune_year": 2026,
+    "fortune_rank": 266,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:consolidated-edison",
+    "kind": "fortune-company",
+    "name": "Consolidated Edison",
+    "url": "https://fortune.com/company/consolidated-edison/",
+    "fortune_year": 2026,
+    "fortune_rank": 267,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:dr-pepper-snapple-group",
+    "kind": "fortune-company",
+    "name": "Keurig Dr Pepper",
+    "url": "https://fortune.com/company/dr-pepper-snapple-group/",
+    "fortune_year": 2026,
+    "fortune_rank": 268,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:republic-services",
+    "kind": "fortune-company",
+    "name": "Republic Services",
+    "url": "https://fortune.com/company/republic-services/",
+    "fortune_year": 2026,
+    "fortune_rank": 269,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:markel",
+    "kind": "fortune-company",
+    "name": "Markel Group",
+    "url": "https://fortune.com/company/markel/",
+    "fortune_year": 2026,
+    "fortune_rank": 270,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:farmers-insurance-exchange",
+    "kind": "fortune-company",
+    "name": "Farmers Insurance Exchange",
+    "url": "https://fortune.com/company/farmers-insurance-exchange/",
+    "fortune_year": 2026,
+    "fortune_rank": 271,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:dominion-resources",
+    "kind": "fortune-company",
+    "name": "Dominion Energy",
+    "url": "https://fortune.com/company/dominion-resources/",
+    "fortune_year": 2026,
+    "fortune_rank": 272,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:land-olakes",
+    "kind": "fortune-company",
+    "name": "Land O'Lakes",
+    "url": "https://fortune.com/company/land-olakes/",
+    "fortune_year": 2026,
+    "fortune_rank": 273,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:quintiles-ims-holdings",
+    "kind": "fortune-company",
+    "name": "IQVIA Holdings",
+    "url": "https://fortune.com/company/quintiles-ims-holdings/",
+    "fortune_year": 2026,
+    "fortune_rank": 274,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:fox",
+    "kind": "fortune-company",
+    "name": "Fox",
+    "url": "https://fortune.com/company/fox/",
+    "fortune_year": 2026,
+    "fortune_rank": 275,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:aecom",
+    "kind": "fortune-company",
+    "name": "AECOM",
+    "url": "https://fortune.com/company/aecom/",
+    "fortune_year": 2026,
+    "fortune_rank": 276,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:c-h-robinson-worldwide",
+    "kind": "fortune-company",
+    "name": "C.H. Robinson Worldwide",
+    "url": "https://fortune.com/company/c-h-robinson-worldwide/",
+    "fortune_year": 2026,
+    "fortune_rank": 277,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:bitgo-holdings",
+    "kind": "fortune-company",
+    "name": "Bitgo Holdings",
+    "url": "https://fortune.com/company/bitgo-holdings/",
+    "fortune_year": 2026,
+    "fortune_rank": 278,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:united-rentals",
+    "kind": "fortune-company",
+    "name": "United Rentals",
+    "url": "https://fortune.com/company/united-rentals/",
+    "fortune_year": 2026,
+    "fortune_rank": 279,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:ecolab",
+    "kind": "fortune-company",
+    "name": "Ecolab",
+    "url": "https://fortune.com/company/ecolab/",
+    "fortune_year": 2026,
+    "fortune_rank": 280,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:illinois-tool-works",
+    "kind": "fortune-company",
+    "name": "Illinois Tool Works",
+    "url": "https://fortune.com/company/illinois-tool-works/",
+    "fortune_year": 2026,
+    "fortune_rank": 281,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:caseys-general-stores",
+    "kind": "fortune-company",
+    "name": "Casey's General Stores",
+    "url": "https://fortune.com/company/caseys-general-stores/",
+    "fortune_year": 2026,
+    "fortune_rank": 282,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:raymond-james-financial",
+    "kind": "fortune-company",
+    "name": "Raymond James Financial",
+    "url": "https://fortune.com/company/raymond-james-financial/",
+    "fortune_year": 2026,
+    "fortune_rank": 283,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:ppg-industries",
+    "kind": "fortune-company",
+    "name": "PPG Industries",
+    "url": "https://fortune.com/company/ppg-industries/",
+    "fortune_year": 2026,
+    "fortune_rank": 284,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:dte-energy",
+    "kind": "fortune-company",
+    "name": "DTE Energy",
+    "url": "https://fortune.com/company/dte-energy/",
+    "fortune_year": 2026,
+    "fortune_rank": 285,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:corning",
+    "kind": "fortune-company",
+    "name": "Corning",
+    "url": "https://fortune.com/company/corning/",
+    "fortune_year": 2026,
+    "fortune_rank": 286,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:principal-financial",
+    "kind": "fortune-company",
+    "name": "Principal Financial",
+    "url": "https://fortune.com/company/principal-financial/",
+    "fortune_year": 2026,
+    "fortune_rank": 287,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:mutual-of-omaha-insurance",
+    "kind": "fortune-company",
+    "name": "Mutual of Omaha",
+    "url": "https://fortune.com/company/mutual-of-omaha-insurance/",
+    "fortune_year": 2026,
+    "fortune_rank": 288,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:kohls",
+    "kind": "fortune-company",
+    "name": "Kohl's",
+    "url": "https://fortune.com/company/kohls/",
+    "fortune_year": 2026,
+    "fortune_rank": 289,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:tractor-supply",
+    "kind": "fortune-company",
+    "name": "Tractor Supply",
+    "url": "https://fortune.com/company/tractor-supply/",
+    "fortune_year": 2026,
+    "fortune_rank": 290,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:whirlpool",
+    "kind": "fortune-company",
+    "name": "Whirlpool",
+    "url": "https://fortune.com/company/whirlpool/",
+    "fortune_year": 2026,
+    "fortune_rank": 291,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:fluor",
+    "kind": "fortune-company",
+    "name": "Fluor",
+    "url": "https://fortune.com/company/fluor/",
+    "fortune_year": 2026,
+    "fortune_rank": 292,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:gap",
+    "kind": "fortune-company",
+    "name": "Gap",
+    "url": "https://fortune.com/company/gap/",
+    "fortune_year": 2026,
+    "fortune_rank": 293,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:sp-global",
+    "kind": "fortune-company",
+    "name": "S&P Global",
+    "url": "https://fortune.com/company/sp-global/",
+    "fortune_year": 2026,
+    "fortune_rank": 294,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:ally-financial",
+    "kind": "fortune-company",
+    "name": "Ally Financial",
+    "url": "https://fortune.com/company/ally-financial/",
+    "fortune_year": 2026,
+    "fortune_rank": 295,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:builders-firstsource",
+    "kind": "fortune-company",
+    "name": "Builders FirstSource",
+    "url": "https://fortune.com/company/builders-firstsource/",
+    "fortune_year": 2026,
+    "fortune_rank": 296,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:sonic-automotive",
+    "kind": "fortune-company",
+    "name": "Sonic Automotive",
+    "url": "https://fortune.com/company/sonic-automotive/",
+    "fortune_year": 2026,
+    "fortune_rank": 297,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:stanley-black-decker",
+    "kind": "fortune-company",
+    "name": "Stanley Black & Decker",
+    "url": "https://fortune.com/company/stanley-black-decker/",
+    "fortune_year": 2026,
+    "fortune_rank": 298,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:kenvue",
+    "kind": "fortune-company",
+    "name": "Kenvue",
+    "url": "https://fortune.com/company/kenvue/",
+    "fortune_year": 2026,
+    "fortune_rank": 299,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:kyndryl-holdings",
+    "kind": "fortune-company",
+    "name": "Kyndryl Holdings",
+    "url": "https://fortune.com/company/kyndryl-holdings/",
+    "fortune_year": 2026,
+    "fortune_rank": 300,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:diamondback-energy",
+    "kind": "fortune-company",
+    "name": "Diamondback Energy",
+    "url": "https://fortune.com/company/diamondback-energy/",
+    "fortune_year": 2026,
+    "fortune_rank": 301,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:echostar",
+    "kind": "fortune-company",
+    "name": "EchoStar",
+    "url": "https://fortune.com/company/echostar/",
+    "fortune_year": 2026,
+    "fortune_rank": 302,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:textron",
+    "kind": "fortune-company",
+    "name": "Textron",
+    "url": "https://fortune.com/company/textron/",
+    "fortune_year": 2026,
+    "fortune_rank": 303,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:expedia-group",
+    "kind": "fortune-company",
+    "name": "Expedia Group",
+    "url": "https://fortune.com/company/expedia-group/",
+    "fortune_year": 2026,
+    "fortune_rank": 304,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:w-r-berkley",
+    "kind": "fortune-company",
+    "name": "W.R. Berkley",
+    "url": "https://fortune.com/company/w-r-berkley/",
+    "fortune_year": 2026,
+    "fortune_rank": 305,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:xcel-energy",
+    "kind": "fortune-company",
+    "name": "Xcel Energy",
+    "url": "https://fortune.com/company/xcel-energy/",
+    "fortune_year": 2026,
+    "fortune_rank": 306,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:firstenergy",
+    "kind": "fortune-company",
+    "name": "FirstEnergy",
+    "url": "https://fortune.com/company/firstenergy/",
+    "fortune_year": 2026,
+    "fortune_rank": 307,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:erie-insurance-group",
+    "kind": "fortune-company",
+    "name": "Erie Insurance Group",
+    "url": "https://fortune.com/company/erie-insurance-group/",
+    "fortune_year": 2026,
+    "fortune_rank": 308,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:first-citizens-bancshares",
+    "kind": "fortune-company",
+    "name": "First Citizens BancShares",
+    "url": "https://fortune.com/company/first-citizens-bancshares/",
+    "fortune_year": 2026,
+    "fortune_rank": 309,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:blackstone-group",
+    "kind": "fortune-company",
+    "name": "Blackstone",
+    "url": "https://fortune.com/company/blackstone-group/",
+    "fortune_year": 2026,
+    "fortune_rank": 310,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:fidelity-national-financial",
+    "kind": "fortune-company",
+    "name": "Fidelity National Financial",
+    "url": "https://fortune.com/company/fidelity-national-financial/",
+    "fortune_year": 2026,
+    "fortune_rank": 311,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:otis-worldwide",
+    "kind": "fortune-company",
+    "name": "Otis Worldwide",
+    "url": "https://fortune.com/company/otis-worldwide/",
+    "fortune_year": 2026,
+    "fortune_rank": 312,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:amentum-holdings",
+    "kind": "fortune-company",
+    "name": "Amentum Holdings",
+    "url": "https://fortune.com/company/amentum-holdings/",
+    "fortune_year": 2026,
+    "fortune_rank": 313,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:regeneron-pharmaceuticals",
+    "kind": "fortune-company",
+    "name": "Regeneron Pharmaceuticals",
+    "url": "https://fortune.com/company/regeneron-pharmaceuticals/",
+    "fortune_year": 2026,
+    "fortune_rank": 314,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:estee-lauder",
+    "kind": "fortune-company",
+    "name": "Estée Lauder",
+    "url": "https://fortune.com/company/estee-lauder/",
+    "fortune_year": 2026,
+    "fortune_rank": 315,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:borgwarner",
+    "kind": "fortune-company",
+    "name": "BorgWarner",
+    "url": "https://fortune.com/company/borgwarner/",
+    "fortune_year": 2026,
+    "fortune_rank": 316,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:northern-trust",
+    "kind": "fortune-company",
+    "name": "Northern Trust",
+    "url": "https://fortune.com/company/northern-trust/",
+    "fortune_year": 2026,
+    "fortune_rank": 317,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:viatris",
+    "kind": "fortune-company",
+    "name": "Viatris",
+    "url": "https://fortune.com/company/viatris/",
+    "fortune_year": 2026,
+    "fortune_rank": 318,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:mastec",
+    "kind": "fortune-company",
+    "name": "MasTec",
+    "url": "https://fortune.com/company/mastec/",
+    "fortune_year": 2026,
+    "fortune_rank": 319,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:reliance-steel-aluminum",
+    "kind": "fortune-company",
+    "name": "Reliance",
+    "url": "https://fortune.com/company/reliance-steel-aluminum/",
+    "fortune_year": 2026,
+    "fortune_rank": 320,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:western-southern-financial",
+    "kind": "fortune-company",
+    "name": "Western & Southern Financial Group",
+    "url": "https://fortune.com/company/western-southern-financial/",
+    "fortune_year": 2026,
+    "fortune_rank": 321,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:alaska-air-group",
+    "kind": "fortune-company",
+    "name": "Alaska Air Group",
+    "url": "https://fortune.com/company/alaska-air-group/",
+    "fortune_year": 2026,
+    "fortune_rank": 322,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:brightspring-health-services",
+    "kind": "fortune-company",
+    "name": "BrightSpring Health Services",
+    "url": "https://fortune.com/company/brightspring-health-services/",
+    "fortune_year": 2026,
+    "fortune_rank": 323,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:csx",
+    "kind": "fortune-company",
+    "name": "CSX",
+    "url": "https://fortune.com/company/csx/",
+    "fortune_year": 2026,
+    "fortune_rank": 324,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:lkq",
+    "kind": "fortune-company",
+    "name": "LKQ",
+    "url": "https://fortune.com/company/lkq/",
+    "fortune_year": 2026,
+    "fortune_rank": 325,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:laboratory-corp-of-america",
+    "kind": "fortune-company",
+    "name": "Labcorp Holdings",
+    "url": "https://fortune.com/company/laboratory-corp-of-america/",
+    "fortune_year": 2026,
+    "fortune_rank": 326,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:arthur-j-gallagher",
+    "kind": "fortune-company",
+    "name": "Arthur J. Gallagher",
+    "url": "https://fortune.com/company/arthur-j-gallagher/",
+    "fortune_year": 2026,
+    "fortune_rank": 327,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:venutre-global",
+    "kind": "fortune-company",
+    "name": "Venture Global",
+    "url": "https://fortune.com/company/venutre-global/",
+    "fortune_year": 2026,
+    "fortune_rank": 328,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:doordash",
+    "kind": "fortune-company",
+    "name": "DoorDash",
+    "url": "https://fortune.com/company/doordash/",
+    "fortune_year": 2026,
+    "fortune_rank": 329,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:sempra-energy",
+    "kind": "fortune-company",
+    "name": "Sempra",
+    "url": "https://fortune.com/company/sempra-energy/",
+    "fortune_year": 2026,
+    "fortune_rank": 330,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:davita",
+    "kind": "fortune-company",
+    "name": "DaVita",
+    "url": "https://fortune.com/company/davita/",
+    "fortune_year": 2026,
+    "fortune_rank": 331,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:eversource-energy",
+    "kind": "fortune-company",
+    "name": "Eversource Energy",
+    "url": "https://fortune.com/company/eversource-energy/",
+    "fortune_year": 2026,
+    "fortune_rank": 332,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:servicenow",
+    "kind": "fortune-company",
+    "name": "ServiceNow",
+    "url": "https://fortune.com/company/servicenow/",
+    "fortune_year": 2026,
+    "fortune_rank": 333,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:mt-bank-corp",
+    "kind": "fortune-company",
+    "name": "M&T Bank",
+    "url": "https://fortune.com/company/mt-bank-corp/",
+    "fortune_year": 2026,
+    "fortune_rank": 334,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:henry-schein",
+    "kind": "fortune-company",
+    "name": "Henry Schein",
+    "url": "https://fortune.com/company/henry-schein/",
+    "fortune_year": 2026,
+    "fortune_rank": 335,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:gxo-logistics",
+    "kind": "fortune-company",
+    "name": "GXO Logistics",
+    "url": "https://fortune.com/company/gxo-logistics/",
+    "fortune_year": 2026,
+    "fortune_rank": 336,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:ball",
+    "kind": "fortune-company",
+    "name": "Ball",
+    "url": "https://fortune.com/company/ball/",
+    "fortune_year": 2026,
+    "fortune_rank": 337,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:unum-group",
+    "kind": "fortune-company",
+    "name": "Unum Group",
+    "url": "https://fortune.com/company/unum-group/",
+    "fortune_year": 2026,
+    "fortune_rank": 338,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:las-vegas-sands",
+    "kind": "fortune-company",
+    "name": "Las Vegas Sands",
+    "url": "https://fortune.com/company/las-vegas-sands/",
+    "fortune_year": 2026,
+    "fortune_rank": 339,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:entergy",
+    "kind": "fortune-company",
+    "name": "Entergy",
+    "url": "https://fortune.com/company/entergy/",
+    "fortune_year": 2026,
+    "fortune_rank": 340,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:fifth-third-bancorp",
+    "kind": "fortune-company",
+    "name": "Fifth Third Bancorp",
+    "url": "https://fortune.com/company/fifth-third-bancorp/",
+    "fortune_year": 2026,
+    "fortune_rank": 341,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:graybar-electric",
+    "kind": "fortune-company",
+    "name": "Graybar Electric",
+    "url": "https://fortune.com/company/graybar-electric/",
+    "fortune_year": 2026,
+    "fortune_rank": 342,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:dxc-technology",
+    "kind": "fortune-company",
+    "name": "DXC Technology",
+    "url": "https://fortune.com/company/dxc-technology/",
+    "fortune_year": 2026,
+    "fortune_rank": 343,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:alcoa",
+    "kind": "fortune-company",
+    "name": "Alcoa",
+    "url": "https://fortune.com/company/alcoa/",
+    "fortune_year": 2026,
+    "fortune_rank": 344,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:assurant",
+    "kind": "fortune-company",
+    "name": "Assurant",
+    "url": "https://fortune.com/company/assurant/",
+    "fortune_year": 2026,
+    "fortune_rank": 345,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:ryder-system",
+    "kind": "fortune-company",
+    "name": "Ryder System",
+    "url": "https://fortune.com/company/ryder-system/",
+    "fortune_year": 2026,
+    "fortune_rank": 346,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:intercontinental-exchange",
+    "kind": "fortune-company",
+    "name": "Intercontinental Exchange",
+    "url": "https://fortune.com/company/intercontinental-exchange/",
+    "fortune_year": 2026,
+    "fortune_rank": 347,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:cincinnati-financial",
+    "kind": "fortune-company",
+    "name": "Cincinnati Financial",
+    "url": "https://fortune.com/company/cincinnati-financial/",
+    "fortune_year": 2026,
+    "fortune_rank": 348,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:chewy",
+    "kind": "fortune-company",
+    "name": "Chewy",
+    "url": "https://fortune.com/company/chewy/",
+    "fortune_year": 2026,
+    "fortune_rank": 349,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:community-health-systems",
+    "kind": "fortune-company",
+    "name": "Community Health Systems",
+    "url": "https://fortune.com/company/community-health-systems/",
+    "fortune_year": 2026,
+    "fortune_rank": 350,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:huntington-bancshares",
+    "kind": "fortune-company",
+    "name": "Huntington Bancshares",
+    "url": "https://fortune.com/company/huntington-bancshares/",
+    "fortune_year": 2026,
+    "fortune_rank": 350,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:huntington-ingalls-industries",
+    "kind": "fortune-company",
+    "name": "Huntington Ingalls Industries",
+    "url": "https://fortune.com/company/huntington-ingalls-industries/",
+    "fortune_year": 2026,
+    "fortune_rank": 352,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:wayfair",
+    "kind": "fortune-company",
+    "name": "Wayfair",
+    "url": "https://fortune.com/company/wayfair/",
+    "fortune_year": 2026,
+    "fortune_rank": 353,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:centurylink",
+    "kind": "fortune-company",
+    "name": "Lumen Technologies",
+    "url": "https://fortune.com/company/centurylink/",
+    "fortune_year": 2026,
+    "fortune_rank": 354,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:ulta-beauty",
+    "kind": "fortune-company",
+    "name": "Ulta Beauty",
+    "url": "https://fortune.com/company/ulta-beauty/",
+    "fortune_year": 2026,
+    "fortune_rank": 355,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:crown-holdings",
+    "kind": "fortune-company",
+    "name": "Crown Holdings",
+    "url": "https://fortune.com/company/crown-holdings/",
+    "fortune_year": 2026,
+    "fortune_rank": 356,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:airbnb",
+    "kind": "fortune-company",
+    "name": "Airbnb",
+    "url": "https://fortune.com/company/airbnb/",
+    "fortune_year": 2026,
+    "fortune_rank": 357,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:aes",
+    "kind": "fortune-company",
+    "name": "AES",
+    "url": "https://fortune.com/company/aes/",
+    "fortune_year": 2026,
+    "fortune_rank": 358,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:norfolk-southern",
+    "kind": "fortune-company",
+    "name": "Norfolk Southern",
+    "url": "https://fortune.com/company/norfolk-southern/",
+    "fortune_year": 2026,
+    "fortune_rank": 359,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:public-service-enterprise-group",
+    "kind": "fortune-company",
+    "name": "Public Service Enterprise Group",
+    "url": "https://fortune.com/company/public-service-enterprise-group/",
+    "fortune_year": 2026,
+    "fortune_rank": 360,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:kla-tencor",
+    "kind": "fortune-company",
+    "name": "KLA",
+    "url": "https://fortune.com/company/kla-tencor/",
+    "fortune_year": 2026,
+    "fortune_rank": 361,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:chesapeake-energy",
+    "kind": "fortune-company",
+    "name": "Expand Energy",
+    "url": "https://fortune.com/company/chesapeake-energy/",
+    "fortune_year": 2026,
+    "fortune_rank": 362,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:hormel-foods",
+    "kind": "fortune-company",
+    "name": "Hormel Foods",
+    "url": "https://fortune.com/company/hormel-foods/",
+    "fortune_year": 2026,
+    "fortune_rank": 363,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:darden-restaurants",
+    "kind": "fortune-company",
+    "name": "Darden Restaurants",
+    "url": "https://fortune.com/company/darden-restaurants/",
+    "fortune_year": 2026,
+    "fortune_rank": 364,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:citizens-financial-group",
+    "kind": "fortune-company",
+    "name": "Citizens Financial Group",
+    "url": "https://fortune.com/company/citizens-financial-group/",
+    "fortune_year": 2026,
+    "fortune_rank": 365,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:mosaic",
+    "kind": "fortune-company",
+    "name": "Mosaic",
+    "url": "https://fortune.com/company/mosaic/",
+    "fortune_year": 2026,
+    "fortune_rank": 366,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:hilton-worldwide-holdings",
+    "kind": "fortune-company",
+    "name": "Hilton Worldwide Holdings",
+    "url": "https://fortune.com/company/hilton-worldwide-holdings/",
+    "fortune_year": 2026,
+    "fortune_rank": 367,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:air-products-chemicals",
+    "kind": "fortune-company",
+    "name": "Air Products & Chemicals",
+    "url": "https://fortune.com/company/air-products-chemicals/",
+    "fortune_year": 2026,
+    "fortune_rank": 368,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:jacobs-engineering-group",
+    "kind": "fortune-company",
+    "name": "Jacobs Solutions",
+    "url": "https://fortune.com/company/jacobs-engineering-group/",
+    "fortune_year": 2026,
+    "fortune_rank": 369,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:vertex-pharmaceuticals",
+    "kind": "fortune-company",
+    "name": "Vertex Pharmaceuticals",
+    "url": "https://fortune.com/company/vertex-pharmaceuticals/",
+    "fortune_year": 2026,
+    "fortune_rank": 370,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:j-b-hunt-transport-services",
+    "kind": "fortune-company",
+    "name": "J.B. Hunt Transport Services",
+    "url": "https://fortune.com/company/j-b-hunt-transport-services/",
+    "fortune_year": 2026,
+    "fortune_rank": 371,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:booz-allen-hamilton",
+    "kind": "fortune-company",
+    "name": "Booz Allen Hamilton Holding",
+    "url": "https://fortune.com/company/booz-allen-hamilton/",
+    "fortune_year": 2026,
+    "fortune_rank": 372,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:williams",
+    "kind": "fortune-company",
+    "name": "Williams",
+    "url": "https://fortune.com/company/williams/",
+    "fortune_year": 2026,
+    "fortune_rank": 373,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:chipotle-mexican-grill",
+    "kind": "fortune-company",
+    "name": "Chipotle Mexican Grill",
+    "url": "https://fortune.com/company/chipotle-mexican-grill/",
+    "fortune_year": 2026,
+    "fortune_rank": 374,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:yum-china-holdings",
+    "kind": "fortune-company",
+    "name": "Yum China Holdings",
+    "url": "https://fortune.com/company/yum-china-holdings/",
+    "fortune_year": 2026,
+    "fortune_rank": 375,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:oscar-health",
+    "kind": "fortune-company",
+    "name": "Oscar Health",
+    "url": "https://fortune.com/company/oscar-health/",
+    "fortune_year": 2026,
+    "fortune_rank": 376,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:hershey",
+    "kind": "fortune-company",
+    "name": "Hershey",
+    "url": "https://fortune.com/company/hershey/",
+    "fortune_year": 2026,
+    "fortune_rank": 377,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:motorola-solutions",
+    "kind": "fortune-company",
+    "name": "Motorola Solutions",
+    "url": "https://fortune.com/company/motorola-solutions/",
+    "fortune_year": 2026,
+    "fortune_rank": 378,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:equitable-holdings",
+    "kind": "fortune-company",
+    "name": "Equitable Holdings",
+    "url": "https://fortune.com/company/equitable-holdings/",
+    "fortune_year": 2026,
+    "fortune_rank": 379,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:avis-budget-group",
+    "kind": "fortune-company",
+    "name": "Avis Budget Group",
+    "url": "https://fortune.com/company/avis-budget-group/",
+    "fortune_year": 2026,
+    "fortune_rank": 380,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:conagra-brands",
+    "kind": "fortune-company",
+    "name": "Conagra Brands",
+    "url": "https://fortune.com/company/conagra-brands/",
+    "fortune_year": 2026,
+    "fortune_rank": 381,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:baxter-international",
+    "kind": "fortune-company",
+    "name": "Baxter International",
+    "url": "https://fortune.com/company/baxter-international/",
+    "fortune_year": 2026,
+    "fortune_rank": 382,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:burlington-stores",
+    "kind": "fortune-company",
+    "name": "Burlington Stores",
+    "url": "https://fortune.com/company/burlington-stores/",
+    "fortune_year": 2026,
+    "fortune_rank": 383,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:eldorado-resorts",
+    "kind": "fortune-company",
+    "name": "Caesars Entertainment",
+    "url": "https://fortune.com/company/eldorado-resorts/",
+    "fortune_year": 2026,
+    "fortune_rank": 384,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:owens-corning",
+    "kind": "fortune-company",
+    "name": "Owens Corning",
+    "url": "https://fortune.com/company/owens-corning/",
+    "fortune_year": 2026,
+    "fortune_rank": 385,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:keycorp",
+    "kind": "fortune-company",
+    "name": "KeyCorp",
+    "url": "https://fortune.com/company/keycorp/",
+    "fortune_year": 2026,
+    "fortune_rank": 386,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:thrivent-financial-for-lutherans",
+    "kind": "fortune-company",
+    "name": "Thrivent Financial",
+    "url": "https://fortune.com/company/thrivent-financial-for-lutherans/",
+    "fortune_year": 2026,
+    "fortune_rank": 387,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:westlake-chemical",
+    "kind": "fortune-company",
+    "name": "Westlake",
+    "url": "https://fortune.com/company/westlake-chemical/",
+    "fortune_year": 2026,
+    "fortune_rank": 388,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:westinghouse-air-brake",
+    "kind": "fortune-company",
+    "name": "Westinghouse Air Brake",
+    "url": "https://fortune.com/company/westinghouse-air-brake/",
+    "fortune_year": 2026,
+    "fortune_rank": 389,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:molson-coors-brewing",
+    "kind": "fortune-company",
+    "name": "Molson Coors Beverage",
+    "url": "https://fortune.com/company/molson-coors-brewing/",
+    "fortune_year": 2026,
+    "fortune_rank": 390,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:lululemon-athletica",
+    "kind": "fortune-company",
+    "name": "Lululemon athletica",
+    "url": "https://fortune.com/company/lululemon-athletica/",
+    "fortune_year": 2026,
+    "fortune_rank": 391,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:fm-global",
+    "kind": "fortune-company",
+    "name": "FM",
+    "url": "https://fortune.com/company/fm-global/",
+    "fortune_year": 2026,
+    "fortune_rank": 392,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:ebay",
+    "kind": "fortune-company",
+    "name": "Ebay",
+    "url": "https://fortune.com/company/ebay/",
+    "fortune_year": 2026,
+    "fortune_rank": 393,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:expeditors-intl-of-washington",
+    "kind": "fortune-company",
+    "name": "Expeditors Intl. of Washington",
+    "url": "https://fortune.com/company/expeditors-intl-of-washington/",
+    "fortune_year": 2026,
+    "fortune_rank": 394,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:quest-diagnostics",
+    "kind": "fortune-company",
+    "name": "Quest Diagnostics",
+    "url": "https://fortune.com/company/quest-diagnostics/",
+    "fortune_year": 2026,
+    "fortune_rank": 395,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:analog-devices",
+    "kind": "fortune-company",
+    "name": "Analog Devices",
+    "url": "https://fortune.com/company/analog-devices/",
+    "fortune_year": 2026,
+    "fortune_rank": 396,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:andersons",
+    "kind": "fortune-company",
+    "name": "Andersons",
+    "url": "https://fortune.com/company/andersons/",
+    "fortune_year": 2026,
+    "fortune_rank": 397,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:a-mark-precious-metals",
+    "kind": "fortune-company",
+    "name": "Gold.com",
+    "url": "https://fortune.com/company/a-mark-precious-metals/",
+    "fortune_year": 2026,
+    "fortune_rank": 398,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:toll-brothers",
+    "kind": "fortune-company",
+    "name": "Toll Brothers",
+    "url": "https://fortune.com/company/toll-brothers/",
+    "fortune_year": 2026,
+    "fortune_rank": 399,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:international-flavors-fragrances",
+    "kind": "fortune-company",
+    "name": "International Flavors & Fragrances",
+    "url": "https://fortune.com/company/international-flavors-fragrances/",
+    "fortune_year": 2026,
+    "fortune_rank": 400,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:welltower",
+    "kind": "fortune-company",
+    "name": "Welltower",
+    "url": "https://fortune.com/company/welltower/",
+    "fortune_year": 2026,
+    "fortune_rank": 401,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:leucadia-national",
+    "kind": "fortune-company",
+    "name": "Jefferies Financial Group",
+    "url": "https://fortune.com/company/leucadia-national/",
+    "fortune_year": 2026,
+    "fortune_rank": 402,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:autoliv",
+    "kind": "fortune-company",
+    "name": "Autoliv",
+    "url": "https://fortune.com/company/autoliv/",
+    "fortune_year": 2026,
+    "fortune_rank": 403,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:mohawk-industries",
+    "kind": "fortune-company",
+    "name": "Mohawk Industries",
+    "url": "https://fortune.com/company/mohawk-industries/",
+    "fortune_year": 2026,
+    "fortune_rank": 404,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:delek-us-holdings",
+    "kind": "fortune-company",
+    "name": "Delek US Holdings",
+    "url": "https://fortune.com/company/delek-us-holdings/",
+    "fortune_year": 2026,
+    "fortune_rank": 405,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:fidelity-national-information-services",
+    "kind": "fortune-company",
+    "name": "Fidelity National Information (FIS)",
+    "url": "https://fortune.com/company/fidelity-national-information-services/",
+    "fortune_year": 2026,
+    "fortune_rank": 406,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:owens-minor",
+    "kind": "fortune-company",
+    "name": "Accendra Health",
+    "url": "https://fortune.com/company/owens-minor/",
+    "fortune_year": 2026,
+    "fortune_rank": 407,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:american-tower",
+    "kind": "fortune-company",
+    "name": "American Tower",
+    "url": "https://fortune.com/company/american-tower/",
+    "fortune_year": 2026,
+    "fortune_rank": 408,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:nvr",
+    "kind": "fortune-company",
+    "name": "NVR",
+    "url": "https://fortune.com/company/nvr/",
+    "fortune_year": 2026,
+    "fortune_rank": 409,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:interactive-brokers-group",
+    "kind": "fortune-company",
+    "name": "Interactive Brokers Group",
+    "url": "https://fortune.com/company/interactive-brokers-group/",
+    "fortune_year": 2026,
+    "fortune_rank": 410,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:oshkosh",
+    "kind": "fortune-company",
+    "name": "Oshkosh",
+    "url": "https://fortune.com/company/oshkosh/",
+    "fortune_year": 2026,
+    "fortune_rank": 411,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:cintas",
+    "kind": "fortune-company",
+    "name": "Cintas",
+    "url": "https://fortune.com/company/cintas/",
+    "fortune_year": 2026,
+    "fortune_rank": 412,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:campbell-soup",
+    "kind": "fortune-company",
+    "name": "Campbell's",
+    "url": "https://fortune.com/company/campbell-soup/",
+    "fortune_year": 2026,
+    "fortune_rank": 413,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:vertiv-holdings",
+    "kind": "fortune-company",
+    "name": "Vertiv Holdings",
+    "url": "https://fortune.com/company/vertiv-holdings/",
+    "fortune_year": 2026,
+    "fortune_rank": 414,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:global-payments",
+    "kind": "fortune-company",
+    "name": "Global Payments",
+    "url": "https://fortune.com/company/global-payments/",
+    "fortune_year": 2026,
+    "fortune_rank": 415,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:constellation-brands",
+    "kind": "fortune-company",
+    "name": "Constellation Brands",
+    "url": "https://fortune.com/company/constellation-brands/",
+    "fortune_year": 2026,
+    "fortune_rank": 416,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:agco",
+    "kind": "fortune-company",
+    "name": "AGCO",
+    "url": "https://fortune.com/company/agco/",
+    "fortune_year": 2026,
+    "fortune_rank": 417,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:intuitive-surgical",
+    "kind": "fortune-company",
+    "name": "Intuitive Surgical",
+    "url": "https://fortune.com/company/intuitive-surgical/",
+    "fortune_year": 2026,
+    "fortune_rank": 418,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:ace-hardware-corporation",
+    "kind": "fortune-company",
+    "name": "Ace Hardware",
+    "url": "https://fortune.com/company/ace-hardware-corporation/",
+    "fortune_year": 2026,
+    "fortune_rank": 419,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:dana",
+    "kind": "fortune-company",
+    "name": "Dana",
+    "url": "https://fortune.com/company/dana/",
+    "fortune_year": 2026,
+    "fortune_rank": 420,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:biogen",
+    "kind": "fortune-company",
+    "name": "Biogen",
+    "url": "https://fortune.com/company/biogen/",
+    "fortune_year": 2026,
+    "fortune_rank": 421,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:news-corp",
+    "kind": "fortune-company",
+    "name": "News Corp.",
+    "url": "https://fortune.com/company/news-corp/",
+    "fortune_year": 2026,
+    "fortune_rank": 422,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:concentrix",
+    "kind": "fortune-company",
+    "name": "Concentrix",
+    "url": "https://fortune.com/company/concentrix/",
+    "fortune_year": 2026,
+    "fortune_rank": 423,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:wec-energy-group",
+    "kind": "fortune-company",
+    "name": "WEC Energy Group",
+    "url": "https://fortune.com/company/wec-energy-group/",
+    "fortune_year": 2026,
+    "fortune_rank": 424,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:vf",
+    "kind": "fortune-company",
+    "name": "VF",
+    "url": "https://fortune.com/company/vf/",
+    "fortune_year": 2026,
+    "fortune_rank": 425,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:seaboard",
+    "kind": "fortune-company",
+    "name": "Seaboard",
+    "url": "https://fortune.com/company/seaboard/",
+    "fortune_year": 2026,
+    "fortune_rank": 426,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:icahn-enterprises",
+    "kind": "fortune-company",
+    "name": "Icahn Enterprises",
+    "url": "https://fortune.com/company/icahn-enterprises/",
+    "fortune_year": 2026,
+    "fortune_rank": 427,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:regions-financial",
+    "kind": "fortune-company",
+    "name": "Regions Financial",
+    "url": "https://fortune.com/company/regions-financial/",
+    "fortune_year": 2026,
+    "fortune_rank": 428,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:thor-industries",
+    "kind": "fortune-company",
+    "name": "Thor Industries",
+    "url": "https://fortune.com/company/thor-industries/",
+    "fortune_year": 2026,
+    "fortune_rank": 429,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:workday",
+    "kind": "fortune-company",
+    "name": "Workday",
+    "url": "https://fortune.com/company/workday/",
+    "fortune_year": 2026,
+    "fortune_rank": 430,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:celanese",
+    "kind": "fortune-company",
+    "name": "Celanese",
+    "url": "https://fortune.com/company/celanese/",
+    "fortune_year": 2026,
+    "fortune_rank": 431,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:western-digital",
+    "kind": "fortune-company",
+    "name": "Western Digital",
+    "url": "https://fortune.com/company/western-digital/",
+    "fortune_year": 2026,
+    "fortune_rank": 432,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:qurate-retail",
+    "kind": "fortune-company",
+    "name": "QVC Group",
+    "url": "https://fortune.com/company/qurate-retail/",
+    "fortune_year": 2026,
+    "fortune_rank": 433,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:zoetis",
+    "kind": "fortune-company",
+    "name": "Zoetis",
+    "url": "https://fortune.com/company/zoetis/",
+    "fortune_year": 2026,
+    "fortune_rank": 434,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:centerpoint-energy",
+    "kind": "fortune-company",
+    "name": "CenterPoint Energy",
+    "url": "https://fortune.com/company/centerpoint-energy/",
+    "fortune_year": 2026,
+    "fortune_rank": 435,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:equinix",
+    "kind": "fortune-company",
+    "name": "Equinix",
+    "url": "https://fortune.com/company/equinix/",
+    "fortune_year": 2026,
+    "fortune_rank": 436,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:palo-alto-networks",
+    "kind": "fortune-company",
+    "name": "Palo Alto Networks",
+    "url": "https://fortune.com/company/palo-alto-networks/",
+    "fortune_year": 2026,
+    "fortune_rank": 437,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:apache",
+    "kind": "fortune-company",
+    "name": "APA",
+    "url": "https://fortune.com/company/apache/",
+    "fortune_year": 2026,
+    "fortune_rank": 438,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:old-republic-international",
+    "kind": "fortune-company",
+    "name": "Old Republic International",
+    "url": "https://fortune.com/company/old-republic-international/",
+    "fortune_year": 2026,
+    "fortune_rank": 439,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:comfort-systems-usa",
+    "kind": "fortune-company",
+    "name": "Comfort Systems USA",
+    "url": "https://fortune.com/company/comfort-systems-usa/",
+    "fortune_year": 2026,
+    "fortune_rank": 440,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:jetblue-airways",
+    "kind": "fortune-company",
+    "name": "JetBlue Airways",
+    "url": "https://fortune.com/company/jetblue-airways/",
+    "fortune_year": 2026,
+    "fortune_rank": 441,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:ppl",
+    "kind": "fortune-company",
+    "name": "PPL",
+    "url": "https://fortune.com/company/ppl/",
+    "fortune_year": 2026,
+    "fortune_rank": 442,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:xylem",
+    "kind": "fortune-company",
+    "name": "Xylem",
+    "url": "https://fortune.com/company/xylem/",
+    "fortune_year": 2026,
+    "fortune_rank": 443,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:arista-networks",
+    "kind": "fortune-company",
+    "name": "Arista Networks",
+    "url": "https://fortune.com/company/arista-networks/",
+    "fortune_year": 2026,
+    "fortune_rank": 444,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:packaging-corp-of-america",
+    "kind": "fortune-company",
+    "name": "Packaging Corp. of America",
+    "url": "https://fortune.com/company/packaging-corp-of-america/",
+    "fortune_year": 2026,
+    "fortune_rank": 445,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:pvh",
+    "kind": "fortune-company",
+    "name": "PVH",
+    "url": "https://fortune.com/company/pvh/",
+    "fortune_year": 2026,
+    "fortune_rank": 446,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:ovintiv",
+    "kind": "fortune-company",
+    "name": "Ovintiv",
+    "url": "https://fortune.com/company/ovintiv/",
+    "fortune_year": 2026,
+    "fortune_rank": 447,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:avery-dennison",
+    "kind": "fortune-company",
+    "name": "Avery Dennison",
+    "url": "https://fortune.com/company/avery-dennison/",
+    "fortune_year": 2026,
+    "fortune_rank": 448,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:transdigm-group",
+    "kind": "fortune-company",
+    "name": "TransDigm Group",
+    "url": "https://fortune.com/company/transdigm-group/",
+    "fortune_year": 2026,
+    "fortune_rank": 449,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:sprouts-farmers-market",
+    "kind": "fortune-company",
+    "name": "Sprouts Farmers Market",
+    "url": "https://fortune.com/company/sprouts-farmers-market/",
+    "fortune_year": 2026,
+    "fortune_rank": 450,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:prologis",
+    "kind": "fortune-company",
+    "name": "Prologis",
+    "url": "https://fortune.com/company/prologis/",
+    "fortune_year": 2026,
+    "fortune_rank": 451,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:franklin-resources",
+    "kind": "fortune-company",
+    "name": "Franklin Resources",
+    "url": "https://fortune.com/company/franklin-resources/",
+    "fortune_year": 2026,
+    "fortune_rank": 452,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:eastman-chemical",
+    "kind": "fortune-company",
+    "name": "Eastman Chemical",
+    "url": "https://fortune.com/company/eastman-chemical/",
+    "fortune_year": 2026,
+    "fortune_rank": 453,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:abm-industries",
+    "kind": "fortune-company",
+    "name": "ABM Industries",
+    "url": "https://fortune.com/company/abm-industries/",
+    "fortune_year": 2026,
+    "fortune_rank": 454,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:national-oilwell-varco",
+    "kind": "fortune-company",
+    "name": "NOV",
+    "url": "https://fortune.com/company/national-oilwell-varco/",
+    "fortune_year": 2026,
+    "fortune_rank": 455,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:j-m-smucker",
+    "kind": "fortune-company",
+    "name": "J.M. Smucker",
+    "url": "https://fortune.com/company/j-m-smucker/",
+    "fortune_year": 2026,
+    "fortune_rank": 456,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:securian-financial-group",
+    "kind": "fortune-company",
+    "name": "Securian Financial Group",
+    "url": "https://fortune.com/company/securian-financial-group/",
+    "fortune_year": 2026,
+    "fortune_rank": 457,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:eqt",
+    "kind": "fortune-company",
+    "name": "EQT",
+    "url": "https://fortune.com/company/eqt/",
+    "fortune_year": 2026,
+    "fortune_rank": 458,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:caci-international",
+    "kind": "fortune-company",
+    "name": "CACI International",
+    "url": "https://fortune.com/company/caci-international/",
+    "fortune_year": 2026,
+    "fortune_rank": 459,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:graphic-packaging-holding",
+    "kind": "fortune-company",
+    "name": "Graphic Packaging Holding",
+    "url": "https://fortune.com/company/graphic-packaging-holding/",
+    "fortune_year": 2026,
+    "fortune_rank": 460,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:advance-auto-parts",
+    "kind": "fortune-company",
+    "name": "Advance Auto Parts",
+    "url": "https://fortune.com/company/advance-auto-parts/",
+    "fortune_year": 2026,
+    "fortune_rank": 461,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:altice-usa",
+    "kind": "fortune-company",
+    "name": "Optimum Communications",
+    "url": "https://fortune.com/company/altice-usa/",
+    "fortune_year": 2026,
+    "fortune_rank": 462,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:sirius-xm-holdings",
+    "kind": "fortune-company",
+    "name": "Sirius XM Holdings",
+    "url": "https://fortune.com/company/sirius-xm-holdings/",
+    "fortune_year": 2026,
+    "fortune_rank": 463,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:cms-energy",
+    "kind": "fortune-company",
+    "name": "CMS Energy",
+    "url": "https://fortune.com/company/cms-energy/",
+    "fortune_year": 2026,
+    "fortune_rank": 464,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:hertz-global-holdings",
+    "kind": "fortune-company",
+    "name": "Hertz Global Holdings",
+    "url": "https://fortune.com/company/hertz-global-holdings/",
+    "fortune_year": 2026,
+    "fortune_rank": 465,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:ameren",
+    "kind": "fortune-company",
+    "name": "Ameren",
+    "url": "https://fortune.com/company/ameren/",
+    "fortune_year": 2026,
+    "fortune_rank": 466,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:rockwell-automation",
+    "kind": "fortune-company",
+    "name": "Rockwell Automation",
+    "url": "https://fortune.com/company/rockwell-automation/",
+    "fortune_year": 2026,
+    "fortune_rank": 467,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:solventum",
+    "kind": "fortune-company",
+    "name": "Solventum",
+    "url": "https://fortune.com/company/solventum/",
+    "fortune_year": 2026,
+    "fortune_rank": 468,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:monster-beverage",
+    "kind": "fortune-company",
+    "name": "Monster Beverage",
+    "url": "https://fortune.com/company/monster-beverage/",
+    "fortune_year": 2026,
+    "fortune_rank": 469,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:nasdaq",
+    "kind": "fortune-company",
+    "name": "Nasdaq",
+    "url": "https://fortune.com/company/nasdaq/",
+    "fortune_year": 2026,
+    "fortune_rank": 470,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:arconic",
+    "kind": "fortune-company",
+    "name": "Howmet Aerospace",
+    "url": "https://fortune.com/company/arconic/",
+    "fortune_year": 2026,
+    "fortune_rank": 471,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:insight-enterprises",
+    "kind": "fortune-company",
+    "name": "Insight Enterprises",
+    "url": "https://fortune.com/company/insight-enterprises/",
+    "fortune_year": 2026,
+    "fortune_rank": 472,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:zimmer-biomet-holdings-3",
+    "kind": "fortune-company",
+    "name": "Zimmer Biomet Holdings",
+    "url": "https://fortune.com/company/zimmer-biomet-holdings-3/",
+    "fortune_year": 2026,
+    "fortune_rank": 473,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:yum-brands",
+    "kind": "fortune-company",
+    "name": "Yum Brands",
+    "url": "https://fortune.com/company/yum-brands/",
+    "fortune_year": 2026,
+    "fortune_rank": 474,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:fastenal",
+    "kind": "fortune-company",
+    "name": "Fastenal",
+    "url": "https://fortune.com/company/fastenal/",
+    "fortune_year": 2026,
+    "fortune_rank": 475,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:marvell-technology",
+    "kind": "fortune-company",
+    "name": "Marvell Technology",
+    "url": "https://fortune.com/company/marvell-technology/",
+    "fortune_year": 2026,
+    "fortune_rank": 476,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:voya-financial",
+    "kind": "fortune-company",
+    "name": "Voya Financial",
+    "url": "https://fortune.com/company/voya-financial/",
+    "fortune_year": 2026,
+    "fortune_rank": 477,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:american-financial-group",
+    "kind": "fortune-company",
+    "name": "American Financial Group",
+    "url": "https://fortune.com/company/american-financial-group/",
+    "fortune_year": 2026,
+    "fortune_rank": 478,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:post-holdings",
+    "kind": "fortune-company",
+    "name": "Post Holdings",
+    "url": "https://fortune.com/company/post-holdings/",
+    "fortune_year": 2026,
+    "fortune_rank": 479,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:xpo-logistics",
+    "kind": "fortune-company",
+    "name": "XPO",
+    "url": "https://fortune.com/company/xpo-logistics/",
+    "fortune_year": 2026,
+    "fortune_rank": 480,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:dow-chemical",
+    "kind": "fortune-company",
+    "name": "DuPont",
+    "url": "https://fortune.com/company/dow-chemical/",
+    "fortune_year": 2026,
+    "fortune_rank": 481,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:sanmina",
+    "kind": "fortune-company",
+    "name": "Sanmina",
+    "url": "https://fortune.com/company/sanmina/",
+    "fortune_year": 2026,
+    "fortune_rank": 482,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:taylor-morrison-home",
+    "kind": "fortune-company",
+    "name": "Taylor Morrison Home",
+    "url": "https://fortune.com/company/taylor-morrison-home/",
+    "fortune_year": 2026,
+    "fortune_rank": 483,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:dover",
+    "kind": "fortune-company",
+    "name": "Dover",
+    "url": "https://fortune.com/company/dover/",
+    "fortune_year": 2026,
+    "fortune_rank": 484,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:vulcan-materials",
+    "kind": "fortune-company",
+    "name": "Vulcan Materials",
+    "url": "https://fortune.com/company/vulcan-materials/",
+    "fortune_year": 2026,
+    "fortune_rank": 485,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:api-group",
+    "kind": "fortune-company",
+    "name": "APi Group",
+    "url": "https://fortune.com/company/api-group/",
+    "fortune_year": 2026,
+    "fortune_rank": 486,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:roper-technologies",
+    "kind": "fortune-company",
+    "name": "Roper Technologies",
+    "url": "https://fortune.com/company/roper-technologies/",
+    "fortune_year": 2026,
+    "fortune_rank": 487,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:kbr",
+    "kind": "fortune-company",
+    "name": "KBR",
+    "url": "https://fortune.com/company/kbr/",
+    "fortune_year": 2026,
+    "fortune_rank": 488,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:sonoco-products",
+    "kind": "fortune-company",
+    "name": "Sonoco Products",
+    "url": "https://fortune.com/company/sonoco-products/",
+    "fortune_year": 2026,
+    "fortune_rank": 489,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:williams-sonoma",
+    "kind": "fortune-company",
+    "name": "Williams-Sonoma",
+    "url": "https://fortune.com/company/williams-sonoma/",
+    "fortune_year": 2026,
+    "fortune_rank": 490,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:commercial-metals",
+    "kind": "fortune-company",
+    "name": "Commercial Metals",
+    "url": "https://fortune.com/company/commercial-metals/",
+    "fortune_year": 2026,
+    "fortune_rank": 491,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:moodys",
+    "kind": "fortune-company",
+    "name": "Moody's",
+    "url": "https://fortune.com/company/moodys/",
+    "fortune_year": 2026,
+    "fortune_rank": 492,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:continental-resources",
+    "kind": "fortune-company",
+    "name": "Continental Resources",
+    "url": "https://fortune.com/company/continental-resources/",
+    "fortune_year": 2026,
+    "fortune_rank": 493,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:gardner-denver",
+    "kind": "fortune-company",
+    "name": "Ingersoll Rand",
+    "url": "https://fortune.com/company/gardner-denver/",
+    "fortune_year": 2026,
+    "fortune_rank": 494,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:core-main",
+    "kind": "fortune-company",
+    "name": "Core & Main",
+    "url": "https://fortune.com/company/core-main/",
+    "fortune_year": 2026,
+    "fortune_rank": 495,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:coterra-energy",
+    "kind": "fortune-company",
+    "name": "Coterra Energy",
+    "url": "https://fortune.com/company/coterra-energy/",
+    "fortune_year": 2026,
+    "fortune_rank": 496,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:primoris-services",
+    "kind": "fortune-company",
+    "name": "Primoris Services",
+    "url": "https://fortune.com/company/primoris-services/",
+    "fortune_year": 2026,
+    "fortune_rank": 497,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:masco",
+    "kind": "fortune-company",
+    "name": "Masco",
+    "url": "https://fortune.com/company/masco/",
+    "fortune_year": 2026,
+    "fortune_rank": 498,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:tempur-sealy-international",
+    "kind": "fortune-company",
+    "name": "Somnigroup International",
+    "url": "https://fortune.com/company/tempur-sealy-international/",
+    "fortune_year": 2026,
+    "fortune_rank": 499,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+    "id": "fortune2026:resideo-technologies",
+    "kind": "fortune-company",
+    "name": "Resideo Technologies",
+    "url": "https://fortune.com/company/resideo-technologies/",
+    "fortune_year": 2026,
+    "fortune_rank": 500,
+    "directory_url": "https://www.sheetsteps.com/data/fortune-500-companies-2026",
+    "discovered_from": "https://fortune.com/ranking/fortune500/"
+  }
+]

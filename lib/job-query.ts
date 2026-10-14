@@ -1,7 +1,7 @@
 import type {Job} from './jobs';
 export const workplaceName=(s:string)=>s==='OnSite'?'On-site':s||'Unspecified';
 export const employmentName=(s:string)=>({FullTime:'Full-time',PartTime:'Part-time',Contract:'Contract',Intern:'Internship',Temporary:'Temporary'}[s]||s||'Unspecified');
-export type Filters={query:string;categories:string[];province:string;workplace:string;seniority:string;employment:string;company:string|null};
+export type Filters={query:string;categories:string[];province:string;workplace:string;seniority:string;employment:string;company:string|null;country?:string;sponsorship?:string;usSponsorship?:boolean;student?:string;remoteScope?:string;hideRestricted?:boolean};
 const fold=(s:string)=>s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
 export function relevance(j:Job,query:string){
  const q=fold(query.trim()),words=q.split(/\s+/).filter(Boolean),title=fold(j.position),company=fold(j.company),other=fold(`${j.department} ${j.location} ${j.other_locations} ${j.categories.join(' ')}`);
@@ -10,7 +10,8 @@ export function relevance(j:Job,query:string){
  return (title===q?1000:title.startsWith(q)?500:title.includes(q)?300:0)+(company===q?250:company.includes(q)?100:0)+words.reduce((n,w)=>n+(title.includes(w)?40:company.includes(w)?15:5),0);
 }
 export function matches(j:Job,f:Filters,ignoreCategories=false){
- return (!f.query.trim()||relevance(j,f.query)>0)&&(ignoreCategories||!f.categories.length||f.categories.some(c=>j.categories.includes(c)))&&(!f.company||j.company===f.company)&&(f.province==='All'||j.provinces.includes(f.province))&&(f.workplace==='All'||workplaceName(j.workplace)===f.workplace)&&(f.seniority==='All'||j.seniority===f.seniority)&&(f.employment==='All'||employmentName(j.employment_type)===f.employment);
+ const i=j.international;
+ return (!f.country||f.country==='All'||(f.country==='Not stated / unclear'?!i.countries.length:i.countries.includes(f.country)))&&(!f.sponsorship||f.sponsorship==='All'||i.sponsorship===f.sponsorship)&&(!f.usSponsorship||(i.countries.includes('United States')&&i.us_sponsorship==='Explicitly offered'))&&(!f.student||f.student==='All'||i.student_tags.includes(f.student))&&(!f.remoteScope||f.remoteScope==='All'||i.remote_scope.includes(f.remoteScope))&&(!f.hideRestricted||!i.restrictions.some(r=>['Citizenship required','Permanent residency required','Security clearance required'].includes(r)))&&(!f.query.trim()||relevance(j,f.query)>0)&&(ignoreCategories||!f.categories.length||f.categories.some(c=>j.categories.includes(c)))&&(!f.company||j.company===f.company)&&(f.province==='All'||j.provinces.includes(f.province))&&(f.workplace==='All'||workplaceName(j.workplace)===f.workplace)&&(f.seniority==='All'||j.seniority===f.seniority)&&(f.employment==='All'||employmentName(j.employment_type)===f.employment);
 }
 export function sortJobs(jobs:Job[],sort:string,query=''){
  const date=(j:Job)=>Date.parse(j.posting_date)||0;
@@ -27,3 +28,4 @@ export function deadlinePassed(value:string,now=new Date()){
  if(/^\d{4}-\d{2}-\d{2}T.*(?:Z|[+-]\d{2}:?\d{2})$/.test(value))return Number.isFinite(Date.parse(value))&&Date.parse(value)<now.getTime();
  return false;
 }
+

@@ -6,7 +6,7 @@ import os from 'node:os';
 import path from 'node:path';
 import {createRequire} from 'node:module';
 const temp=fs.mkdtempSync(path.join(os.tmpdir(),'earthwork-check-'));
-for(const name of ['reviewed-categories','jobs','job-query']){const input=fs.readFileSync(new URL('../lib/'+name+'.ts',import.meta.url),'utf8');const output=ts.transpileModule(input,{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}}).outputText;fs.writeFileSync(path.join(temp,name+'.js'),output);}
+for(const name of ['international','reviewed-categories','jobs','job-query']){const input=fs.readFileSync(new URL('../lib/'+name+'.ts',import.meta.url),'utf8');const output=ts.transpileModule(input,{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}}).outputText;fs.writeFileSync(path.join(temp,name+'.js'),output);}
 const require=createRequire(import.meta.url);
 const {decorate,classify}=require(path.join(temp,'jobs.js'));
 const {matches,sortJobs,relevance,deadlinePassed}=require(path.join(temp,'job-query.js'));
@@ -29,3 +29,4 @@ assert(!deadlinePassed('November 4'));assert(!deadlinePassed('2026-10-02',new Da
 console.log(JSON.stringify({validated:jobs.length,finance:jobs.filter(j=>matches(j,f)).length,customer:jobs.filter(j=>matches(j,{...f,categories:['Customer Service & Success']})).length,technology:jobs.filter(j=>j.categories.includes('Technology')).length,other:jobs.filter(j=>j.categories.includes('Other')).length}));
 
 fs.rmSync(temp,{recursive:true,force:true});
+

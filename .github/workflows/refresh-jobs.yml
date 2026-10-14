@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 90
     env:
-      SITE_ORIGIN: ${{ secrets.EARTHWORK_SITE_URL }}
+      SITE_ORIGIN: ${{ secrets.EARTHWORK_SITE_URL || 'https://earthwork-jobs.vercel.app' }}
       UPDATER_SECRET: ${{ secrets.EARTHWORK_UPDATER_SECRET }}
       VERCEL_AUTOMATION_BYPASS_SECRET: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
       PUBLIC_FETCH_MODE: direct
@@ -30,6 +30,8 @@ jobs:
           assert os.environ.get('SITE_ORIGIN','').startswith('https://'), 'Set EARTHWORK_SITE_URL in repository secrets.'
           assert len(os.environ.get('UPDATER_SECRET','')) >= 32, 'Set EARTHWORK_UPDATER_SECRET in repository secrets.'
           PY
+      - name: Verify collector before refreshing
+        run: python scripts/verify_collector.py
       - name: Collect, verify and update company postings
         run: python scripts/refresh_jobs.py
       - name: Mark schedule connected
@@ -40,3 +42,4 @@ jobs:
           m=importlib.util.module_from_spec(s);s.loader.exec_module(m)
           m.api('settings',{'schedule_enabled':True,'schedule_label':'Mondays, 6 p.m. Toronto'})
           PY
+

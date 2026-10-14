@@ -10,7 +10,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
-    "check": "tsc --noEmit && node scripts/verify_jobs.mjs && node scripts/verify-security.mjs",
+    "check": "tsc --noEmit && node scripts/verify_jobs.mjs && node scripts/verify_international.mjs && node scripts/verify-security.mjs && python scripts/verify_collector.py",
     "db:migrate": "node scripts/migrate-db.mjs",
     "db:seed": "node scripts/seed-db.mjs"
   },
@@ -59,3 +59,4 @@
   "type": "module",
   "packageManager": "pnpm@11.25.0"
 }
+

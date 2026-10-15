@@ -11,6 +11,8 @@ concurrency:
   cancel-in-progress: false
 jobs:
   refresh:
+    if: github.ref == 'refs/heads/main'
+    environment: EARTHWORK_UPDATER_SECRET
     runs-on: ubuntu-latest
     timeout-minutes: 90
     env:
@@ -28,7 +30,7 @@ jobs:
           python - <<'PY'
           import os
           assert os.environ.get('SITE_ORIGIN','').startswith('https://'), 'Set EARTHWORK_SITE_URL in repository secrets.'
-          assert len(os.environ.get('UPDATER_SECRET','')) >= 32, 'Set EARTHWORK_UPDATER_SECRET in repository secrets.'
+          assert len(os.environ.get('UPDATER_SECRET','')) >= 32, 'Set EARTHWORK_UPDATER_SECRET in the EARTHWORK_UPDATER_SECRET environment secrets.'
           PY
       - name: Verify collector before refreshing
         run: python scripts/verify_collector.py

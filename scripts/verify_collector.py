@@ -10,6 +10,35 @@ class Response:
     def read(self,n):return b'{"ok":true}'
     def geturl(self):return 'https://example.com/careers'
 class CollectorTests(unittest.TestCase):
+    def test_amazon_countries_and_pagination(self):
+        calls=[]
+        def read(url,**kw):
+            calls.append(url);can='country=CAN' in url;second='offset=1' in url
+            job={'id_icims':('ca' if can else 'us')+str(second),'title':'Engineer','job_path':'/en/jobs/123/engineer','country_code':'CAN' if can else 'USA','location':'Toronto' if can else 'Seattle'}
+            return json.dumps({'hits':2,'jobs':[job]}),url
+        with patch.object(m,'fetch',side_effect=read):rows,complete=m.amazon_jobs({'id':'major:amazon'})
+        self.assertTrue(complete);self.assertEqual(len(rows),4);self.assertEqual(rows[0]['countryCodes'],['US']);self.assertEqual(rows[-1]['countryCodes'],['CA'])
+        self.assertTrue(any('offset=1' in u for u in calls))
+    def test_meta_sitemap_and_posting_metadata(self):
+        url='https://www.metacareers.com/profile/job_details/123/'
+        sitemap='<urlset><url><loc>'+url+'</loc></url></urlset>'
+        posting='<script type="application/ld+json">'+json.dumps({'@type':'JobPosting','title':'University Grad Engineer','hiringOrganization':{'name':'Meta'},'jobLocation':{'address':{'addressCountry':'CA'}}})+'</script>'
+        with patch.object(m,'fetch',side_effect=lambda u,**kw:(sitemap if u.endswith('sitemap.xml') else posting,u)):
+            rows,complete=m.meta_jobs({'url':'https://www.metacareers.com/jobsearch/sitemap.xml'})
+        self.assertTrue(complete);self.assertEqual(rows[0]['countryCodes'],['CA'])
+    def test_direct_employer_boards(self):
+        self.assertEqual(m.feed_source('https://www.amazon.jobs/en/jobs/123/example','Amazon')['kind'],'amazon')
+        self.assertEqual(m.feed_source('https://www.tesla.com/careers/search','Tesla')['kind'],'tesla')
+        self.assertEqual(m.feed_source('https://www.metacareers.com/jobs/','Meta')['kind'],'meta')
+    def test_tesla_location_scope_and_failed_details(self):
+        state={'listings':[{'id':'1','l':'toronto'},{'id':'2','l':'seattle'},{'id':'3','l':'london'}],'geo':[{'sites':[{'id':'CA','states':[{'cities':{'Toronto':['toronto']}}]},{'id':'US','states':[{'cities':{'Seattle':['seattle']}}]},{'id':'GB','states':[{'cities':{'London':['london']}}]}]}]}
+        def read(url,**kw):
+            if url.endswith('/state'):return json.dumps(state),url
+            if url.endswith('/2'):raise ValueError('Temporary failure')
+            self.assertTrue(url.endswith('/1'))
+            return json.dumps({'title':'Electrical Engineer','url':'/careers/search/job/1','country':'CA','location':'Toronto'}),url
+        with patch.object(m,'fetch',side_effect=read):rows,complete=m.tesla_jobs({'id':'major:tesla'})
+        self.assertFalse(complete);self.assertEqual(len(rows),1);self.assertEqual(rows[0]['countryCodes'],['CA'])
     def test_ashby_variants_and_uuid(self):
         self.assertIn('AirApps',m.ashby_candidates({'name':'Air Apps'}))
         self.assertIn('air-apps',m.ashby_candidates({'name':'Air Apps'}))

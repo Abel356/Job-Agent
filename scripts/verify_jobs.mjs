@@ -6,12 +6,17 @@ import os from 'node:os';
 import path from 'node:path';
 import {createRequire} from 'node:module';
 const temp=fs.mkdtempSync(path.join(os.tmpdir(),'earthwork-check-'));
-for(const name of ['international','reviewed-categories','jobs','job-query']){const input=fs.readFileSync(new URL('../lib/'+name+'.ts',import.meta.url),'utf8');const output=ts.transpileModule(input,{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}}).outputText;fs.writeFileSync(path.join(temp,name+'.js'),output);}
+for(const name of ['job-facets','international','reviewed-categories','jobs','job-query']){const input=fs.readFileSync(new URL('../lib/'+name+'.ts',import.meta.url),'utf8');const output=ts.transpileModule(input,{compilerOptions:{esModuleInterop:true,module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}}).outputText.replaceAll('../data/','./data/');fs.writeFileSync(path.join(temp,name+'.js'),output);}
+fs.mkdirSync(path.join(temp,'data'));fs.copyFileSync(new URL('../data/employer-groups.json',import.meta.url),path.join(temp,'data/employer-groups.json'));
 const require=createRequire(import.meta.url);
 const {decorate,classify}=require(path.join(temp,'jobs.js'));
 const {matches,sortJobs,relevance,deadlinePassed}=require(path.join(temp,'job-query.js'));
 const snapshot=JSON.parse(gunzipSync(fs.readFileSync(new URL('../data/earthwork-snapshot.json.gz',import.meta.url))));
 const jobs=snapshot.jobs.filter(r=>r.active).map(r=>decorate(JSON.parse(r.data)));
+const early=jobs.filter(j=>j.international.student_tags.includes('New graduate / entry level'));
+assert(early.length>0,'Existing eligible early-career postings must remain discoverable');
+assert(early.some(j=>!deadlinePassed(j.deadline_iso||j.deadline||'')),'Non-expired early-career roles must remain visible');
+console.log(JSON.stringify({early_career:early.length,early_career_canada:early.filter(j=>j.international.countries.includes('Canada')).length}));
 const f={query:'',categories:['Finance & Accounting'],province:'All',workplace:'All',seniority:'All',employment:'All',company:null};
 assert(jobs.filter(j=>matches(j,f)).length>50,'Finance filter must show actual roles');
 assert(jobs.filter(j=>matches(j,{...f,categories:['Customer Service & Success']})).length>70,'Customer filter must show actual roles');

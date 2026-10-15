@@ -1,8 +1,8 @@
-name: Monday company job refresh
+name: Daily company job refresh
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 18 * * 1'
+    - cron: '0 12 * * *'
       timezone: 'America/Toronto'
 permissions:
   contents: read
@@ -40,6 +40,6 @@ jobs:
           import importlib.util
           s=importlib.util.spec_from_file_location('collector','scripts/refresh_jobs.py')
           m=importlib.util.module_from_spec(s);s.loader.exec_module(m)
-          m.api('settings',{'schedule_enabled':True,'schedule_label':'Mondays, 6 p.m. Toronto'})
+          m.api('settings',{'schedule_enabled':True,'schedule_label':'Daily, 12 p.m. Toronto'})
           PY
 

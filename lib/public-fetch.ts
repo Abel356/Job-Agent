@@ -11,7 +11,7 @@ export async function fetchSource(raw:string,source:any,payload?:unknown){
  if(payload!==undefined&&!(url.hostname.endsWith('.myworkdayjobs.com')&&/^\/wday\/cxs\/[^/]+\/[^/]+\/jobs$/.test(url.pathname)))throw Error('Only Workday public job searches accept a request body');
  for(let i=0;i<5;i++){
   if(!allowed(url,source))return {status:403,body:'Source domain is not registered for this company',url:url.href};
-  const r=await fetch(url,{redirect:'manual',method:payload===undefined?'GET':'POST',body:payload===undefined?undefined:JSON.stringify(payload),headers:{'Content-Type':'application/json','User-Agent':'EarthworkJobs/1.0 (weekly careers index)','Accept':'application/json,text/html;q=0.9,*/*;q=0.8'},signal:AbortSignal.timeout(18000)});
+  const r=await fetch(url,{redirect:'manual',method:payload===undefined?'GET':'POST',body:payload===undefined?undefined:JSON.stringify(payload),headers:{'Content-Type':'application/json','User-Agent':'EarthworkJobs/1.0 (daily careers index)','Accept':'application/json,text/html;q=0.9,*/*;q=0.8'},signal:AbortSignal.timeout(18000)});
   if([301,302,303,307,308].includes(r.status)&&r.headers.get('location')){url=new URL(r.headers.get('location')!,url);continue;}
   const limit=['api.ashbyhq.com','boards-api.greenhouse.io','api.lever.co','api.eu.lever.co'].includes(url.hostname)?25000000:5000000;
   if(Number(r.headers.get('content-length')||0)>limit)throw Error('Source exceeds safe response size');

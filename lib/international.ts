@@ -1,7 +1,7 @@
 // Evidence labels describe the posting, never an applicant's immigration eligibility.
 export const SPONSORSHIP = ['Explicitly offered','Explicitly unavailable','Conditional / case by case','Not stated / unclear'];
 export const REMOTE_SCOPE = ['Canada remote stated','US remote stated','Worldwide remote stated','Remote with geographic limits','Remote location unclear','Not remote'];
-export type International = {version:1;countries:string[];sponsorship:string;us_sponsorship:string;sponsorship_evidence:string[];student_tags:string[];student_evidence:string[];restrictions:string[];restriction_evidence:string[];remote_scope:string[]};
+export type International = {version:1|2;countries:string[];sponsorship:string;us_sponsorship:string;sponsorship_evidence:string[];student_tags:string[];student_evidence:string[];restrictions:string[];restriction_evidence:string[];remote_scope:string[]};
 type Input = {location?:string;other_locations?:string;country_codes?:string[];workplace?:string;position?:string;description?:string;canada_evidence?:string;international?:International};
 const isoCodes='AD AE AF AG AI AL AM AO AQ AR AS AT AU AW AX AZ BA BB BD BE BF BG BH BI BJ BL BM BN BO BQ BR BS BT BV BW BY BZ CA CC CD CF CG CH CI CK CL CM CN CO CR CU CV CW CX CY CZ DE DJ DK DM DO DZ EC EE EG EH ER ES ET FI FJ FK FM FO FR GA GB GD GE GF GG GH GI GL GM GN GP GQ GR GS GT GU GW GY HK HM HN HR HT HU ID IE IL IM IN IO IQ IR IS IT JE JM JO JP KE KG KH KI KM KN KP KR KW KY KZ LA LB LC LI LK LR LS LT LU LV LY MA MC MD ME MF MG MH MK ML MM MN MO MP MQ MR MS MT MU MV MW MX MY MZ NA NC NE NF NG NI NL NO NP NR NU NZ OM PA PE PF PG PH PK PL PM PN PR PS PT PW PY QA RE RO RS RU RW SA SB SC SD SE SG SH SI SJ SK SL SM SN SO SR SS ST SV SX SY SZ TC TD TF TG TH TJ TK TL TM TN TO TR TT TV TW TZ UA UG UM US UY UZ VA VC VE VG VI VN VU WF WS YE YT ZA ZM ZW'.split(' ');
 const names=new Intl.DisplayNames(['en'],{type:'region'});
@@ -42,7 +42,7 @@ function sponsorshipStatus(lines:string[]){
  return yes?SPONSORSHIP[0]:SPONSORSHIP[3];
 }
 export function internationalDetails(j:Input):International{
- if(j.international?.version===1&&j.description===undefined)return j.international;
+ if(j.international?.version===2&&j.description===undefined)return j.international;
  const countries=jobCountries(j),description=(j.description||'').replace(/<[^>]*>/g,' ').replace(/\r/g,'');
  const lines=description.split(/(?<=[.!?])\s+|\n+/).map(s=>s.trim()).filter(Boolean);
  const evidence=lines.filter(s=>sponsor.test(s)).map(s=>s.slice(0,700)).slice(0,8);
@@ -55,7 +55,10 @@ export function internationalDetails(j:Input):International{
  if(usLines.some(s=>/\b(?:not|except|excluding)\s+(?:(?:offered|available)\s+)?(?:(?:for|in)\s+)?(?:the\s+)?(?:US\b|USA\b|United States|U\.S\.)/i.test(s)))usStatus=SPONSORSHIP[1];
  const tags:string[]=[],studentEvidence:string[]=[],restrictions:string[]=[],restrictionEvidence:string[]=[];
  if(/\b(?:intern|internship|co-op|coop|student)\b/i.test(j.position||''))tags.push('Internship / co-op');
- if(/\b(?:new grad|graduate|entry.level|junior|jr\.?)\b/i.test(j.position||''))tags.push('New graduate / entry level');
+ const earlyTitle=/\b(?:new[ -]grads?|new[ -]graduates?|university[ -]grads?|recent[ -]graduates?|graduate|entry[ -]level|early[ -]career|junior|jr\.?|engineer[ -](?:i|1))\b/i.test(j.position||'');
+ const senior=/\b(?:senior|sr|staff|principal|lead|manager|director|head|chief)\b/i.test(j.position||'');
+ const earlyLines=lines.filter(s=>/\b(?:(?:new|recent|university|college)[ -]grads?(?:uates?)?\s+(?:are\s+)?(?:welcome|encouraged|eligible)|(?:open to|suitable for|designed for|seeking|hiring|welcome|encourage).{0,45}(?:new|recent|university|college)[ -]grads?(?:uates?)?|(?:entry[ -]level|early[ -]career)\s+(?:role|position|opportunit|program)|(?:0\s*[-–to]+\s*[12]|zero\s+to\s+(?:one|two))\s*years?\s+(?:of\s+)?(?:relevant |professional |work |industry )?experience|no\s+(?:prior |previous |professional |work )?experience\s+(?:is\s+)?(?:required|necessary))\b/i.test(s)&&!/(?:mentor|manage|supervise|coach).{0,50}(?:graduate|junior)|not (?:an? )?(?:entry|early)|not eligible/i.test(s));
+ if(!senior&&(earlyTitle||earlyLines.length)){tags.push('New graduate / entry level');studentEvidence.push(...(earlyTitle?['Role title: '+j.position]:[]),...earlyLines.map(s=>s.slice(0,700)));}
  const opt=lines.filter(s=>/\b(?:OPT|CPT|optional practical training|curricular practical training)\b/.test(s));
  if(opt.length){tags.push('OPT / CPT mentioned');studentEvidence.push(...opt.map(s=>s.slice(0,700)));}
  const restrictionRules:[string,RegExp][]=[['Citizenship required',/\b(?:must (?:be|hold)|requires?|only|limited to).{0,60}(?:citizen|citizenship)|\b(?:citizenship|citizens only)\b.{0,35}(?:required|requirement)/i],['Permanent residency required',/\b(?:must (?:be|hold)|requires?|only|limited to).{0,60}(?:permanent residen|green card)|\b(?:permanent residency|green card)\b.{0,35}(?:required|requirement)/i],['Security clearance required',/\b(?:must|requires?|active|eligible for).{0,50}security clearance|\bsecurity clearance\b.{0,35}(?:required|requirement)/i],['Existing work authorization required',/\b(?:must|requires?).{0,50}(?:authorized|authorised|authorization|authorisation|right to work)|\b(?:authorized|authorised|eligible|right) to work.{0,70}without.{0,25}sponsor/i]];
@@ -70,5 +73,5 @@ export function internationalDetails(j:Input):International{
   if(countries.length||/\b(?:EMEA|APAC|Europe|Americas|LATAM|North America)\b/.test(`${j.location} ${j.other_locations}`))scopes.push(REMOTE_SCOPE[3]);
   if(!scopes.length)scopes.push(REMOTE_SCOPE[4]);
  }
- return {version:1,countries,sponsorship:status,us_sponsorship:usStatus,sponsorship_evidence:evidence,student_tags:tags,student_evidence:studentEvidence.slice(0,6),restrictions,restriction_evidence:[...new Set(restrictionEvidence)].slice(0,8),remote_scope:scopes};
+ return {version:2,countries,sponsorship:status,us_sponsorship:usStatus,sponsorship_evidence:evidence,student_tags:tags,student_evidence:studentEvidence.slice(0,6),restrictions,restriction_evidence:[...new Set(restrictionEvidence)].slice(0,8),remote_scope:scopes};
 }

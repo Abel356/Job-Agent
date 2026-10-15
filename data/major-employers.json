@@ -1,0 +1,5 @@
+[
+ {"id":"major:amazon","name":"Amazon","kind":"amazon","url":"https://www.amazon.jobs/en/search","board_url":"https://www.amazon.jobs/en/search","scope":"US and Canada","fortune_year":2026},
+ {"id":"major:tesla","name":"Tesla","kind":"tesla","url":"https://www.tesla.com/careers/search","board_url":"https://www.tesla.com/careers/search","scope":"US and Canada","fortune_year":2026},
+ {"id":"major:meta","name":"Meta","kind":"meta","url":"https://www.metacareers.com/jobsearch/sitemap.xml","board_url":"https://www.metacareers.com/jobs/","scope":"All public sitemap postings","fortune_year":2026}
+]

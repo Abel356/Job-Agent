@@ -13,7 +13,7 @@ export function InternationalDetails({job}:{job:Job}){
    <dt>Stated restrictions</dt><dd>{i.restrictions.join(' · ')||'None detected; confirm with employer'}</dd>
   </dl>
   {i.sponsorship_evidence.length>0&&<><h4>Sponsorship wording</h4>{i.sponsorship_evidence.map((s,n)=><blockquote key={n}>{s}</blockquote>)}</>}
-  {i.student_evidence.length>0&&<><h4>OPT / CPT wording</h4>{i.student_evidence.map((s,n)=><blockquote key={n}>{s}</blockquote>)}</>}
+  {i.student_evidence.length>0&&<><h4>Career-stage & student eligibility evidence</h4>{i.student_evidence.map((s,n)=><blockquote key={n}>{s}</blockquote>)}</>}
   {i.restriction_evidence.length>0&&<><h4>Work restrictions</h4>{i.restriction_evidence.map((s,n)=><blockquote key={n}>{s}</blockquote>)}</>}
   <p className="coverage-note">Labels are based on the posting and may be incomplete. A Canadian work permit does not authorize work in the US. US sponsorship requires the applicable US authorization; OPT/CPT concerns US student status. For work performed remotely from Canada, confirm that the employer can hire in Canada and that your Canadian authorization permits the work.</p>
   <a className="source-link" href="https://www.uscis.gov/working-in-the-united-states" target="_blank" rel="noopener noreferrer">US work authorization information</a>

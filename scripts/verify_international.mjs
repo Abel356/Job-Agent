@@ -5,10 +5,11 @@ import path from 'node:path';
 import {createRequire} from 'node:module';
 import ts from 'typescript';
 const temp=fs.mkdtempSync(path.join(os.tmpdir(),'earthwork-international-'));
-for(const name of ['international','reviewed-categories','jobs','job-query']){
+for(const name of ['job-facets','international','reviewed-categories','jobs','job-query']){
  const src=fs.readFileSync(new URL('../lib/'+name+'.ts',import.meta.url),'utf8');
- fs.writeFileSync(path.join(temp,name+'.js'),ts.transpileModule(src,{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}}).outputText);
+ fs.writeFileSync(path.join(temp,name+'.js'),ts.transpileModule(src,{compilerOptions:{esModuleInterop:true,module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}}).outputText.replaceAll('../data/','./data/'));
 }
+fs.mkdirSync(path.join(temp,'data'));fs.copyFileSync(new URL('../data/employer-groups.json',import.meta.url),path.join(temp,'data/employer-groups.json'));
 const require=createRequire(import.meta.url);
 const {internationalDetails:i,jobCountries}=require(path.join(temp,'international.js'));
 const {decorate}=require(path.join(temp,'jobs.js'));
@@ -56,5 +57,19 @@ const restricted=decorate({...job,description:'US citizenship is required.'});
 assert(!matches(restricted,{...base,hideRestricted:true}));
 const {description,...listJob}=job;
 assert.deepEqual(decorate(listJob).international,job.international,'List and detail annotations must agree');
+const early=(position,description='')=>i({position,description}).student_tags.includes('New graduate / entry level');
+assert(early('Software Engineer','Recent graduates are welcome to apply.'));
+assert(early('Engineer I'));assert(early('University Grad Software Engineer'));assert(early('New Grads 2027'));
+assert(early('Electrical Engineer','0–2 years of professional experience required.'));
+assert(!early('Senior Engineer','Mentor new graduates.'));assert(!early('Engineer','A graduate degree is required.'));assert(!early('Engineer','Five years of experience mentoring junior engineers.'));
+const {engineeringDisciplines,companyGroups}=require(path.join(temp,'job-facets.js'));
+assert.deepEqual(engineeringDisciplines({position:'Mechanical Engineer'}),['Mechanical']);
+assert(engineeringDisciplines({position:'Electrical Controls Engineer'}).includes('Electrical & Electronics'));
+assert(engineeringDisciplines({position:'Embedded Firmware Engineer'}).includes('Hardware & Embedded'));
+assert.deepEqual(engineeringDisciplines({position:'Recruiter',department:'Mechanical Engineering'}),[]);
+assert(companyGroups({company:'Amazon'}).includes('Fortune 500'));
+const electrical=decorate({...job,position:'Electrical Engineer',company:'Tesla'});
+assert(matches(electrical,{...base,engineering:['Electrical & Electronics'],companyGroup:'Fortune 500',companies:['Tesla']}));
+assert(!matches(electrical,{...base,engineering:['Mechanical']}));
 console.log('International location, sponsorship, restrictions and combined-filter assertions passed.');
 fs.rmSync(temp,{recursive:true,force:true});

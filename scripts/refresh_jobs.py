@@ -165,6 +165,7 @@ def normalize(j,s,existing):
         row['posting_date']=old['posting_date'];row['date_basis']=old['date_basis']
     row['deadline_iso']=deadline_iso(row['deadline'])
     row['country_codes']=[c for c in [((j.get('address') or {}).get('postalAddress') or {}).get('addressCountry','')]+j.get('countryCodes',[])+[(v.get('address') or {}).get('addressCountry','') for v in j.get('secondaryLocations',[])] if isinstance(c,str) and c]
+    row['company_groups']=(['Fortune 500'] if s.get('fortune_year') else [])+(['a16z Speedrun'] if s.get('portfolio_url') else [])
     row['link_status']='Verification pending';row['link_error']=''
     try:
         body,final=fetch(url,source=s);page=Page(body)
@@ -187,6 +188,9 @@ def normalize(j,s,existing):
 
 def feed_source(url,name):
     p=urlsplit(url);parts=[unquote(x) for x in p.path.split('/') if x];h=(p.hostname or '').lower()
+    if h in ['amazon.jobs','www.amazon.jobs']:return {'id':'major:amazon','kind':'amazon','name':'Amazon','url':'https://www.amazon.jobs/en/search','board_url':'https://www.amazon.jobs/en/search','scope':'US and Canada'}
+    if h in ['tesla.com','www.tesla.com'] and '/careers' in p.path:return {'id':'major:tesla','kind':'tesla','name':'Tesla','url':'https://www.tesla.com/careers/search','board_url':'https://www.tesla.com/careers/search','scope':'US and Canada'}
+    if h in ['metacareers.com','www.metacareers.com']:return {'id':'major:meta','kind':'meta','name':'Meta','url':'https://www.metacareers.com/jobsearch/sitemap.xml','board_url':'https://www.metacareers.com/jobs/','scope':'All public sitemap postings'}
     if not parts:return None
     if h=='apply.workable.com' and parts[0] not in ['j','api']:
         slug=parts[0];return {'id':'workable:'+slug.lower(),'kind':'workable','slug':slug,'name':name,'url':f'https://apply.workable.com/{slug}/llms.txt','board_url':f'https://apply.workable.com/{slug}/'}
@@ -367,14 +371,79 @@ def workday(s):
         return {'title':info.get('title') or item['title'],'location':str(info.get('location') or loc)+', '+str(country),'secondaryLocations':secondary,'descriptionPlain':plain(info.get('jobDescription','')),'workplaceType':'Remote' if 'remote' in str(info.get('remoteType','')).lower() else '', 'publishedAt':info.get('startDate'),'dateBasis':'Posting date (Workday metadata)' if info.get('startDate') else '', 'jobUrl':url,'applyUrl':url,'employmentType':info.get('timeType') or ''}
     with cf.ThreadPoolExecutor(max_workers=4) as pool:return [j for j in pool.map(detail,items) if j]
 
+def amazon_jobs(s):
+    rows=[];complete=True
+    for country in ['USA','CAN']:
+        offset=0;ids=set()
+        while True:
+            body,_=fetch(f'https://www.amazon.jobs/en/search.json?country={country}&offset={offset}&result_limit=100&sort=recent',source=s)
+            data=json.loads(body);batch=data.get('jobs')
+            if not isinstance(batch,list) or data.get('error'):raise ValueError('Amazon search did not return a valid job list')
+            if not batch:break
+            new=[j for j in batch if str(j.get('id_icims') or j.get('id')) not in ids]
+            if not new:complete=False;break
+            for j in new:
+                ids.add(str(j.get('id_icims') or j.get('id')))
+                url=urljoin('https://www.amazon.jobs',j['job_path'])
+                rows.append({'title':j['title'],'location':j.get('location',''),'countryCodes':[{'USA':'US','CAN':'CA'}.get(j.get('country_code'),j.get('country_code',''))],'descriptionPlain':'\n'.join(plain(j.get(k,'')) for k in ['description','basic_qualifications','preferred_qualifications']),'department':j.get('job_category',''),'employmentType':'Internship' if j.get('is_intern') else j.get('job_schedule_type',''),'jobUrl':url,'applyUrl':url,'publishedAt':j.get('posted_date',''),'dateBasis':'Posting date (Amazon careers)'})
+            offset+=len(batch)
+            if offset>=int(data.get('hits',0)):
+                if int(data.get('hits',0))>=10000:complete=False
+                break
+    return rows,complete
+
+def tesla_jobs(s):
+    body,_=fetch('https://www.tesla.com/cua-api/apps/careers/state',source=s);data=json.loads(body)
+    if not isinstance(data.get('listings'),list):raise ValueError('Tesla careers returned no valid listings')
+    locations={}
+    for region in data.get('geo',[]):
+        for site in region.get('sites',[]):
+            for state in site.get('states',[]):
+                for codes in state.get('cities',{}).values():
+                    for code in codes:locations[str(code)]=site['id']
+    selected=[j for j in data['listings'] if locations.get(str(j.get('l'))) in ['US','CA']]
+    if data['listings'] and not selected:raise ValueError('Tesla location lookup could not resolve US/Canada roles')
+    def detail(item):
+        body,_=fetch('https://www.tesla.com/cua-api/careers/job/'+str(item['id']),source=s);j=json.loads(body)
+        if not j.get('title') or not j.get('url'):raise ValueError('Tesla job detail unavailable')
+        url=urljoin('https://www.tesla.com',j['url'])
+        return {'title':j['title'],'location':j.get('location',''),'countryCodes':[j.get('country','')],'descriptionPlain':'\n'.join(plain(j.get(k,'')) for k in ['jobDescription','jobResponsibilities','jobRequirements','jobCompensationAndBenefits']),'department':j.get('department',''),'employmentType':j.get('timeType',''),'validThrough':j.get('postUntilDate'),'jobUrl':url,'applyUrl':url}
+    rows=[];failures=0
+    with cf.ThreadPoolExecutor(max_workers=6) as pool:
+        futures=[pool.submit(detail,item) for item in selected]
+        for f in cf.as_completed(futures):
+            try:rows.append(f.result())
+            except Exception:failures+=1
+    return rows,failures==0
+
+def meta_jobs(s):
+    import xml.etree.ElementTree as ET
+    body,_=fetch(s['url'],source=s);root=ET.fromstring(body)
+    urls=list(dict.fromkeys(e.text for e in root.iter() if e.tag.endswith('loc') and e.text and re.search(r'https://www.metacareers.com/(?:profile/job_details|jobs)/\d+',e.text)))
+    if not urls:raise ValueError('Meta public sitemap contains no job links; coverage incomplete')
+    def detail(url):
+        body,_=fetch(url,source=s);page=Page(body)
+        rows=[schema_normalize(j,url) for d in page.schemas for j in schemas(d)]
+        if not rows:raise ValueError('Meta posting metadata unavailable')
+        return rows
+    rows=[];failures=0
+    with cf.ThreadPoolExecutor(max_workers=6) as pool:
+        for future in cf.as_completed([pool.submit(detail,url) for url in urls]):
+            try:rows.extend(future.result())
+            except Exception:failures+=1
+    return rows,failures==0
+
 def collect(s,existing,known,allow_fallback=True):
     jobs=[];seen=[];closed=[];errors=[];complete=False;discovered=[];raw=[]
     try:
-        body,_=('',s['url']) if s['kind'] in ['workday','speedrun'] or (s['kind']=='fortune-company' and s.get('website')) else fetch(s['url']+('&' if '?' in s['url'] else '?')+'includeCompensation=true' if s['kind']=='ashby' and 'includeCompensation' not in s['url'] else s['url'],source=s)
+        body,_=('',s['url']) if s['kind'] in ['workday','speedrun','amazon','tesla','meta'] or (s['kind']=='fortune-company' and s.get('website')) else fetch(s['url']+('&' if '?' in s['url'] else '?')+'includeCompensation=true' if s['kind']=='ashby' and 'includeCompensation' not in s['url'] else s['url'],source=s)
         if s['kind']=='speedrun':discovered=speedrun_profiles();complete=True
         elif s['kind']=='speedrun-company':discovered=[speedrun_company(body,s)];complete=True
         elif s['kind']=='fortune-company':discovered=[fortune_company(body,s)];complete=True
         elif s['kind']=='workday':raw=workday(s);complete=True
+        elif s['kind'] in ['amazon','tesla','meta']:
+            raw,complete={'amazon':amazon_jobs,'tesla':tesla_jobs,'meta':meta_jobs}[s['kind']](s)
+            if not complete:errors.append('Job feed: partial employer coverage; some listings could not be retrieved or the search limit was reached')
         elif s['kind']=='workable' and '/llms.txt' in s['url']:raw=workable(s,body);complete=True
         elif s['kind'] in ['ashby','greenhouse','lever','lever-eu']:
             data=json.loads(body);items=data if isinstance(data,list) else data.get('jobs')

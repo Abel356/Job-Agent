@@ -13,5 +13,6 @@ if(process.env.VERCEL_ENV!=='production'){
  else console.log('Initial import already completed; current jobs and schedule status preserved.');
  await import('./seed-discovery.mjs');
  await import('./apply-source-repairs.mjs');
+ await import('./seed-major-jobs.mjs');
 }
 

@@ -8,6 +8,8 @@ if(process.env.VERCEL_ENV!=='production'){
  }
  await import('./migrate-db.mjs');
  const sql=neon(process.env.DATABASE_URL);
+ const recentRuns=await sql.query('SELECT id,started,finished,status,checked FROM runs ORDER BY started DESC LIMIT 5');
+ console.log('Refresh lifecycle diagnostic:',JSON.stringify(recentRuns));
  const marker=await sql.query("SELECT value FROM settings WHERE key='initial_import_complete'");
  if(marker[0]?.value!=='true')await import('./seed-db.mjs');
  else console.log('Initial import already completed; current jobs and schedule status preserved.');

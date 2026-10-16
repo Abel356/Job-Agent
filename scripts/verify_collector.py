@@ -10,6 +10,30 @@ class Response:
     def read(self,n):return b'{"ok":true}'
     def geturl(self):return 'https://example.com/careers'
 class CollectorTests(unittest.TestCase):
+    def test_employer_discovery_uses_links_not_copied_jobs(self):
+        body='''<table><tr><td><strong>Example Labs</strong></td><td>Do not import this title</td><td><a href="https://jobs.ashbyhq.com/example/one/application?utm_source=Simplify">Apply</a><a href="https://simplify.jobs/p/123">Mirror</a></td></tr><tr><td>↳</td><td><a href="https://jobs.ashbyhq.com/example/two">Apply</a></td></tr><tr><td>Other</td><td><a href="https://jobs.smartrecruiters.com/Other/123-role">Apply</a></td></tr></table>'''
+        boards=m.discover_employer_boards(body,m.EMPLOYER_INDEXES[0])
+        self.assertEqual(len(boards),2)
+        self.assertEqual(boards[0]['name'],'Example Labs')
+        self.assertEqual(boards[0]['board_url'],'https://jobs.ashbyhq.com/example')
+        self.assertNotIn('Do not import',json.dumps(boards))
+        self.assertNotIn('simplify.jobs/p',json.dumps(boards))
+        self.assertEqual(boards[1]['kind'],'smartrecruiters')
+    def test_discovery_format_change_reports_incomplete(self):
+        with self.assertRaises(ValueError):m.discover_employer_boards('Format changed',m.EMPLOYER_INDEXES[0])
+    def test_smartrecruiters_pagination_and_employer_details(self):
+        source=m.feed_source('https://jobs.smartrecruiters.com/Example/123-role','Example')
+        responses=[{'content':[{'id':'a'}],'totalFound':2},{'content':[{'id':'b'}],'totalFound':2}]
+        detail={'name':'Electrical Engineer','postingUrl':'https://jobs.smartrecruiters.com/Example/123-role','company':{'name':'Example'},'location':{'city':'Toronto','country':'ca'},'jobAd':{'sections':{'qualifications':{'title':'Qualifications','text':'<p>PCB required</p>'}}}}
+        def fetch(url,**kwargs):return (json.dumps(responses.pop(0) if '?' in url else detail),url)
+        with patch.object(m,'fetch',side_effect=fetch):rows=m.smartrecruiters(source)
+        self.assertEqual(len(rows),2);self.assertEqual(rows[0]['employerName'],'Example');self.assertIn('PCB required',rows[0]['descriptionPlain'])
+    def test_smartrecruiters_partial_feed_cannot_close_jobs(self):
+        source=m.feed_source('https://careers.smartrecruiters.com/Example','Example')
+        with patch.object(m,'fetch',return_value=(json.dumps({'totalFound':1,'content':[]}),'https://api.smartrecruiters.com')):
+            with self.assertRaisesRegex(ValueError,'before all postings'):m.smartrecruiters(source)
+    def test_duplicate_tracking_and_application_links_share_identity(self):
+        self.assertEqual(m.ident('https://jobs.ashbyhq.com/example/abc/application?utm_source=first'),m.ident('https://jobs.ashbyhq.com/example/abc?utm_source=second'))
     def test_expiration_failure_releases_owned_run(self):
         calls=[]
         def api(path,data=None):

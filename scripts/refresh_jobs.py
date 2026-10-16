@@ -190,10 +190,15 @@ def normalize(j,s,existing):
 
 def feed_source(url,name):
     p=urlsplit(url);parts=[unquote(x) for x in p.path.split('/') if x];h=(p.hostname or '').lower()
+    if p.scheme not in ['https','http'] or p.username or p.password:return None
     if h in ['amazon.jobs','www.amazon.jobs']:return {'id':'major:amazon','kind':'amazon','name':'Amazon','url':'https://www.amazon.jobs/en/search','board_url':'https://www.amazon.jobs/en/search','scope':'US and Canada'}
     if h in ['tesla.com','www.tesla.com'] and '/careers' in p.path:return {'id':'major:tesla','kind':'tesla','name':'Tesla','url':'https://www.tesla.com/careers/search','board_url':'https://www.tesla.com/careers/search','scope':'US and Canada'}
     if h in ['metacareers.com','www.metacareers.com']:return {'id':'major:meta','kind':'meta','name':'Meta','url':'https://www.metacareers.com/jobsearch/sitemap.xml','board_url':'https://www.metacareers.com/jobs/','scope':'All public sitemap postings'}
     if not parts:return None
+    if h in ['jobs.smartrecruiters.com','careers.smartrecruiters.com']:
+        slug=parts[0]
+        if not re.fullmatch(r'[A-Za-z0-9_-]+',slug):return None
+        return {'id':'smartrecruiters:'+slug.lower(),'kind':'smartrecruiters','slug':slug,'name':name,'url':f'https://api.smartrecruiters.com/v1/companies/{quote(slug,safe="")}/postings','board_url':f'https://careers.smartrecruiters.com/{slug}'}
     if h=='apply.workable.com' and parts[0] not in ['j','api']:
         slug=parts[0];return {'id':'workable:'+slug.lower(),'kind':'workable','slug':slug,'name':name,'url':f'https://apply.workable.com/{slug}/llms.txt','board_url':f'https://apply.workable.com/{slug}/'}
     if h.endswith('.myworkdayjobs.com'):
@@ -224,6 +229,55 @@ def schema_normalize(j,url):
     return {'title':j.get('title'),'location':' | '.join(names),'countryCodes':codes,'employerName':org.get('name'),'employerWebsite':org.get('url') or org.get('sameAs'),'descriptionPlain':plain(j.get('description','')),'isRemote':j.get('jobLocationType')=='TELECOMMUTE','workplaceType':'Remote' if j.get('jobLocationType')=='TELECOMMUTE' else '', 'publishedAt':j.get('datePosted'),'dateBasis':'Posting date (website metadata)','validThrough':j.get('validThrough'),'employmentType':j.get('employmentType'),'jobUrl':urljoin(url,j.get('url') or url),'applyUrl':urljoin(url,j.get('url') or url),'baseSalary':j.get('baseSalary')}
 
 SPEEDRUN={'id':'portfolio:speedrun','kind':'speedrun','name':'a16z Speedrun portfolio','url':'https://speedrun.a16z.com/companies'}
+EMPLOYER_INDEXES=[
+    {'id':'discovery:simplify-internships','kind':'employer-index','name':'Simplify / Pitt CSC employer discovery','url':'https://raw.githubusercontent.com/SimplifyJobs/Summer2027-Internships/dev/README.md','board_url':'https://github.com/SimplifyJobs/Summer2027-Internships'},
+    {'id':'discovery:simplify-new-grad','kind':'employer-index','name':'Simplify new-grad employer discovery','url':'https://raw.githubusercontent.com/SimplifyJobs/New-Grad-Positions/dev/README.md','board_url':'https://github.com/SimplifyJobs/New-Grad-Positions'},
+]
+
+def discover_employer_boards(body,source):
+    """Only employer names and supported ATS URLs. Never import third-party job records."""
+    found={};company='';rows=re.findall(r'<tr\b[^>]*>(.*?)</tr>',body,re.I|re.S)
+    if not rows:raise ValueError('Employer directory format changed; no table rows found')
+    for row in rows:
+        cells=re.findall(r'<td\b[^>]*>(.*?)</td>',row,re.I|re.S)
+        if not cells:continue
+        name=visible_text(cells[0]).strip().strip('🔥').strip()
+        if name and name not in ['↳','↪','→']:company=name[:150]
+        if not company:continue
+        for url in Page(row).links:
+            board=feed_source(url,company)
+            if board:
+                # Do not retain the original role URL or description from the directory.
+                if board['kind'] in ['ashby','greenhouse','lever','lever-eu']:
+                    host={'ashby':'jobs.ashbyhq.com','greenhouse':'job-boards.greenhouse.io','lever':'jobs.lever.co','lever-eu':'jobs.eu.lever.co'}[board['kind']]
+                    board['board_url']=f'https://{host}/{quote(board["slug"],safe="")}'
+                found[board['id']]={**board,'discovered_from':source['board_url'],'discovery_method':'Employer name and ATS link; postings verified from employer feed'}
+    if not found:raise ValueError('Employer directory contains no supported employer links; review required')
+    return list(found.values())
+
+def smartrecruiters(s):
+    items=[];seen=set();offset=0;total=None
+    while True:
+        body,_=fetch(s['url']+f'?limit=100&offset={offset}',source=s);data=json.loads(body)
+        batch=data.get('content');count=data.get('totalFound')
+        if not isinstance(batch,list) or not isinstance(count,int):raise ValueError('SmartRecruiters feed has invalid pagination')
+        total=count
+        if not batch:
+            if offset<total:raise ValueError('SmartRecruiters stopped before all postings were read')
+            break
+        for item in batch:
+            if not item.get('id') or item['id'] in seen:raise ValueError('SmartRecruiters repeated or invalid posting ID')
+            seen.add(item['id']);items.append(item)
+        offset+=len(batch)
+        if offset>=total:break
+        if offset>=10000:raise ValueError('SmartRecruiters coverage limit reached; keeping existing listings')
+    def read(item):
+        body,_=fetch(s['url']+'/'+quote(str(item['id']),safe=''),source=s);j=json.loads(body)
+        loc=j.get('location') or {};sections=(j.get('jobAd') or {}).get('sections') or {}
+        if not j.get('name') or not j.get('postingUrl'):raise ValueError('SmartRecruiters detail is missing required fields')
+        description='\n'.join(str(v.get('title',''))+'\n'+plain(v.get('text','')) for v in sections.values() if isinstance(v,dict))
+        return {'title':j['name'],'location':', '.join(str(loc[k]) for k in ['city','region','country'] if loc.get(k)),'countryCodes':[loc['country']] if loc.get('country') else [],'descriptionPlain':description,'publishedAt':j.get('releasedDate',''),'dateBasis':'Posting release date (employer feed)','jobUrl':j['postingUrl'],'applyUrl':j['postingUrl'],'department':(j.get('department') or {}).get('label',''),'employmentType':(j.get('typeOfEmployment') or {}).get('label',''),'isRemote':loc.get('remote',False),'employerName':(j.get('company') or {}).get('name') or s['name']}
+    with cf.ThreadPoolExecutor(max_workers=4) as pool:return list(pool.map(read,items))
 
 def website_key(url):
     p=urlsplit(url or '');host=(p.hostname or '').lower().removeprefix('www.')
@@ -438,8 +492,10 @@ def meta_jobs(s):
 def collect(s,existing,known,allow_fallback=True):
     jobs=[];seen=[];closed=[];errors=[];complete=False;discovered=[];raw=[]
     try:
-        body,_=('',s['url']) if s['kind'] in ['workday','speedrun','amazon','tesla','meta'] or (s['kind']=='fortune-company' and s.get('website')) else fetch(s['url']+('&' if '?' in s['url'] else '?')+'includeCompensation=true' if s['kind']=='ashby' and 'includeCompensation' not in s['url'] else s['url'],source=s)
+        body,_=('',s['url']) if s['kind'] in ['workday','speedrun','amazon','tesla','meta','smartrecruiters'] or (s['kind']=='fortune-company' and s.get('website')) else fetch(s['url']+('&' if '?' in s['url'] else '?')+'includeCompensation=true' if s['kind']=='ashby' and 'includeCompensation' not in s['url'] else s['url'],source=s)
         if s['kind']=='speedrun':discovered=speedrun_profiles();complete=True
+        elif s['kind']=='employer-index':discovered=discover_employer_boards(body,s);complete=True
+        elif s['kind']=='smartrecruiters':raw=smartrecruiters(s);complete=True
         elif s['kind']=='speedrun-company':discovered=[speedrun_company(body,s)];complete=True
         elif s['kind']=='fortune-company':discovered=[fortune_company(body,s)];complete=True
         elif s['kind']=='workday':raw=workday(s);complete=True
@@ -517,7 +573,7 @@ def collect(s,existing,known,allow_fallback=True):
     result={'source':s,'jobs':jobs,'seen_ids':seen,'closed_ids':closed,'complete':complete and not any(e.startswith(('Job feed:','Application check:')) for e in errors),'error':source_error,'discovered':discovered}
     if not source_error and result['complete'] and s.get('recovery'):
         s['recovery']={**s['recovery'],'checked_at':NOW(),'note':'Jobs checked through the verified Ashby board; the original source issue is retained for reference.'}
-    if source_error and allow_fallback and s['kind']!='speedrun':
+    if source_error and allow_fallback and s['kind'] not in ['speedrun','employer-index']:
         recovered=recover_ashby(s,existing,known,source_error,result)
         if recovered:return recovered
         result['error']+='; Ashby fallback: no verified replacement found'
@@ -592,8 +648,9 @@ def main():
         existing.update((j['id'],j) for j in page['existing']);cursor=page.get('next_cursor')
         if not cursor:break
     sources=state['sources'];known=set().union(*(source_keys(s) for s in sources))
-    if SPEEDRUN['id'] not in known:
-        api('register-source',{'source':SPEEDRUN});sources.append(SPEEDRUN);known.add(SPEEDRUN['id'])
+    for index in [SPEEDRUN,*EMPLOYER_INDEXES]:
+        if index['id'] not in known:
+            api('register-source',{'source':index});sources.append(index);known.add(index['id'])
     # Existing opportunities can reveal ATS boards absent from the registry.
     for job in existing.values():
         f=feed_source(job.get('apply_url',''),job.get('company') or 'Discovered employer')

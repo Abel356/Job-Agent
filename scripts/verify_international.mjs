@@ -5,7 +5,7 @@ import path from 'node:path';
 import {createRequire} from 'node:module';
 import ts from 'typescript';
 const temp=fs.mkdtempSync(path.join(os.tmpdir(),'earthwork-international-'));
-for(const name of ['job-facets','international','reviewed-categories','jobs','job-query']){
+for(const name of ['matching','job-facets','international','reviewed-categories','jobs','job-query']){
  const src=fs.readFileSync(new URL('../lib/'+name+'.ts',import.meta.url),'utf8');
  fs.writeFileSync(path.join(temp,name+'.js'),ts.transpileModule(src,{compilerOptions:{esModuleInterop:true,module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}}).outputText.replaceAll('../data/','./data/'));
 }

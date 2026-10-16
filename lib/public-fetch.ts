@@ -1,5 +1,5 @@
 // Only registered company/ATS sources may be fetched. Site credentials never leave this origin.
-const ATS=new Set(['api.ashbyhq.com','jobs.ashbyhq.com','boards-api.greenhouse.io','boards.greenhouse.io','job-boards.greenhouse.io','api.lever.co','api.eu.lever.co','jobs.lever.co','jobs.eu.lever.co']);
+const ATS=new Set(['api.smartrecruiters.com','jobs.smartrecruiters.com','careers.smartrecruiters.com','api.ashbyhq.com','jobs.ashbyhq.com','boards-api.greenhouse.io','boards.greenhouse.io','job-boards.greenhouse.io','api.lever.co','api.eu.lever.co','jobs.lever.co','jobs.eu.lever.co']);
 function allowed(url:URL,source:any){
  if(!['https:','http:'].includes(url.protocol)||url.username||url.password||(url.port&&url.port!=='443'&&url.port!=='80'))return false;
  const h=url.hostname.toLowerCase();if(ATS.has(h))return true;

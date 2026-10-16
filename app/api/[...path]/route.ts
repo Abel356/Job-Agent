@@ -14,7 +14,7 @@ export async function GET(req:Request){if(!authorized(req))return response({erro
  if(p==='migration-export'){const [jobs,sources,runs,settings]=await Promise.all([all<any>('SELECT * FROM jobs'),all<any>('SELECT * FROM sources'),all<any>('SELECT * FROM runs'),all<any>('SELECT * FROM settings')]);return response({schema_version:1,exported_at:new Date().toISOString(),jobs,sources,runs,settings});}
  if(p==='jobs'){
   const cursor=new URL(req.url).searchParams.get('after')||'';
-  const rows=await all<any>("SELECT id,CASE WHEN data::jsonb->'international'->>'version'='2' THEN (data::jsonb - 'description')::text ELSE data END AS data,first_seen,last_seen,category_override FROM jobs WHERE active=1 AND id>? ORDER BY id LIMIT 250",[cursor]);
+  const rows=await all<any>("SELECT id,CASE WHEN data::jsonb->'international'->>'version'='2' AND data::jsonb->'match_signals'->>'version'='1' THEN (data::jsonb - 'description')::text ELSE data END AS data,first_seen,last_seen,category_override FROM jobs WHERE active=1 AND id>? ORDER BY id LIMIT 250",[cursor]);
   const [settings,runs]=await Promise.all([all<any>('SELECT key,value FROM settings'),all<any>('SELECT * FROM runs ORDER BY started DESC LIMIT 12')]);
   return response({jobs:rows.map(rowJob).filter(j=>!deadlinePassed(j.deadline_iso||j.deadline||'')).map(({description,...j})=>j),next_cursor:rows.length===250?rows.at(-1).id:null,settings:Object.fromEntries(settings.map(r=>[r.key,JSON.parse(r.value)])),runs});
  }
@@ -33,7 +33,7 @@ export async function POST(req:Request){if(!authorized(req))return response({err
  // Maintenance uses a separate bearer secret; visitors use owner sessions.
  const origin=req.headers.get('origin');if(origin&&origin!==new URL(req.url).origin)return response({error:'Cross-origin write denied'},403);
  const p=path(req),body:any=await req.json(),database=db();
- if(p==='register-source'){const s=body.source;if(!s?.id||!s.name||!['ashby','greenhouse','lever','lever-eu','html','workday','workable','speedrun','speedrun-company','fortune-company','amazon','tesla','meta'].includes(s.kind)||!/^https?:\/\//.test(s.url))return response({error:'Invalid source'},400);await database.prepare('INSERT INTO sources(id,data,status) VALUES(?,?,?) ON CONFLICT(id) DO NOTHING').bind(s.id,JSON.stringify(s),'New source').run();return response({saved:true});}
+ if(p==='register-source'){const s=body.source;if(!s?.id||!s.name||!['ashby','greenhouse','lever','lever-eu','html','workday','workable','speedrun','speedrun-company','fortune-company','amazon','tesla','meta','smartrecruiters','employer-index'].includes(s.kind)||!/^https?:\/\//.test(s.url))return response({error:'Invalid source'},400);await database.prepare('INSERT INTO sources(id,data,status) VALUES(?,?,?) ON CONFLICT(id) DO NOTHING').bind(s.id,JSON.stringify(s),'New source').run();return response({saved:true});}
  if(p==='public-fetch'){
   if(typeof body.url!=='string'||typeof body.source_id!=='string')return response({error:'Invalid source request'},400);
   const source=await database.prepare('SELECT data FROM sources WHERE id=?').bind(body.source_id).first<any>();if(!source)return response({error:'Unknown source'},404);
@@ -55,7 +55,7 @@ export async function POST(req:Request){if(!authorized(req))return response({err
  if(p==='import'){
   if(!Array.isArray(body.jobs)||body.jobs.length>100||!Array.isArray(body.sources)||body.sources.length>100)return response({error:'Invalid import batch'},400);
   const now=body.checked_at||new Date().toISOString();const statements=[];
-  for(const s of body.sources){if(!s.id||!s.name||!['ashby','greenhouse','lever','lever-eu','html','workable','workday','speedrun','speedrun-company','fortune-company','amazon','tesla','meta'].includes(s.kind))throw Error('Invalid source');statements.push(database.prepare('INSERT INTO sources(id,data,checked,status,error) VALUES(?,?,?,?,?) ON CONFLICT(id) DO NOTHING').bind(s.id,JSON.stringify(s),s.checked||now,s.status||'Imported',s.error||''));}
+  for(const s of body.sources){if(!s.id||!s.name||!['ashby','greenhouse','lever','lever-eu','html','workable','workday','speedrun','speedrun-company','fortune-company','amazon','tesla','meta','smartrecruiters','employer-index'].includes(s.kind))throw Error('Invalid source');statements.push(database.prepare('INSERT INTO sources(id,data,checked,status,error) VALUES(?,?,?,?,?) ON CONFLICT(id) DO NOTHING').bind(s.id,JSON.stringify(s),s.checked||now,s.status||'Imported',s.error||''));}
   for(const raw of body.jobs){if(!raw.id||!raw.source_id||!/^https?:\/\//.test(raw.apply_url))throw Error('Invalid job');const j=decorate(raw);statements.push(database.prepare('INSERT INTO jobs(id,source_id,data,active,first_seen,last_seen) VALUES(?,?,?,1,?,?) ON CONFLICT(id) DO NOTHING').bind(j.id,j.source_id,JSON.stringify(j),now,j.link_checked_at||now));}
   for(let i=0;i<statements.length;i+=80)await database.batch(statements.slice(i,i+80));return response({imported:statements.length});
  }

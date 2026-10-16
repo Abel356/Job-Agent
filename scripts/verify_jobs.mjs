@@ -6,7 +6,7 @@ import os from 'node:os';
 import path from 'node:path';
 import {createRequire} from 'node:module';
 const temp=fs.mkdtempSync(path.join(os.tmpdir(),'earthwork-check-'));
-for(const name of ['job-facets','international','reviewed-categories','jobs','job-query']){const input=fs.readFileSync(new URL('../lib/'+name+'.ts',import.meta.url),'utf8');const output=ts.transpileModule(input,{compilerOptions:{esModuleInterop:true,module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}}).outputText.replaceAll('../data/','./data/');fs.writeFileSync(path.join(temp,name+'.js'),output);}
+for(const name of ['matching','job-facets','international','reviewed-categories','jobs','job-query']){const input=fs.readFileSync(new URL('../lib/'+name+'.ts',import.meta.url),'utf8');const output=ts.transpileModule(input,{compilerOptions:{esModuleInterop:true,module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}}).outputText.replaceAll('../data/','./data/');fs.writeFileSync(path.join(temp,name+'.js'),output);}
 fs.mkdirSync(path.join(temp,'data'));fs.copyFileSync(new URL('../data/employer-groups.json',import.meta.url),path.join(temp,'data/employer-groups.json'));
 const require=createRequire(import.meta.url);
 const {decorate,classify}=require(path.join(temp,'jobs.js'));

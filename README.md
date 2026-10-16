@@ -66,3 +66,13 @@ Career-stage version 2 checks title and explicit description evidence for new gr
 
 Dedicated collectors use Amazon's public careers search (US/Canada, paginated), Tesla's public careers index and job details (US/Canada), and Meta's public job sitemap plus JobPosting metadata (global). Amazon's 10,000-result cap or failed details mark coverage incomplete and preserve existing listings. A small live-verified initial sample is imported once without overwriting existing jobs; it is not full employer coverage. Daily refresh runs at noon Toronto time after the GitHub updater secret is configured. No AI service is used.
 
+
+## Résumé matching and employer discovery
+
+My résumé & matches reads text-based PDF (up to 3 MB / 15 pages), text files, or pasted text in the browser. Confirm skills, demonstrated skills, degree status, graduation year, relevant experience years and optional role preferences before saving. The original résumé and text are never submitted to the server. A versioned compact profile is stored in localStorage on that browser until Remove profile is used; it does not sync across devices. Matching uses no AI, embeddings or external résumé processing.
+
+Scores compare recognized skills (40), demonstrated experience/project skills (15), relevant years (10), career stage (10), selected role fields (10), degree (8), and graduation window (7). Unknown factors are excluded and the remaining weights normalized; the UI reports evidence coverage. Scores require at least 40 points of assessable weight and are not hiring probabilities. Sponsorship/citizenship notices are separate. Required/preferred extraction is conservative and a finite vocabulary cannot interpret every qualification; inspect the original posting.
+
+Daily noon Toronto collection reads public Simplify/Pitt CSC internship and Simplify new-grad directory employer names and direct ATS links. It does not mirror third-party job descriptions, dates, role lists or sponsorship assessments. Supported boards are deduplicated by provider and employer account, registered and then collected directly from employer feeds. The initial employer-link snapshot is in data/employer-discovery.json; future new links are found by each scheduled refresh. SmartRecruiters public postings now join Ashby, Greenhouse, Lever, Workday, Workable and existing direct integrations. Job identity strips tracking queries and apply/application suffixes. Feed failures never confirm closures.
+
+Production bootstrap inserts previously unknown boards and backfills compact non-personal match signals in batches. Existing source data is preserved. The build copies the installed PDF.js worker to public/pdf.worker.min.mjs.

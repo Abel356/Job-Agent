@@ -17,5 +17,6 @@ if(process.env.VERCEL_ENV!=='production'){
  await import('./seed-discovery.mjs');
  await import('./apply-source-repairs.mjs');
  await import('./seed-major-jobs.mjs');
+ await import('./seed-matching.mjs');
 }
 

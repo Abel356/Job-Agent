@@ -1,5 +1,5 @@
 """Checks deadline safety and credential isolation without network requests."""
-import importlib.util,json,unittest
+import importlib.util,json,unittest,tempfile,os
 from unittest.mock import patch
 from pathlib import Path
 s=importlib.util.spec_from_file_location('collector',Path(__file__).with_name('refresh_jobs.py'))
@@ -10,6 +10,41 @@ class Response:
     def read(self,n):return b'{"ok":true}'
     def geturl(self):return 'https://example.com/careers'
 class CollectorTests(unittest.TestCase):
+    def test_expiration_failure_releases_owned_run(self):
+        calls=[]
+        def api(path,data=None):
+            calls.append((path,data))
+            if path=='start-run':return {'id':data['run_id']}
+            if path=='expire':raise RuntimeError('Database unavailable')
+            return {'finished':True}
+        with patch.object(m,'api',side_effect=api),patch.dict(os.environ,{'REFRESH_RUN_STATE':''}):
+            with self.assertRaisesRegex(RuntimeError,'Database unavailable'):
+                with m.refresh_run() as run:m.expire_jobs(run)
+        self.assertEqual(calls[-1],('finish-run',{'run_id':run,'interrupted':True}))
+    def test_lost_start_response_cleans_only_owned_id(self):
+        calls=[]
+        def api(path,data=None):
+            calls.append((path,data))
+            if path=='start-run':raise OSError('Lost response after commit')
+            return {'finished':True}
+        with tempfile.TemporaryDirectory() as temp,patch.dict(os.environ,{'REFRESH_RUN_STATE':temp+'/run'}),patch.object(m,'api',side_effect=api):
+            with self.assertRaises(OSError):
+                with m.refresh_run():self.fail('Unconfirmed start must not collect')
+            stored=Path(temp+'/run').read_text()
+            self.assertEqual(calls[0][1]['run_id'],stored)
+            self.assertEqual(calls[-1][1]['run_id'],stored)
+    def test_paginated_expiration(self):
+        with patch.object(m,'api',side_effect=[{'expired':2,'next_cursor':'abc'},{'expired':3,'next_cursor':None}]) as api:
+            self.assertEqual(m.expire_jobs('run'),5)
+        self.assertEqual(api.call_args_list[1].args,('expire',{'run_id':'run','after':'abc'}))
+    def test_expiration_cursor_must_advance(self):
+        with patch.object(m,'api',return_value={'expired':0,'next_cursor':'abc'}):
+            with self.assertRaisesRegex(RuntimeError,'cursor did not advance'):m.expire_jobs('run')
+    def test_workflow_cleanup_does_not_touch_completed_runs(self):
+        run=str(m.uuid.uuid4())
+        with tempfile.TemporaryDirectory() as temp,patch.dict(os.environ,{'REFRESH_RUN_STATE':temp+'/run'}),patch.object(m,'api',return_value={'finished':False}) as api:
+            Path(temp+'/run').write_text(run);m.cleanup_run()
+            api.assert_called_once_with('finish-run',{'run_id':run,'interrupted':True})
     def test_amazon_countries_and_pagination(self):
         calls=[]
         def read(url,**kw):

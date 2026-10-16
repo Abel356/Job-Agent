@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """Scheduled company job collection. Standard library only; no AI services."""
-import argparse, concurrent.futures as cf, datetime as dt, hashlib, html, json, os, re, sys, time, threading
+import argparse, concurrent.futures as cf, datetime as dt, hashlib, html, json, os, re, sys, time, threading, uuid
+from pathlib import Path
+from contextlib import contextmanager
 from html.parser import HTMLParser
 from urllib.parse import urlsplit, urljoin, quote, unquote, parse_qs
 from urllib.request import Request, urlopen, build_opener, HTTPRedirectHandler
@@ -24,7 +26,7 @@ def api(path,data=None):
     if TOKEN:headers['Authorization']='Bearer '+TOKEN
     if os.environ.get('VERCEL_AUTOMATION_BYPASS_SECRET'):headers['x-vercel-protection-bypass']=os.environ['VERCEL_AUTOMATION_BYPASS_SECRET']
     request=Request(ORIGIN+'/api/'+path,data=payload,headers=headers)
-    attempts=3 if data is None or path in ['import','settings','category','finish-run'] else 1
+    attempts=3 if data is None or path in ['import','settings','category','finish-run','expire'] or (path=='start-run' and data.get('run_id')) else 1
     for attempt in range(attempts):
         try:
             with build_opener(NoRedirect()).open(request,timeout=90) as r:return json.load(r)
@@ -533,8 +535,57 @@ def save_result(result):
     if batch:api('ingest',{**result,'jobs':batch,'seen_ids':[],'closed_ids':[],'complete':False,'partial':True})
     return api('ingest',{**result,'jobs':[],'partial':False})
 
+@contextmanager
+def refresh_run():
+    # Persist our own ID before starting, so a lost response or runner failure
+    # can be cleaned up without touching another collector's run.
+    run=str(uuid.uuid4())
+    if os.environ.get('REFRESH_RUN_STATE'):Path(os.environ['REFRESH_RUN_STATE']).write_text(run)
+    try:
+        started=api('start-run',{'run_id':run})
+        if started['id']!=run:raise RuntimeError('Refresh identifier mismatch')
+        yield run
+    except BaseException:
+        try:api('finish-run',{'run_id':run,'interrupted':True})
+        except Exception as e:print('Refresh cleanup failed; workflow cleanup will retry:',type(e).__name__,flush=True)
+        raise
+
+def cleanup_run():
+    state=os.environ.get('REFRESH_RUN_STATE')
+    if state and Path(state).exists():
+        run=str(uuid.UUID(Path(state).read_text().strip()))
+        print(json.dumps({'cleanup':api('finish-run',{'run_id':run,'interrupted':True})}),flush=True)
+
+def expire_jobs(run):
+    expired=0;cursor=''
+    while True:
+        result=api('expire',{'run_id':run,'after':cursor});expired+=result['expired']
+        following=result.get('next_cursor')
+        if not following:return expired
+        if following<=cursor:raise RuntimeError('Expiration cursor did not advance')
+        cursor=following
+
+def verify_lifecycle():
+    with refresh_run() as first:
+        assert api('start-run',{'run_id':first})['id']==first, 'Start retry must reuse its own run'
+        try:api('start-run',{'run_id':str(uuid.uuid4())})
+        except HTTPError as e:
+            if e.code!=409:raise
+        else:raise AssertionError('Concurrent refresh must be rejected')
+        print(json.dumps({'expired':expire_jobs(first)}),flush=True)
+        api('finish-run',{'run_id':first,'verification':True})
+    # Verify that a failed cleanup phase releases the lock for the next run.
+    class VerificationFailure(Exception):pass
+    try:
+        with refresh_run():raise VerificationFailure()
+    except VerificationFailure:pass
+    with refresh_run() as last:api('finish-run',{'run_id':last,'verification':True})
+    print('Refresh lifecycle verified: start retry, overlap protection, paginated expiration, failure cleanup and restart.',flush=True)
+
 def main():
-    parser=argparse.ArgumentParser();parser.add_argument('--limit',type=int,default=0);parser.add_argument('--source');args=parser.parse_args()
+    parser=argparse.ArgumentParser();parser.add_argument('--limit',type=int,default=0);parser.add_argument('--source');parser.add_argument('--cleanup',action='store_true');parser.add_argument('--verify-lifecycle',action='store_true');args=parser.parse_args()
+    if args.cleanup:return cleanup_run()
+    if args.verify_lifecycle:return verify_lifecycle()
     state=api('sources');existing={};cursor=''
     while True:
         page=api('existing-jobs'+('?after='+quote(cursor,safe='') if cursor else ''))
@@ -551,8 +602,9 @@ def main():
     if args.limit:sources=sources[:args.limit]
     global FX
     FX=api('rates')
-    run=api('start-run',{})['id'];print(json.dumps({'expired':api('expire',{'run_id':run})['expired']}),flush=True);count=0;failed=0;writes_failed=0
-    try:
+    count=0;failed=0;writes_failed=0
+    with refresh_run() as run:
+        print(json.dumps({'expired':expire_jobs(run)}),flush=True)
         with cf.ThreadPoolExecutor(max_workers=20) as pool, cf.ThreadPoolExecutor(max_workers=8) as writers:
             futures={pool.submit(collect,s,existing,known):s for s in sources}
             saves={}
@@ -581,9 +633,5 @@ def main():
         api('finish-run',{'run_id':run,'error':bool(failed or writes_failed)})
         print(json.dumps({'run_id':run,'checked':count,'incomplete':failed,'save_errors':writes_failed}),flush=True)
         if writes_failed:sys.exit(1)
-    except BaseException:
-        try:api('finish-run',{'run_id':run,'error':True})
-        except:pass
-        raise
 if __name__=='__main__':main()
 

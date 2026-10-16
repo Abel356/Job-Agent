@@ -40,9 +40,17 @@ export async function POST(req:Request){if(!authorized(req))return response({err
   try{return response(await fetchSource(body.url,JSON.parse(source.data),body.request_data));}catch(e){return response({status:502,body:e instanceof Error?e.message:'Source could not be fetched',url:body.url});}
  }
  if(p==='expire'){
-  const rows=await all<any>('SELECT id,data FROM jobs WHERE active=1');const expired=rows.filter(r=>{const j=JSON.parse(r.data);return deadlinePassed(j.deadline_iso||j.deadline||'');});
-  const stm=expired.map(r=>database.prepare("UPDATE jobs SET active=0,data=(data::jsonb || jsonb_build_object('closure_reason','Application deadline passed','closed_at',?::text))::text WHERE id=?").bind(new Date().toISOString(),r.id));for(let i=0;i<stm.length;i+=80)await database.batch(stm.slice(i,i+80));
-  if(body.run_id&&expired.length)await database.prepare("UPDATE runs SET closed=closed+? WHERE id=? AND status='running'").bind(expired.length,body.run_id).run();return response({expired:expired.length});
+  // Read only deadline metadata in bounded pages, never every full description.
+  const cursor=typeof body.after==='string'?body.after:'';
+  const rows=await all<any>("SELECT id,data::jsonb->>'deadline_iso' AS deadline_iso,data::jsonb->>'deadline' AS deadline FROM jobs WHERE active=1 AND id>? ORDER BY id LIMIT 500",[cursor]);
+  const expired=rows.filter(r=>deadlinePassed(r.deadline_iso||r.deadline||'')).map(r=>r.id);
+  let count=0;
+  if(expired.length){
+   // One atomic statement makes retries safe, including the run's closed count.
+   const result=await database.prepare("WITH expired AS (UPDATE jobs SET active=0,data=(data::jsonb || jsonb_build_object('closure_reason','Application deadline passed','closed_at',?::text))::text WHERE active=1 AND id IN (SELECT jsonb_array_elements_text(?::jsonb)) RETURNING id), counted AS (SELECT COUNT(*)::integer AS amount FROM expired), run_update AS (UPDATE runs SET closed=closed+counted.amount FROM counted WHERE id=? AND status='running') SELECT amount FROM counted").bind(new Date().toISOString(),JSON.stringify(expired),body.run_id||'').first<{amount:number}>();
+   count=result?.amount||0;
+  }
+  return response({expired:count,next_cursor:rows.length===500?rows.at(-1).id:null});
  }
  if(p==='import'){
   if(!Array.isArray(body.jobs)||body.jobs.length>100||!Array.isArray(body.sources)||body.sources.length>100)return response({error:'Invalid import batch'},400);
@@ -59,13 +67,16 @@ export async function POST(req:Request){if(!authorized(req))return response({err
   await database.prepare('UPDATE jobs SET category_override=? WHERE id=?').bind(body.category,body.id).run();return response({saved:true});
  }
  if(p==='start-run'){
-  const now=new Date().toISOString(),cutoff=new Date(Date.now()-3*3600000).toISOString(),id=crypto.randomUUID();
+  if(body.run_id!==undefined&&(typeof body.run_id!=='string'||! /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(body.run_id)))return response({error:'Invalid refresh identifier'},400);
+  const now=new Date().toISOString(),cutoff=new Date(Date.now()-3*3600000).toISOString(),id=body.run_id||crypto.randomUUID();
   const result=await database.batch([
    database.prepare('SELECT pg_advisory_xact_lock(74198632)'),
    database.prepare("UPDATE runs SET status='interrupted',finished=? WHERE status='running' AND started<?").bind(now,cutoff),
-   database.prepare("INSERT INTO runs(id,started,status) SELECT ?,?,'running' WHERE NOT EXISTS(SELECT 1 FROM runs WHERE status='running') RETURNING id").bind(id,now)
+   database.prepare("INSERT INTO runs(id,started,status) SELECT ?,?,'running' WHERE NOT EXISTS(SELECT 1 FROM runs WHERE status='running') ON CONFLICT(id) DO NOTHING RETURNING id").bind(id,now),
+   database.prepare("SELECT id,started FROM runs WHERE status='running'")
   ]);
-  return result[2]?.length?response({id}):response({error:'A refresh is already running'},409);
+  const active=result[3]?.[0];
+  return active?.id===id?response({id}):response({error:active?'A refresh is already running':'This refresh identifier has already finished',active_run:active||null},409);
  }
  if(p==='ingest'){
   if(!body.source||!body.run_id||!Array.isArray(body.jobs)||body.jobs.length>100)return response({error:'Invalid refresh batch'},400);
@@ -80,7 +91,7 @@ export async function POST(req:Request){if(!authorized(req))return response({err
   for(let i=0;i<statements.length;i+=80)await database.batch(statements.slice(i,i+80));
   await database.prepare('UPDATE runs SET checked=checked+?,failed=failed+?,added=added+?,changed=changed+?,closed=closed+? WHERE id=? AND status=\'running\'').bind(body.partial?0:1,!body.partial&&body.error?1:0,added,changed,closed,body.run_id).run();return response({added,changed,closed});
  }
- if(p==='finish-run'){await database.prepare("UPDATE runs SET finished=?,status=? WHERE id=? AND status='running'").bind(new Date().toISOString(),body.error?'partial':'completed',body.run_id).run();return response({finished:true});}
+ if(p==='finish-run'){const result=await database.prepare("UPDATE runs SET finished=?,status=? WHERE id=? AND status='running' RETURNING id").bind(new Date().toISOString(),body.interrupted?'interrupted':body.verification?'verified':body.error?'partial':'completed',body.run_id).run();return response({finished:result.length>0});}
  return response({error:'Not found'},404);
  }catch(e){console.error(e);return response({error:'The update could not be saved. Please retry.'},500);}}
 

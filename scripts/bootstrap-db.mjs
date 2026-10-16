@@ -8,8 +8,9 @@ if(process.env.VERCEL_ENV!=='production'){
  }
  await import('./migrate-db.mjs');
  const sql=neon(process.env.DATABASE_URL);
- const recentRuns=await sql.query('SELECT id,started,finished,status,checked FROM runs ORDER BY started DESC LIMIT 5');
- console.log('Refresh lifecycle diagnostic:',JSON.stringify(recentRuns));
+ // Use the same three-hour limit as start-run; never clear a recent active run.
+ const interrupted=await sql.query("UPDATE runs SET status='interrupted',finished=$1 WHERE status='running' AND started<$2 RETURNING id",[new Date().toISOString(),new Date(Date.now()-3*3600000).toISOString()]);
+ console.log(`Refresh lifecycle: ${interrupted.length} abandoned runs released.`);
  const marker=await sql.query("SELECT value FROM settings WHERE key='initial_import_complete'");
  if(marker[0]?.value!=='true')await import('./seed-db.mjs');
  else console.log('Initial import already completed; current jobs and schedule status preserved.');

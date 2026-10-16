@@ -1,6 +1,11 @@
 name: Daily company job refresh
 on:
   workflow_dispatch:
+    inputs:
+      verify_only:
+        description: Verify refresh locking and expiration without collecting company feeds
+        type: boolean
+        default: false
   schedule:
     - cron: '0 12 * * *'
       timezone: 'America/Toronto'
@@ -20,6 +25,7 @@ jobs:
       UPDATER_SECRET: ${{ secrets.EARTHWORK_UPDATER_SECRET }}
       VERCEL_AUTOMATION_BYPASS_SECRET: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
       PUBLIC_FETCH_MODE: direct
+      REFRESH_RUN_STATE: ${{ runner.temp }}/earthwork-refresh-run-id
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-python@v6
@@ -35,8 +41,16 @@ jobs:
       - name: Verify collector before refreshing
         run: python scripts/verify_collector.py
       - name: Collect, verify and update company postings
+        if: ${{ !inputs.verify_only }}
         run: python scripts/refresh_jobs.py
+      - name: Verify deployed refresh lifecycle
+        if: ${{ inputs.verify_only }}
+        run: python scripts/refresh_jobs.py --verify-lifecycle
+      - name: Release this workflow's unfinished refresh
+        if: ${{ always() }}
+        run: python scripts/refresh_jobs.py --cleanup
       - name: Mark schedule connected
+        if: ${{ success() && !inputs.verify_only }}
         run: |
           python - <<'PY'
           import importlib.util

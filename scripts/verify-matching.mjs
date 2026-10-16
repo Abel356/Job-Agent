@@ -19,3 +19,10 @@ const stored={...job,description:undefined,match_signals:jobSignals(job.position
 assert.equal(validateProfile({version:2}),null);assert.equal(validateProfile({...p,years:-2}).years,null);
 assert.equal(jobSignals('Engineer','Bachelor degree or equivalent experience required.').equivalent,true);
 console.log('Résumé extraction, aliases, evidence, scoring, unknowns, privacy boundaries and eligibility separation verified.');
+
+const flattened=jobSignals('Junior Developer',"About us: We use machine learning. What we're looking for: - You have 0-2+ years of experience in software development. - Experience with Python. Bonus points for: - Experience with Rust and Golang. What you can expect: - Build security libraries. USA-based roles only: The salary is $100,000 CAD. Our culture We use machine learning in the recruitment process.");
+assert.deepEqual(flattened.required,['Python']);assert.deepEqual(flattened.preferred,['Go','Rust']);assert.equal(flattened.years,0);assert(!flattened.skills.includes('CAD'));assert(!flattened.skills.includes('Machine learning'));
+assert(!skillsIn('Salary CAD 120,000 or $100,000 CAD. Excel at teamwork.').includes('CAD'));assert(!skillsIn('Excel at teamwork').includes('Excel'));assert(skillsIn('Experience using CAD and Excel').includes('CAD'));
+assert(!jobSignals('Developer','Python is not required. Rust required.').skills.includes('Python'));
+assert.equal(scoreJob({...base,description:'Python required. 0-2 years of experience.'},{...p,years:0}).checks.find(x=>x.label==='Experience duration').earned,10);
+console.log('Flattened ATS sections, salary currency, hiring boilerplate, negated requirements and zero-year requirements verified.');

@@ -14,7 +14,7 @@ export async function GET(req:Request){if(!authorized(req))return response({erro
  if(p==='migration-export'){const [jobs,sources,runs,settings]=await Promise.all([all<any>('SELECT * FROM jobs'),all<any>('SELECT * FROM sources'),all<any>('SELECT * FROM runs'),all<any>('SELECT * FROM settings')]);return response({schema_version:1,exported_at:new Date().toISOString(),jobs,sources,runs,settings});}
  if(p==='jobs'){
   const cursor=new URL(req.url).searchParams.get('after')||'';
-  const rows=await all<any>("SELECT id,CASE WHEN data::jsonb->'international'->>'version'='2' AND data::jsonb->'match_signals'->>'version'='1' THEN (data::jsonb - 'description')::text ELSE data END AS data,first_seen,last_seen,category_override FROM jobs WHERE active=1 AND id>? ORDER BY id LIMIT 250",[cursor]);
+  const rows=await all<any>("SELECT id,CASE WHEN data::jsonb->'international'->>'version'='2' AND data::jsonb->'match_signals'->>'version'='2' THEN (data::jsonb - 'description')::text ELSE data END AS data,first_seen,last_seen,category_override FROM jobs WHERE active=1 AND id>? ORDER BY id LIMIT 250",[cursor]);
   const [settings,runs]=await Promise.all([all<any>('SELECT key,value FROM settings'),all<any>('SELECT * FROM runs ORDER BY started DESC LIMIT 12')]);
   return response({jobs:rows.map(rowJob).filter(j=>!deadlinePassed(j.deadline_iso||j.deadline||'')).map(({description,...j})=>j),next_cursor:rows.length===250?rows.at(-1).id:null,settings:Object.fromEntries(settings.map(r=>[r.key,JSON.parse(r.value)])),runs});
  }

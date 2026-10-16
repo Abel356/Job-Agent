@@ -1,5 +1,5 @@
 // Deterministic matching. No model, embeddings, remote résumé service or hiring prediction.
-export const MATCH_VERSION=1;
+export const MATCH_VERSION=2;
 const CATALOG:Record<string,string[]>={
  Python:['python'],Java:['java'],JavaScript:['javascript','js'],TypeScript:['typescript'],SQL:['sql'],PostgreSQL:['postgresql','postgres'],MySQL:['mysql'],MongoDB:['mongodb'],Redis:['redis'],Go:['golang'],Rust:['rust'],'C++':['c++'],'C#':['c#'],Swift:['swift'],Kotlin:['kotlin'],Ruby:['ruby'],PHP:['php'],MATLAB:['matlab'],R:['r programming','r language'],
  React:['react','react.js','reactjs'],'Node.js':['node.js','nodejs'],'Next.js':['next.js','nextjs'],Angular:['angular'],Vue:['vue','vue.js'],Django:['django'],Flask:['flask'],FastAPI:['fastapi'],Spring:['spring boot'],'.NET':['.net','dotnet'],HTML:['html'],CSS:['css'],GraphQL:['graphql'],'REST APIs':['rest api','restful'],
@@ -12,7 +12,11 @@ const CATALOG:Record<string,string[]>={
 const escape=(s:string)=>s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
 const patterns=Object.entries(CATALOG).map(([name,aliases])=>({name,re:new RegExp('(?:^|[^a-z0-9])(?:'+aliases.map(escape).join('|')+')(?=$|[^a-z0-9])','i')}));
 export const SKILLS=Object.keys(CATALOG).sort();
-export function skillsIn(text:string){return patterns.filter(p=>p.re.test(text)).map(p=>p.name);}
+export function skillsIn(text:string){
+ // Currency codes and ordinary verbs must not become technical skills.
+ const clean=text.replace(/(?:[$€£]\s*[\d,.]+\s*CAD\b|\bCAD\s*[$]?\s*[\d,.]+|[\d,.]+\s*CAD\b)/gi,' ');
+ return patterns.filter(p=>p.re.test(p.name==='Excel'?clean.replace(/\bexcel\s+(?:at|in|with)\b/gi,' '):clean)).map(p=>p.name);
+}
 const ROLE_RULES:Record<string,RegExp>={
  'Software development':/software|developer|full.?stack|front.?end|back.?end|web engineer/i,
  'Cloud & DevOps':/cloud|devops|infrastructure|site reliability|platform engineer|\bsre\b/i,
@@ -44,16 +48,24 @@ export function validateProfile(value:unknown):MatchProfile|null{
  if(p.version!==1||!Array.isArray(p.skills)||!Array.isArray(p.evidenceSkills)||!Array.isArray(p.roles)||!Array.isArray(p.needsSponsorship))return null;
  return {...emptyProfile(),skills:[...new Set(p.skills.filter(s=>SKILLS.includes(s)))],evidenceSkills:[...new Set(p.evidenceSkills.filter(s=>SKILLS.includes(s)&&p.skills.includes(s)))],roles:p.roles.filter(r=>ROLE_OPTIONS.includes(r)),stage:['Any','Internship','Entry level','Intermediate','Senior','Management'].includes(p.stage)?p.stage:'Any',years:typeof p.years==='number'&&Number.isFinite(p.years)&&p.years>=0&&p.years<=60?p.years:null,degree:Number.isInteger(p.degree)&&p.degree>=0&&p.degree<=5?p.degree:0,graduationYear:Number.isInteger(p.graduationYear)&&p.graduationYear!>=1950&&p.graduationYear!<=2100?p.graduationYear:null,degreeComplete:p.degreeComplete===true,needsSponsorship:p.needsSponsorship.filter(c=>['Canada','United States'].includes(c))};
 }
-export type JobSignals={version:1;skills:string[];required:string[];preferred:string[];evidence:string[];years:number|null;degree:number;equivalent:boolean;studying:boolean;graduation:number[];roles:string[];};
+export type JobSignals={version:2;skills:string[];required:string[];preferred:string[];evidence:string[];years:number|null;degree:number;equivalent:boolean;studying:boolean;graduation:number[];roles:string[];};
 export function jobSignals(position:string,description=''):JobSignals{
- const s=description.slice(0,24000),skills=skillsIn(s),required=new Set<string>(),preferred=new Set<string>(),evidence:string[]=[];
- let section='';const parts=s.split(/\n|[.!?;](?:\s|$)/).map(x=>x.trim()).filter(Boolean);
+ // ATS descriptions often flatten every heading and bullet into one paragraph.
+ // Scope matching to role qualifications/responsibilities when headings are present.
+ const headings=/\b(what (?:we['’]re|we are) looking for|what you(?:'ll|’ll| will) bring|what you bring|minimum qualifications|basic qualifications|required qualifications|preferred qualifications|requirements|required skills|qualifications|bonus points for|nice to have|preferred skills|responsibilities|what you(?:'ll|’ll| will) do|what you can expect|what we offer|our culture|how we work with AI|our approach to remote work|you belong here|benefits|compensation|(?:USA|Canada)-based roles only)\s*:?/gi;
+ let s=description.slice(0,24000).replace(headings,'\n$1\n');
+ const first=s.search(/\n(?:what (?:we['’]re|we are) looking for|what you(?:'ll|’ll| will) bring|what you bring|minimum qualifications|basic qualifications|required qualifications|requirements|required skills|qualifications|responsibilities|what you(?:'ll|’ll| will) do)\n/i);
+ if(first>=0)s=s.slice(first);
+ s=s.split(/\n(?:what we offer|our culture|how we work with AI|our approach to remote work|you belong here|benefits|compensation|(?:USA|Canada)-based roles only)\n/i)[0];
+ s=s.replace(/[^.!?\n]*(?:screening of (?:employment )?applications|recruitment process|equal opportunity employer|candidate privacy)[^.!?\n]*[.!?]?/gi,' ');
+ const required=new Set<string>(),preferred=new Set<string>(),evidence:string[]=[],eligible=new Set<string>();
+ let section='';const parts=s.split(/\n|\s+-\s+|[.!?;](?:\s|$)/).map(x=>x.trim()).filter(Boolean);
  for(const line of parts){
   if(line.length<100&&/^(?:preferred qualifications|nice to have|bonus|preferred skills|desirable)/i.test(line))section='preferred';
-  else if(line.length<100&&/^(?:minimum qualifications|basic qualifications|requirements|required skills|what you bring|qualifications)/i.test(line))section='required';
-  else if(line.length<100&&/^(?:benefits|about us|what we offer|responsibilities)/i.test(line))section='';
+  else if(line.length<100&&/^(?:minimum qualifications|basic qualifications|requirements|required skills|required qualifications|what you bring|what (?:we['’]re|we are) looking for|what you(?:'ll|’ll| will) bring|qualifications)/i.test(line))section='required';
+  else if(line.length<100&&/^(?:benefits|about us|what we offer|responsibilities|what you(?:'ll|’ll| will) do|what you can expect)/i.test(line))section='';
   if(/not required|no .{0,40} required|don't need|do not need/i.test(line))continue;
-  const terms=skillsIn(line);const optional=/preferred|nice.to.have|a plus|bonus|optional|desirable/i.test(line)||section==='preferred';
+  const terms=skillsIn(line);for(const term of terms)eligible.add(term);const optional=/preferred|nice.to.have|a plus|bonus|optional|desirable/i.test(line)||section==='preferred';
   const mandatory=!optional&&(/\brequired\b|\bmust\b|minimum|proficien|experience (?:with|in)|knowledge of/i.test(line)||section==='required');
   for(const skill of terms)if(optional)preferred.add(skill);else if(mandatory)required.add(skill);
   if(terms.length&&(mandatory||optional)&&evidence.length<3)evidence.push(line.slice(0,240));
@@ -65,19 +77,19 @@ export function jobSignals(position:string,description=''):JobSignals{
  const grad=parts.filter(x=>/graduat(?:e|ing|ion)/i.test(x)).flatMap(x=>[...x.matchAll(/\b(20\d{2})\b/g)].map(m=>Number(m[1])));
  // If alternatives are listed, use the least restrictive named degree.
  const degrees=[1,2,3,4,5].filter(n=>education.split(/\bor\b|\/|,/i).some(x=>degreeIn(x)===n));
- return {version:1,skills,required:[...required],preferred:[...preferred],evidence,years:years.length?Math.max(...years):null,degree:degrees.length?Math.min(...degrees):0,equivalent:/equivalent (?:experience|practical)|experience (?:in lieu|instead)/i.test(education),studying:/pursuing|enrolled|working toward|currently studying/i.test(education),graduation:[...new Set(grad)].sort(),roles:Object.entries(ROLE_RULES).filter(([,re])=>re.test(position)).map(([name])=>name)};
+ return {version:2,skills:[...eligible],required:[...required],preferred:[...preferred],evidence,years:years.length?Math.max(...years):null,degree:degrees.length?Math.min(...degrees):0,equivalent:/equivalent (?:experience|practical)|experience (?:in lieu|instead)/i.test(education),studying:/pursuing|enrolled|working toward|currently studying/i.test(education),graduation:[...new Set(grad)].sort(),roles:Object.entries(ROLE_RULES).filter(([,re])=>re.test(position)).map(([name])=>name)};
 }
 export type MatchJob={position:string;seniority:string;description?:string;match_signals?:JobSignals;international:{countries:string[];sponsorship:string;us_sponsorship:string;restrictions:string[]}};
 export type MatchResult={score:number|null;coverage:number;matched:string[];missing:string[];preferredMissing:string[];checks:{label:string;earned:number;weight:number;detail:string}[];unknown:string[];eligibility:string[];evidence:string[];};
 export function scoreJob(job:MatchJob,p:MatchProfile):MatchResult{
- const s=job.match_signals?.version===1?job.match_signals:jobSignals(job.position,job.description);
+ const s=job.match_signals?.version===MATCH_VERSION?job.match_signals:jobSignals(job.position,job.description);
  const required=s.required.length?s.required:s.skills.filter(x=>!s.preferred.includes(x)),matched=required.filter(x=>p.skills.includes(x)),missing=required.filter(x=>!p.skills.includes(x));
  const checks:MatchResult['checks']=[],unknown:string[]=[];
  const add=(label:string,ratio:number,weight:number,detail:string)=>checks.push({label,earned:Math.round(ratio*weight*10)/10,weight,detail});
  if(required.length)add(s.required.length?'Required skills':'Skills mentioned',matched.length/required.length,40,`${matched.length} of ${required.length} recognized skills supported. ${s.required.length?'':'Requirement level is unclear.'}`);else unknown.push('No recognizable core skills in the posting');
  const evidenceMatches=required.filter(x=>p.evidenceSkills.includes(x));
  if(required.length)add('Experience & project evidence',evidenceMatches.length/required.length,15,`${evidenceMatches.length} relevant skills marked as demonstrated in experience or projects.`);
- if(s.years!==null&&p.years!==null)add('Experience duration',Math.min(1,p.years/Math.max(1,s.years)),10,`${p.years} confirmed relevant years; posting asks for ${s.years}+.`);else unknown.push(s.years===null?'Experience duration not clearly specified':'Confirm your relevant experience years');
+ if(s.years!==null&&p.years!==null)add('Experience duration',s.years===0?1:Math.min(1,p.years/s.years),10,`${p.years} confirmed relevant years; posting asks for ${s.years}+.`);else unknown.push(s.years===null?'Experience duration not clearly specified':'Confirm your relevant experience years');
  if(p.stage!=='Any'&&job.seniority!=='Unspecified')add('Career stage',p.stage===job.seniority?1:0,10,`${job.seniority} role; you selected ${p.stage}.`);else unknown.push('Career stage comparison unavailable');
  if(p.roles.length&&s.roles.length)add('Preferred fields',p.roles.some(r=>s.roles.includes(r))?1:0,10,s.roles.join(', '));else unknown.push(p.roles.length?'Role field is unclear':'All fields have equal priority');
  if(s.degree&&p.degree&&!s.equivalent)add('Education',p.degree>=s.degree&&(p.degreeComplete||s.studying)?1:0,8,`${DEGREE_OPTIONS[s.degree]} ${s.studying?'study accepted':'required'}; your degree is ${p.degreeComplete?'completed':'in progress'}.`);else unknown.push(s.equivalent?'Equivalent-experience education route needs review':'Education comparison unavailable');

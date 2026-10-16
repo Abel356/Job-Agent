@@ -12,7 +12,7 @@ console.log(`Employer discovery: ${registered} new sources registered; existing 
 // Persist small, non-personal job signals once. Résumés never enter this database.
 let cursor='',count=0;
 while(true){
- const rows=await sql.query("SELECT id,data FROM jobs WHERE active=1 AND id>$1 AND (data::jsonb->'match_signals'->>'version') IS DISTINCT FROM '1' ORDER BY id LIMIT 100",[cursor]);
+ const rows=await sql.query("SELECT id,data FROM jobs WHERE active=1 AND id>$1 AND (data::jsonb->'match_signals'->>'version') IS DISTINCT FROM '2' ORDER BY id LIMIT 100",[cursor]);
  if(!rows.length)break;
  const values=rows.map(row=>{const job=JSON.parse(row.data);return {id:row.id,hash:job.description_hash||'',signals:jobSignals(job.position||'',job.description||'')};});
  // Don't overwrite signals if a concurrent refresh changed the description.

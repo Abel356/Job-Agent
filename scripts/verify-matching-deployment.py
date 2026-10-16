@@ -9,7 +9,7 @@ for attempt in range(30):
     try:
         page=collector.api('jobs')
         assert page.get('jobs'), 'No active jobs returned'
-        assert all(j.get('match_signals',{}).get('version')==1 for j in page['jobs']), 'Deployment is not serving match signals yet'
+        assert all(j.get('match_signals',{}).get('version')==2 for j in page['jobs']), 'Deployment is not serving match signals yet'
         assert all('description' not in j for j in page['jobs']), 'List endpoint must omit full descriptions'
         sample=page['jobs'][0]
         detail=collector.api('job/'+sample['id'])

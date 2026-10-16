@@ -25,7 +25,7 @@ jobs:
       UPDATER_SECRET: ${{ secrets.EARTHWORK_UPDATER_SECRET }}
       VERCEL_AUTOMATION_BYPASS_SECRET: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
       PUBLIC_FETCH_MODE: direct
-      REFRESH_RUN_STATE: ${{ runner.temp }}/earthwork-refresh-run-id
+      REFRESH_RUN_STATE: .earthwork-refresh-run-id
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-python@v6

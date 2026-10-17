@@ -5,6 +5,12 @@ on:
     branches: [main]
     paths:
       - 'lib/matching.ts'
+      - 'lib/ingestion.ts'
+      - 'app/api/**'
+      - 'app/dashboard.tsx'
+      - 'scripts/refresh_jobs.py'
+      - 'scripts/verify-ingestion.mjs'
+      - 'db/schema.sql'
       - 'components/resume-matcher.tsx'
       - 'scripts/verify-matching-deployment.py'
       - '.github/workflows/verify-matching.yml'
@@ -24,6 +30,10 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           node-version: '24'
+      - name: Install test dependencies
+        run: corepack pnpm install --frozen-lockfile
+      - name: Verify atomic PostgreSQL ingestion
+        run: node scripts/verify-ingestion.mjs
       - name: Verify deterministic matcher
         run: node scripts/verify-matching.mjs
       - name: Verify collector and discovery

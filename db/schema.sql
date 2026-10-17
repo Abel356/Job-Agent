@@ -17,3 +17,9 @@ CREATE TABLE IF NOT EXISTS runs (
 CREATE UNIQUE INDEX IF NOT EXISTS one_running_refresh ON runs(status) WHERE status='running';
 CREATE TABLE IF NOT EXISTS settings (key TEXT PRIMARY KEY, value TEXT NOT NULL);
 CREATE TABLE IF NOT EXISTS login_attempts (key TEXT PRIMARY KEY, window_start BIGINT NOT NULL, attempts INTEGER NOT NULL);
+
+CREATE TABLE IF NOT EXISTS ingest_receipts (
+ run_id TEXT NOT NULL REFERENCES runs(id) ON DELETE CASCADE,
+ batch_id TEXT NOT NULL, result JSONB NOT NULL,
+ PRIMARY KEY(run_id,batch_id)
+);

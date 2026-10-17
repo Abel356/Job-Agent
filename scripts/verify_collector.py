@@ -1,5 +1,5 @@
 """Checks deadline safety and credential isolation without network requests."""
-import importlib.util,json,unittest,tempfile,os
+import importlib.util,json,unittest,tempfile,os,io
 from unittest.mock import patch
 from pathlib import Path
 s=importlib.util.spec_from_file_location('collector',Path(__file__).with_name('refresh_jobs.py'))
@@ -10,6 +10,20 @@ class Response:
     def read(self,n):return b'{"ok":true}'
     def geturl(self):return 'https://example.com/careers'
 class CollectorTests(unittest.TestCase):
+    def test_ingest_retries_keep_identical_packet(self):
+        packet={'batch_id':'stable-packet','jobs':[]}
+        with patch.object(m,'ORIGIN','https://example.com'),patch.object(m,'build_opener') as opener,patch.object(m.time,'sleep'):
+            opener.return_value.open.side_effect=[OSError('Connection reset'),io.BytesIO(b'{"protocol":2}')]
+            self.assertEqual(m.api('ingest',packet),{'protocol':2})
+            calls=opener.return_value.open.call_args_list
+            self.assertEqual(len(calls),2)
+            self.assertEqual(calls[0].args[0].data,calls[1].args[0].data)
+    def test_ingest_5xx_retries_but_auth_failure_does_not(self):
+        for code,expected in [(500,3),(503,3),(401,1),(409,1)]:
+            with patch.object(m,'ORIGIN','https://example.com'),patch.object(m,'build_opener') as opener,patch.object(m.time,'sleep'):
+                opener.return_value.open.side_effect=m.HTTPError('https://example.com',code,'test',{},None)
+                with self.assertRaises(m.HTTPError):m.api('ingest',{'batch_id':'stable'})
+                self.assertEqual(opener.return_value.open.call_count,expected)
     def test_employer_discovery_uses_links_not_copied_jobs(self):
         body='''<table><tr><td><strong>Example Labs</strong></td><td>Do not import this title</td><td><a href="https://jobs.ashbyhq.com/example/one/application?utm_source=Simplify">Apply</a><a href="https://simplify.jobs/p/123">Mirror</a></td></tr><tr><td>↳</td><td><a href="https://jobs.ashbyhq.com/example/two">Apply</a></td></tr><tr><td>Other</td><td><a href="https://jobs.smartrecruiters.com/Other/123-role">Apply</a></td></tr></table>'''
         boards=m.discover_employer_boards(body,m.EMPLOYER_INDEXES[0])

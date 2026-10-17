@@ -7,6 +7,7 @@ expected=json.loads(Path('data/employer-discovery.json').read_text())
 expected_ids={s['id'] for s in expected['indexes']+expected['boards']}
 for attempt in range(30):
     try:
+        assert collector.api('refresh-protocol').get('version')==2, 'Atomic ingestion deployment is not ready'
         page=collector.api('jobs')
         assert page.get('jobs'), 'No active jobs returned'
         assert all(j.get('match_signals',{}).get('version')==2 for j in page['jobs']), 'Deployment is not serving match signals yet'
@@ -15,7 +16,8 @@ for attempt in range(30):
         detail=collector.api('job/'+sample['id'])
         assert detail['match_signals']==sample['match_signals'], 'List and detail match signals disagree'
         if page.get('next_cursor'):
-            next_page=collector.api('jobs?after='+page['next_cursor'])
+            next_page=collector.api('jobs?summary=0&after='+page['next_cursor'])
+            assert 'runs' not in next_page and 'settings' not in next_page, 'Continuation pages should omit repeated summary queries'
             assert not {j['id'] for j in page['jobs']} & {j['id'] for j in next_page['jobs']}, 'Pagination returned duplicate jobs'
         sources=collector.api('sources')['sources'];ids={s['id'] for s in sources}
         assert expected_ids<=ids, 'Employer registration has not completed'

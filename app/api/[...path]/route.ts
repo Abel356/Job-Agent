@@ -1,3 +1,5 @@
+import {createHash} from 'node:crypto';
+import {INGEST_SQL} from '@/lib/ingestion';
 import {db,all} from '@/lib/database';
 import {decorate,CATEGORIES} from '@/lib/jobs';
 import updater from '@/lib/updater-source';
@@ -11,12 +13,14 @@ function path(req:Request){return new URL(req.url).pathname.slice(5);}
 function rowJob(r:any){const j=decorate(JSON.parse(r.data));return {...j,first_seen:r.first_seen,last_seen:r.last_seen,category_override:r.category_override,categories:r.category_override?[r.category_override]:j.categories};}
 export async function GET(req:Request){if(!authorized(req))return response({error:'Please sign in.'},401);try{
  const p=path(req);
+ if(p==='refresh-protocol')return response({version:2,atomic_ingest:true});
  if(p==='migration-export'){const [jobs,sources,runs,settings]=await Promise.all([all<any>('SELECT * FROM jobs'),all<any>('SELECT * FROM sources'),all<any>('SELECT * FROM runs'),all<any>('SELECT * FROM settings')]);return response({schema_version:1,exported_at:new Date().toISOString(),jobs,sources,runs,settings});}
  if(p==='jobs'){
   const cursor=new URL(req.url).searchParams.get('after')||'';
   const rows=await all<any>("SELECT id,CASE WHEN data::jsonb->'international'->>'version'='2' AND data::jsonb->'match_signals'->>'version'='2' THEN (data::jsonb - 'description')::text ELSE data END AS data,first_seen,last_seen,category_override FROM jobs WHERE active=1 AND id>? ORDER BY id LIMIT 250",[cursor]);
-  const [settings,runs]=await Promise.all([all<any>('SELECT key,value FROM settings'),all<any>('SELECT * FROM runs ORDER BY started DESC LIMIT 12')]);
-  return response({jobs:rows.map(rowJob).filter(j=>!deadlinePassed(j.deadline_iso||j.deadline||'')).map(({description,...j})=>j),next_cursor:rows.length===250?rows.at(-1).id:null,settings:Object.fromEntries(settings.map(r=>[r.key,JSON.parse(r.value)])),runs});
+  const includeSummary=new URL(req.url).searchParams.get('summary')!=='0';
+  const [settings,runs]=includeSummary?await Promise.all([all<any>('SELECT key,value FROM settings'),all<any>('SELECT * FROM runs ORDER BY started DESC LIMIT 12')]):[null,null];
+  return response({jobs:rows.map(rowJob).filter(j=>!deadlinePassed(j.deadline_iso||j.deadline||'')).map(({description,...j})=>j),next_cursor:rows.length===250?rows.at(-1).id:null,...(settings&&runs?{settings:Object.fromEntries(settings.map(r=>[r.key,JSON.parse(r.value)])),runs}:{})});
  }
  if(p.startsWith('job/')){const r=await db().prepare('SELECT * FROM jobs WHERE id=?').bind(p.slice(4)).first<any>();return r?response(rowJob(r)):response({error:'Role not found'},404);}
  if(p==='sources')return response({sources:(await all<any>('SELECT * FROM sources')).map(r=>({...JSON.parse(r.data),status:r.status,checked:r.checked,error:r.error}))});
@@ -69,6 +73,7 @@ export async function POST(req:Request){if(!authorized(req))return response({err
  if(p==='start-run'){
   if(body.run_id!==undefined&&(typeof body.run_id!=='string'||! /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(body.run_id)))return response({error:'Invalid refresh identifier'},400);
   const now=new Date().toISOString(),cutoff=new Date(Date.now()-3*3600000).toISOString(),id=body.run_id||crypto.randomUUID();
+  await database.prepare("DELETE FROM ingest_receipts USING runs WHERE ingest_receipts.run_id=runs.id AND runs.status<>'running' AND runs.finished<?").bind(new Date(Date.now()-7*86400000).toISOString()).run();
   const result=await database.batch([
    database.prepare('SELECT pg_advisory_xact_lock(74198632)'),
    database.prepare("UPDATE runs SET status='interrupted',finished=? WHERE status='running' AND started<?").bind(now,cutoff),
@@ -79,17 +84,25 @@ export async function POST(req:Request){if(!authorized(req))return response({err
   return active?.id===id?response({id}):response({error:active?'A refresh is already running':'This refresh identifier has already finished',active_run:active||null},409);
  }
  if(p==='ingest'){
-  if(!body.source||!body.run_id||!Array.isArray(body.jobs)||body.jobs.length>100)return response({error:'Invalid refresh batch'},400);
-  const source=body.source,now=new Date().toISOString();let added=0,changed=0,closed=0;
-  const run=await database.prepare("SELECT id FROM runs WHERE id=? AND status='running'").bind(body.run_id).first();if(!run)return response({error:'Refresh is not running'},409);
-  const old=await all<any>("SELECT id,(data::jsonb - 'description' - 'international')::text AS data,missing_runs,active FROM jobs WHERE source_id=?",[source.id]);const oldMap=new Map(old.map(j=>[j.id,j]));const statements=[];
-  statements.push(database.prepare('INSERT INTO sources(id,data,checked,status,error) VALUES(?,?,?,?,?) ON CONFLICT(id) DO UPDATE SET data=excluded.data,checked=excluded.checked,status=excluded.status,error=excluded.error').bind(source.id,JSON.stringify(source),now,body.error?'Check incomplete':source.recovery?'Recovered via Ashby':'Checked',String(body.error||'').slice(0,2000)));
-  for(const raw of body.jobs){if(!raw.id||!/^https?:\/\//.test(raw.apply_url))continue;const j=decorate({...raw,source_id:source.id});const previous=oldMap.get(j.id);if(deadlinePassed(j.deadline_iso||j.deadline||'')){if(previous?.active){closed++;statements.push(database.prepare("UPDATE jobs SET active=0,data=(data::jsonb || jsonb_build_object('closure_reason','Application deadline passed','closed_at',?::text))::text WHERE id=?").bind(now,j.id));}continue;}if(!previous)added++;else{const o=JSON.parse(previous.data);if(o.position!==j.position||o.posting_date!==j.posting_date||o.description_hash!==j.description_hash)changed++;}
-   statements.push(database.prepare('INSERT INTO jobs(id,source_id,data,active,missing_runs,first_seen,last_seen) VALUES(?,?,?,1,0,?,?) ON CONFLICT(id) DO UPDATE SET data=excluded.data,active=1,missing_runs=0,last_seen=excluded.last_seen').bind(j.id,source.id,JSON.stringify(j),now,now));}
-  for(const id of body.closed_ids||[]){if(oldMap.get(id)?.active){closed++;statements.push(database.prepare("UPDATE jobs SET active=0,data=(data::jsonb || jsonb_build_object('closure_reason','Employer closed the application page','closed_at',?::text))::text WHERE id=? AND source_id=?").bind(now,id,source.id));}}
-  if(!body.partial&&body.complete&&!body.error){const seen=new Set(body.seen_ids||body.jobs.map((j:any)=>j.id));for(const oldJob of old)if(oldJob.active&&!seen.has(oldJob.id)){const miss=oldJob.missing_runs+1;if(miss>=2)closed++;statements.push(database.prepare('UPDATE jobs SET missing_runs=?,active=? WHERE id=?').bind(miss,miss>=2?0:1,oldJob.id));}}
-  for(let i=0;i<statements.length;i+=80)await database.batch(statements.slice(i,i+80));
-  await database.prepare('UPDATE runs SET checked=checked+?,failed=failed+?,added=added+?,changed=changed+?,closed=closed+? WHERE id=? AND status=\'running\'').bind(body.partial?0:1,!body.partial&&body.error?1:0,added,changed,closed,body.run_id).run();return response({added,changed,closed});
+  if(!body.source?.id||!body.run_id||!Array.isArray(body.jobs)||body.jobs.length>100)return response({error:'Invalid refresh batch'},400);
+  const closedIds=Array.isArray(body.closed_ids)?body.closed_ids:[],expiredIds:string[]=[];
+  const jobs=body.jobs.filter((raw:any)=>{
+   if(!raw.id||!/^https?:\/\//.test(raw.apply_url))return false;
+   if(deadlinePassed(raw.deadline_iso||raw.deadline||'')){expiredIds.push(raw.id);return false;}
+   return !closedIds.includes(raw.id);
+  }).map((raw:any)=>decorate({...raw,source_id:body.source.id}));
+  const packet={run_id:body.run_id,batch_id:body.batch_id||createHash('sha256').update(JSON.stringify(body)).digest('hex'),
+   source:body.source,jobs,closed_ids:closedIds,expired_ids:expiredIds,seen_ids:body.seen_ids||body.jobs.map((j:any)=>j.id),
+   final:!body.partial,complete:!!body.complete,error:String(body.error||'').slice(0,2000),now:new Date().toISOString()};
+  // Row lock serializes saves and finish-run. The receipt, counters, jobs and
+  // closure checks commit together, so a lost response can be retried safely.
+  const result=await database.batch([
+   database.prepare("SELECT set_config('lock_timeout','10s',true),set_config('statement_timeout','40s',true)"),
+   database.prepare("SELECT id FROM runs WHERE id=? FOR UPDATE").bind(body.run_id),
+   database.prepare(INGEST_SQL).bind(JSON.stringify(packet))
+  ]);
+  const saved=(result[2] as any[])?.[0];
+  return saved?response(saved.result):response({error:'Refresh is not running'},409);
  }
  if(p==='finish-run'){const result=await database.prepare("UPDATE runs SET finished=?,status=? WHERE id=? AND status='running' RETURNING id").bind(new Date().toISOString(),body.interrupted?'interrupted':body.verification?'verified':body.error?'partial':'completed',body.run_id).run();return response({finished:result.length>0});}
  return response({error:'Not found'},404);

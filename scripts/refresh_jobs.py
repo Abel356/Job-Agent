@@ -26,13 +26,13 @@ def api(path,data=None):
     if TOKEN:headers['Authorization']='Bearer '+TOKEN
     if os.environ.get('VERCEL_AUTOMATION_BYPASS_SECRET'):headers['x-vercel-protection-bypass']=os.environ['VERCEL_AUTOMATION_BYPASS_SECRET']
     request=Request(ORIGIN+'/api/'+path,data=payload,headers=headers)
-    attempts=3 if data is None or path in ['import','settings','category','finish-run','expire'] or (path=='start-run' and data.get('run_id')) else 1
+    attempts=3 if data is None or path in ['import','settings','category','finish-run','expire'] or (path=='start-run' and data.get('run_id')) or (path=='ingest' and data.get('batch_id')) or path=='register-source' else 1
     for attempt in range(attempts):
         try:
             with build_opener(NoRedirect()).open(request,timeout=90) as r:return json.load(r)
         except HTTPError as e:
             if e.code not in [429,500,502,503,504] or attempt==attempts-1:raise
-        except OSError:
+        except (OSError,json.JSONDecodeError):
             if attempt==attempts-1:raise
         time.sleep(1+attempt)
 
@@ -580,16 +580,19 @@ def collect(s,existing,known,allow_fallback=True):
     return result
 
 def save_result(result):
+    def send(packet):
+        # The same identifier is reused by api() after connection loss or 5xx.
+        return api('ingest',{**packet,'batch_id':str(uuid.uuid4())})
     # Keep each write comfortably below Vercel's request body limit. Only the
     # final packet advances source coverage and missing-job checks.
     jobs=result['jobs'];batch=[];size=0
     for job in jobs:
         encoded=len(json.dumps(job).encode())
         if batch and (size+encoded>1_500_000 or len(batch)>=60):
-            api('ingest',{**result,'jobs':batch,'seen_ids':[],'closed_ids':[],'complete':False,'partial':True});batch=[];size=0
+            send({**result,'jobs':batch,'seen_ids':[],'closed_ids':[],'complete':False,'partial':True});batch=[];size=0
         batch.append(job);size+=encoded
-    if batch:api('ingest',{**result,'jobs':batch,'seen_ids':[],'closed_ids':[],'complete':False,'partial':True})
-    return api('ingest',{**result,'jobs':[],'partial':False})
+    if batch:send({**result,'jobs':batch,'seen_ids':[],'closed_ids':[],'complete':False,'partial':True})
+    return send({**result,'jobs':[],'partial':False})
 
 @contextmanager
 def refresh_run():
@@ -642,6 +645,7 @@ def main():
     parser=argparse.ArgumentParser();parser.add_argument('--limit',type=int,default=0);parser.add_argument('--source');parser.add_argument('--cleanup',action='store_true');parser.add_argument('--verify-lifecycle',action='store_true');args=parser.parse_args()
     if args.cleanup:return cleanup_run()
     if args.verify_lifecycle:return verify_lifecycle()
+    if api('refresh-protocol').get('version')!=2:raise RuntimeError('Deploy atomic ingestion before running this collector')
     state=api('sources');existing={};cursor=''
     while True:
         page=api('existing-jobs'+('?after='+quote(cursor,safe='') if cursor else ''))

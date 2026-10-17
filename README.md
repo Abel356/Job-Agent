@@ -76,3 +76,11 @@ Scores compare recognized skills (40), demonstrated experience/project skills (1
 Daily noon Toronto collection reads public Simplify/Pitt CSC internship and Simplify new-grad directory employer names and direct ATS links. It does not mirror third-party job descriptions, dates, role lists or sponsorship assessments. Supported boards are deduplicated by provider and employer account, registered and then collected directly from employer feeds. The initial employer-link snapshot is in data/employer-discovery.json; future new links are found by each scheduled refresh. SmartRecruiters public postings now join Ashby, Greenhouse, Lever, Workday, Workable and existing direct integrations. Job identity strips tracking queries and apply/application suffixes. Feed failures never confirm closures.
 
 Production bootstrap inserts previously unknown boards and backfills compact non-personal match signals in batches. Existing source data is preserved. The build copies the installed PDF.js worker to public/pdf.worker.min.mjs.
+
+### Refresh write reliability
+
+Employer saves use bounded packets and a PostgreSQL transaction containing jobs, source status, run counters and a receipt. A transient network or server failure retries the same packet ID. Replays return the committed receipt without repeating counts or missing-posting checks. Only the final packet marks a source checked; incomplete employer checks cannot archive missing jobs. Final reconciliation uses SQL sets, so large boards do not return their entire stored job metadata for every packet. Receipts are retained for seven days; finished runs reject new writes.
+
+`node scripts/verify-ingestion.mjs` runs the production ingestion SQL in isolated PGlite PostgreSQL with rollback, lost-response replay, counter, deadline, incomplete-source and 12,000-job reconciliation cases. The collector checks the deployed ingestion protocol before writing.
+
+The browser displays jobs progressively while loading the full collection. Counts and rankings are labelled incomplete until all pages arrive. Continuation pages omit repeated refresh-summary database queries.

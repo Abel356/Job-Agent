@@ -12,6 +12,7 @@ PUBLIC_LIMIT=threading.BoundedSemaphore(24)
 FX={"rates":{"CAD":1},"date":""}
 class SourceFailure(Exception):
     def __init__(self,status,message):self.status=status;super().__init__(f"HTTP {status}: {message[:180]}")
+class DatabaseQuotaExceeded(RuntimeError):pass
 ORIGIN=os.environ.get('SITE_ORIGIN','').rstrip('/')
 TOKEN=os.environ.get('UPDATER_SECRET','')
 DIRECT=os.environ.get('PUBLIC_FETCH_MODE','direct')=='direct'
@@ -31,6 +32,8 @@ def api(path,data=None):
         try:
             with build_opener(NoRedirect()).open(request,timeout=90) as r:return json.load(r)
         except HTTPError as e:
+            if e.code==402:
+                raise DatabaseQuotaExceeded('Database quota reached. Restore capacity in Neon before refreshing; no automatic retry can resolve this.') from None
             if e.code not in [429,500,502,503,504] or attempt==attempts-1:raise
         except (OSError,json.JSONDecodeError):
             if attempt==attempts-1:raise
@@ -673,24 +676,30 @@ def main():
                 nonlocal writes_failed,count
                 source=saves.pop(future)
                 try:future.result()
+                except DatabaseQuotaExceeded:raise
                 except Exception as e:writes_failed+=1;print('Save failed:',source['name'],str(e),flush=True)
                 count+=1
                 if count%50==0:print(json.dumps({'checked':count,'incomplete':failed,'save_errors':writes_failed}),flush=True)
-            while futures:
-                done,_=cf.wait(futures,return_when=cf.FIRST_COMPLETED)
-                for future in done:
-                    futures.pop(future);result=future.result();known.update(source_keys(result['source']));new=result.pop('discovered');result['run_id']=run
-                    if result['error']:failed+=1
-                    saves[writers.submit(save_result,result)]=result['source']
-                    for source in new:
-                        if source['id'] not in known:
-                            known.update(source_keys(source));api('register-source',{'source':source});futures[pool.submit(collect,source,existing,known)]=source
-                for f in list(saves):
-                    if f.done():collect_save(f)
-                if len(saves)>40:
-                    done,_=cf.wait(saves,return_when=cf.FIRST_COMPLETED)
-                    for f in done:collect_save(f)
-            for f in cf.as_completed(list(saves)):collect_save(f)
+            try:
+                while futures:
+                    done,_=cf.wait(futures,return_when=cf.FIRST_COMPLETED)
+                    for future in done:
+                        futures.pop(future);result=future.result();known.update(source_keys(result['source']));new=result.pop('discovered');result['run_id']=run
+                        if result['error']:failed+=1
+                        saves[writers.submit(save_result,result)]=result['source']
+                        for source in new:
+                            if source['id'] not in known:
+                                known.update(source_keys(source));api('register-source',{'source':source});futures[pool.submit(collect,source,existing,known)]=source
+                    for f in list(saves):
+                        if f.done():collect_save(f)
+                    if len(saves)>40:
+                        done,_=cf.wait(saves,return_when=cf.FIRST_COMPLETED)
+                        for f in done:collect_save(f)
+                for f in cf.as_completed(list(saves)):collect_save(f)
+            except DatabaseQuotaExceeded:
+                for pending in futures:pending.cancel()
+                for pending in saves:pending.cancel()
+                raise
         api('finish-run',{'run_id':run,'error':bool(failed or writes_failed)})
         print(json.dumps({'run_id':run,'checked':count,'incomplete':failed,'save_errors':writes_failed}),flush=True)
         if writes_failed:sys.exit(1)

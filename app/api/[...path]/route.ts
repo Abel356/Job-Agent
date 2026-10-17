@@ -1,5 +1,6 @@
 import {createHash} from 'node:crypto';
 import {INGEST_SQL} from '@/lib/ingestion';
+import {storageError} from '@/lib/storage-error';
 import {db,all} from '@/lib/database';
 import {decorate,CATEGORIES} from '@/lib/jobs';
 import updater from '@/lib/updater-source';
@@ -32,7 +33,7 @@ export async function GET(req:Request){if(!authorized(req))return response({erro
  if(p==='rates'){try{const r=await fetch('https://www.bankofcanada.ca/valet/observations/FXUSDCAD,FXEURCAD,FXGBPCAD/json?recent=1',{signal:AbortSignal.timeout(15000)});if(!r.ok)throw Error('FX unavailable');const d:any=await r.json(),o=d.observations?.at(-1);return response({date:o?.d,rates:{CAD:1,USD:Number(o?.FXUSDCAD?.v)||null,EUR:Number(o?.FXEURCAD?.v)||null,GBP:Number(o?.FXGBPCAD?.v)||null}});}catch{return response({date:'',rates:{CAD:1}});}}
  if(p==='updater')return new Response(updater,{headers:{'Content-Type':'text/plain; charset=utf-8','Cache-Control':'private, no-store'}});
  return response({error:'Not found'},404);
- }catch(e){console.error(e);return response({error:'Job storage is temporarily unavailable. Please try again.'},503);}}
+ }catch(e){console.error(e);const failure=storageError(e,'Job storage is temporarily unavailable. Please try again.',503);return response(failure.body,failure.status);}}
 export async function POST(req:Request){if(!authorized(req))return response({error:'Please sign in.'},401);try{
  // Maintenance uses a separate bearer secret; visitors use owner sessions.
  const origin=req.headers.get('origin');if(origin&&origin!==new URL(req.url).origin)return response({error:'Cross-origin write denied'},403);
@@ -106,5 +107,5 @@ export async function POST(req:Request){if(!authorized(req))return response({err
  }
  if(p==='finish-run'){const result=await database.prepare("UPDATE runs SET finished=?,status=? WHERE id=? AND status='running' RETURNING id").bind(new Date().toISOString(),body.interrupted?'interrupted':body.verification?'verified':body.error?'partial':'completed',body.run_id).run();return response({finished:result.length>0});}
  return response({error:'Not found'},404);
- }catch(e){console.error(e);return response({error:'The update could not be saved. Please retry.'},500);}}
+ }catch(e){console.error(e);const failure=storageError(e,'The update could not be saved. Please retry.',500);return response(failure.body,failure.status);}}
 

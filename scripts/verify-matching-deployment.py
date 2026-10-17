@@ -26,6 +26,7 @@ for attempt in range(30):
         assert 'pdfjs' in body.lower() and '<html' not in body[:500].lower(), 'PDF worker is not available'
         print(json.dumps({'status':'passed','sampled_jobs':len(page['jobs']),'registered_discovery_boards':len(expected['boards']),'checks':['compact match signals','consistent detail scores','duplicate-free pagination','employer registry','browser PDF worker']}))
         break
+    except collector.DatabaseQuotaExceeded:raise
     except Exception as error:
         if attempt==29:raise
         print('Waiting for production rollout:',type(error).__name__,flush=True)

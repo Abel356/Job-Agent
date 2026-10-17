@@ -10,6 +10,12 @@ class Response:
     def read(self,n):return b'{"ok":true}'
     def geturl(self):return 'https://example.com/careers'
 class CollectorTests(unittest.TestCase):
+    def test_database_quota_is_actionable_and_never_retried(self):
+        with patch.object(m,'ORIGIN','https://example.com'),patch.object(m,'build_opener') as opener,patch.object(m.time,'sleep') as sleep:
+            opener.return_value.open.side_effect=m.HTTPError('https://example.com',402,'quota',{},None)
+            with self.assertRaisesRegex(m.DatabaseQuotaExceeded,'Restore capacity in Neon'):m.api('ingest',{'batch_id':'stable'})
+            self.assertEqual(opener.return_value.open.call_count,1)
+            sleep.assert_not_called()
     def test_ingest_retries_keep_identical_packet(self):
         packet={'batch_id':'stable-packet','jobs':[]}
         with patch.object(m,'ORIGIN','https://example.com'),patch.object(m,'build_opener') as opener,patch.object(m.time,'sleep'):

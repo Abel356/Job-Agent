@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {PGlite} from '@electric-sql/pglite';
-import {INGEST_SQL} from '../lib/ingestion.ts';
+import {INGEST_SQL,EXISTING_JOBS_SQL} from '../lib/ingestion.ts';
 const pg=new PGlite();
 await pg.exec(readFileSync(new URL('../db/schema.sql',import.meta.url),'utf8'));
 const run=async id=>{await pg.query("UPDATE runs SET status='completed' WHERE status='running'");await pg.query("INSERT INTO runs(id,started,status) VALUES($1,'2026-10-17','running')",[id]);};
@@ -17,6 +17,14 @@ assert.deepEqual(first,{added:2,changed:0,closed:0,protocol:2});
 assert.deepEqual(await save({jobs:[job('one'),job('two')]}),first,'Lost-response retry returns committed receipt');
 assert.equal((await pg.query('SELECT added FROM runs')).rows[0].added,2,'Retry cannot double count');
 assert.equal((await pg.query('SELECT checked FROM sources')).rows[0].checked,null,'Partial batch cannot claim source is checked');
+// The database must not transfer descriptions or match evidence to the collector.
+const compactRows=(await pg.query(EXISTING_JOBS_SQL,[''])).rows;
+assert.equal(compactRows.length,2);
+assert.equal(JSON.parse(compactRows[0].data).position,'Engineer');
+assert(!('description' in JSON.parse(compactRows[0].data)));
+assert(!('match_signals' in JSON.parse(compactRows[0].data)));
+assert(Buffer.byteLength(JSON.stringify(compactRows))<1000,'Bootstrap response remains compact despite long descriptions');
+assert.equal((await pg.query(EXISTING_JOBS_SQL,['one'])).rows[0].id,'two','Bootstrap cursor advances');
 await save({batch_id:'edit',jobs:[{...job('one'),description_hash:'b'}]});
 assert.equal((await pg.query('SELECT changed FROM runs')).rows[0].changed,1);
 await save({batch_id:'final1',final:true,complete:true,seen_ids:['one']});

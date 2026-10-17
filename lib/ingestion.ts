@@ -58,3 +58,6 @@ receipt AS (INSERT INTO ingest_receipts(run_id,batch_id,result)
  FROM guard,counts WHERE EXISTS(SELECT 1 FROM run_write) RETURNING result)
 SELECT result FROM receipt UNION ALL SELECT result FROM prior_receipt
 `;
+
+// Keep refresh bootstrap reads compact at the database boundary, before transfer.
+export const EXISTING_JOBS_SQL=`SELECT id,source_id,jsonb_build_object('company',data::jsonb->'company','position',data::jsonb->'position','apply_url',data::jsonb->'apply_url','posting_date',data::jsonb->'posting_date','description_hash',data::jsonb->'description_hash','date_basis',data::jsonb->'date_basis','deadline',data::jsonb->'deadline','deadline_iso',data::jsonb->'deadline_iso','deadline_evidence',data::jsonb->'deadline_evidence','link_checked_at',data::jsonb->'link_checked_at','compensation',data::jsonb->'compensation')::text AS data FROM jobs WHERE active=1 AND id>$1 ORDER BY id LIMIT 500`;

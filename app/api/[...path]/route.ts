@@ -1,5 +1,5 @@
 import {createHash} from 'node:crypto';
-import {INGEST_SQL} from '@/lib/ingestion';
+import {INGEST_SQL,EXISTING_JOBS_SQL} from '@/lib/ingestion';
 import {storageError} from '@/lib/storage-error';
 import {db,all} from '@/lib/database';
 import {decorate,CATEGORIES} from '@/lib/jobs';
@@ -27,7 +27,7 @@ export async function GET(req:Request){if(!authorized(req))return response({erro
  if(p==='sources')return response({sources:(await all<any>('SELECT * FROM sources')).map(r=>({...JSON.parse(r.data),status:r.status,checked:r.checked,error:r.error}))});
  if(p==='existing-jobs'){
   const cursor=new URL(req.url).searchParams.get('after')||'';
-  const rows=await all<any>("SELECT id,source_id,(data::jsonb - 'description' - 'international')::text AS data FROM jobs WHERE active=1 AND id>? ORDER BY id LIMIT 500",[cursor]);
+  const rows=await all<any>(EXISTING_JOBS_SQL,[cursor]);
   return response({existing:rows.map(r=>{const j=JSON.parse(r.data);return {id:r.id,source_id:r.source_id,company:j.company,position:j.position,apply_url:j.apply_url,posting_date:j.posting_date,description_hash:j.description_hash,date_basis:j.date_basis,deadline:j.deadline,deadline_iso:j.deadline_iso,deadline_evidence:j.deadline_evidence,link_checked_at:j.link_checked_at,compensation:j.compensation};}),next_cursor:rows.length===500?rows.at(-1).id:null});
  }
  if(p==='rates'){try{const r=await fetch('https://www.bankofcanada.ca/valet/observations/FXUSDCAD,FXEURCAD,FXGBPCAD/json?recent=1',{signal:AbortSignal.timeout(15000)});if(!r.ok)throw Error('FX unavailable');const d:any=await r.json(),o=d.observations?.at(-1);return response({date:o?.d,rates:{CAD:1,USD:Number(o?.FXUSDCAD?.v)||null,EUR:Number(o?.FXEURCAD?.v)||null,GBP:Number(o?.FXGBPCAD?.v)||null}});}catch{return response({date:'',rates:{CAD:1}});}}

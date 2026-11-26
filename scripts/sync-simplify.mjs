@@ -9,6 +9,17 @@ const sources=[
 ];
 const output=process.env.SIMPLIFY_OUTPUT||'data/simplify-jobs.json';
 const inputDir=process.env.SIMPLIFY_INPUT_DIR;
+const prior=JSON.parse(readFileSync(output,'utf8'));
+let upstreamShas;
+if(!inputDir){
+  upstreamShas=Object.fromEntries(await Promise.all(sources.map(async ([repo])=>{
+    const response=await fetch(`https://api.github.com/repos/${repo}/contents/.github/scripts/listings.json?ref=dev`,{headers:{'User-Agent':'Earthwork-Jobs-Sync/1.0','Accept':'application/vnd.github+json',...(process.env.GITHUB_TOKEN?{Authorization:`Bearer ${process.env.GITHUB_TOKEN}`}:{})},signal:AbortSignal.timeout(15000)});
+    if(!response.ok)throw Error(`${repo}: metadata HTTP ${response.status}`);
+    const metadata=await response.json();if(!metadata.sha)throw Error(`${repo}: missing listings SHA`);
+    return [repo,metadata.sha];
+  })));
+  if(sources.every(([repo])=>prior.upstream_shas?.[repo]===upstreamShas[repo])){console.log('Simplify listings unchanged.');process.exit(0);}
+}
 const tech=/software|engineer|developer|data|machine learning|\bai\b|product|quant|hardware|firmware|security|cloud|devops|infrastructure|design|\bux\b|\bui\b|research/i;
 const canadian=/\bCanada\b|\bToronto\b|\bVancouver\b|\bMontr[eé]al\b|\bOttawa\b|\bCalgary\b|\bEdmonton\b|\bWaterloo\b|\bKitchener\b|\bOntario\b|\bQuebec\b|\bQu[eé]bec\b|\bBritish Columbia\b|\bAlberta\b|\bNova Scotia\b|\bManitoba\b|\bSaskatchewan\b/i;
 const us=/\b(?:USA|United States|US)\b|,\s*(?:AL|AK|AZ|AR|CA|CO|CT|DE|FL|GA|HI|ID|IL|IN|IA|KS|KY|LA|ME|MD|MA|MI|MN|MS|MO|MT|NE|NV|NH|NJ|NM|NY|NC|ND|OH|OK|OR|PA|RI|SC|SD|TN|TX|UT|VT|VA|WA|WV|WI|WY|DC)\b/i;
@@ -47,8 +58,7 @@ const jobs=active.flatMap(row=>{
   return [{id:createHash('sha256').update(`${row.source_repo}|${row.id||apply_url}`).digest('hex').slice(0,32),company:row.company_name,position:row.title,location,apply_url,source_url,source_label:row.source_label,source_repo:row.source_repo,posting_date:date,category,sponsorship_note:row.sponsorship||'Not known as of now',priority_rank:p.rank,priority_label:p.label,tech_stack:'Not known as of now'}];
 });
 jobs.sort((a,b)=>a.priority_rank-b.priority_rank||b.posting_date.localeCompare(a.posting_date)||a.company.localeCompare(b.company));
-const prior=JSON.parse(readFileSync(output,'utf8'));
 const comparable=x=>JSON.stringify(x.jobs.map(({posting_age,section,...job})=>job));
-if(comparable(prior)===comparable({jobs})){console.log(`No role changes; ${jobs.length} jobs retained.`);process.exit(0);}
-writeFileSync(output,JSON.stringify({checked_at:new Date().toISOString(),source:'SimplifyJobs GitHub structured listings',jobs})+'\n');
+if(comparable(prior)===comparable({jobs})&&!upstreamShas){console.log(`No role changes; ${jobs.length} jobs retained.`);process.exit(0);}
+writeFileSync(output,JSON.stringify({checked_at:new Date().toISOString(),source:'SimplifyJobs GitHub structured listings',...(upstreamShas?{upstream_shas:upstreamShas}:{}),jobs})+'\n');
 console.log(`Updated ${jobs.length} tech roles (${jobs.filter(j=>j.priority_rank===0).length} Canada).`);

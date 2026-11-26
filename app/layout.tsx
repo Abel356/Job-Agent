@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Earthwork · Global Jobs",
-  description: "Your private workspace for jobs across countries, remote opportunities and employer-stated visa sponsorship.",
+  title: "Earthwork · Tech Jobs",
+  description: "Private Canadian and US tech jobs, with Simplify listings and clear sponsorship signals.",
   icons: {
     icon: "/favicon.svg",
     shortcut: "/favicon.svg",

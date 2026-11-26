@@ -1,6 +1,6 @@
 # Earthwork · Tech Jobs
 
-A public tech jobs board focused on Canadian roles, remote US roles, and US employers with sponsorship evidence. Applications go to the employer site. The board is served from committed data so it remains usable while the previous Neon database is over quota.
+A tech jobs board without an application password, focused on Canadian roles, remote US roles, and US employers with sponsorship evidence. Applications go to the employer site. The board is served from committed data so it remains usable while the previous Neon database is over quota.
 
 ## Jobs shown
 
@@ -22,7 +22,7 @@ The former all-employer collector remains in the repository for historical refer
 
 ## Deployment and access
 
-The existing Vercel project is `earthwork-jobs`, connected to this repository's `main` branch. Static mode is the default. The production build skips database bootstrap, avoiding the Neon quota error. The job board, job details, and source list are public. Maintenance endpoints and every write still require the server-only `UPDATER_SECRET` bearer token. Do not commit that value.
+The existing Vercel project is `earthwork-jobs`, connected to this repository's `main` branch. Static mode is the default. The production build skips database bootstrap, avoiding the Neon quota error. The job board, job details, and source list require no application password. Vercel Authentication is a separate project setting and may still require a Vercel sign-in. Maintenance endpoints and every write require the server-only `UPDATER_SECRET` bearer token. Do not commit that value.
 
 Static mode does not persist category corrections or refresh-run history. Résumé matching remains local to the browser. Users should treat résumé data entered on a shared device as visible to other users of that browser profile.
 

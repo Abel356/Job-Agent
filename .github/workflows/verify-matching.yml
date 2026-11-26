@@ -1,4 +1,4 @@
-name: Verify résumé matching deployment
+name: Verify tech jobs deployment
 on:
   workflow_dispatch:
   push:
@@ -38,7 +38,7 @@ jobs:
         run: node scripts/verify-matching.mjs
       - name: Verify collector and discovery
         run: python scripts/verify_collector.py
-      - name: Verify deployed API and browser PDF asset
+      - name: Verify deployed tech jobs API and browser PDF asset
         env:
           SITE_ORIGIN: ${{ secrets.EARTHWORK_SITE_URL || 'https://earthwork-jobs.vercel.app' }}
           UPDATER_SECRET: ${{ secrets.EARTHWORK_UPDATER_SECRET }}

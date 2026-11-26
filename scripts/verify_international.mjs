@@ -81,5 +81,9 @@ assert(!matches(usRemoteSponsor,{...base,workplace:'On-site'}),'Remote role must
 assert(!matches(usRemoteSponsor,{...base,student:'New graduate / entry level'}),'Internship alone must not imply new-graduate status');
 assert(matches(unknownLocation,{...base,country:'Not stated / unclear'}),'Unclear locations must remain discoverable');
 assert(!matches(unknownLocation,{...base,country:'Canada'}),'Unclear location must not be presented as Canada');
+assert(matches({...usRemoteSponsor,priority_rank:2},{...base,country:'United States',sponsorEvidence:true}),'Role-specific sponsorship evidence must be discoverable');
+assert(matches({...usRemoteSponsor,priority_rank:3},{...base,country:'United States',sponsorEvidence:true}),'Company sponsorship evidence must be discoverable');
+assert(!matches({...usRemoteSponsor,priority_rank:4},{...base,sponsorEvidence:true}),'Unverified sponsorship must not satisfy the evidence filter');
+assert(!matches({...canadaRemote,priority_rank:3},{...base,sponsorEvidence:true}),'US sponsorship evidence must exclude Canada-only roles');
 console.log('International location, sponsorship, restrictions and combined-filter assertions passed.');
 fs.rmSync(temp,{recursive:true,force:true});

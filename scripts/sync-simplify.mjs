@@ -18,7 +18,7 @@ if(!inputDir){
     const metadata=await response.json();if(!metadata.sha)throw Error(`${repo}: missing listings SHA`);
     return [repo,metadata.sha];
   })));
-  if(sources.every(([repo])=>prior.upstream_shas?.[repo]===upstreamShas[repo])){console.log('Simplify listings unchanged.');process.exit(0);}
+  if(process.env.GITHUB_EVENT_NAME!=='push'&&sources.every(([repo])=>prior.upstream_shas?.[repo]===upstreamShas[repo])){console.log('Simplify listings unchanged.');process.exit(0);}
 }
 const tech=/software|engineer|developer|data|machine learning|\bai\b|product|quant|hardware|firmware|security|cloud|devops|infrastructure|design|\bux\b|\bui\b|research/i;
 const newGradRole=/software eng|software dev|product engineer|fullstack engineer|frontend|front end|front-end|backend|back end|full-stack|full stack|founding engineer|mobile dev|mobile engineer|data scientist|data engineer|research eng|product manag|\bapm\b|product|devops|android|\bios\b|\bsre\b|site reliability eng|quantitative trad|quantitative research|quantitative dev|security eng|compiler eng|machine learning eng|hardware eng|firmware eng|infrastructure eng|embedded|\bfpga\b|circuit|chip|silicon|\basic\b|quant|trading|finance|investment|machine learning|analytics|analyst|research sci/i;

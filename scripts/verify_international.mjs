@@ -85,5 +85,6 @@ assert(matches({...usRemoteSponsor,priority_rank:2},{...base,country:'United Sta
 assert(matches({...usRemoteSponsor,priority_rank:3},{...base,country:'United States',sponsorEvidence:true}),'Company sponsorship evidence must be discoverable');
 assert(!matches({...usRemoteSponsor,priority_rank:4},{...base,sponsorEvidence:true}),'Unverified sponsorship must not satisfy the evidence filter');
 assert(!matches({...canadaRemote,priority_rank:3},{...base,sponsorEvidence:true}),'US sponsorship evidence must exclude Canada-only roles');
+assert(matches({...usRemoteSponsor,priority_rank:1,sponsorship_note:'Offers Sponsorship'},{...base,sponsorEvidence:true}),'A remote US role marked as offering sponsorship must not be lost to remote priority ranking');
 console.log('International location, sponsorship, restrictions and combined-filter assertions passed.');
 fs.rmSync(temp,{recursive:true,force:true});

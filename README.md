@@ -1,6 +1,6 @@
 # Earthwork · Tech Jobs
 
-A private tech jobs board focused on Canadian roles, remote US roles, and US employers whose Simplify listings indicate sponsorship. Applications go to the employer site. The board is served from committed data so it remains usable while the previous Neon database is over quota.
+A public tech jobs board focused on Canadian roles, remote US roles, and US employers with sponsorship evidence. Applications go to the employer site. The board is served from committed data so it remains usable while the previous Neon database is over quota.
 
 ## Jobs shown
 
@@ -22,12 +22,12 @@ The former all-employer collector remains in the repository for historical refer
 
 ## Deployment and access
 
-The existing Vercel project is `earthwork-jobs`, connected to this repository's `main` branch. Static mode is the default. The production build skips database bootstrap, avoiding the Neon quota error. The site still requires server-only `APP_PASSWORD` (at least 16 characters) and `SESSION_SECRET` (at least 32 characters) for its signed private session. Do not commit either value.
+The existing Vercel project is `earthwork-jobs`, connected to this repository's `main` branch. Static mode is the default. The production build skips database bootstrap, avoiding the Neon quota error. The job board, job details, and source list are public. Maintenance endpoints and every write still require the server-only `UPDATER_SECRET` bearer token. Do not commit that value.
 
-Static mode does not persist category corrections or refresh-run history. Login attempts have a per-instance limit while Neon is unavailable; the previous database-wide limit resumes only if database mode is explicitly enabled after capacity is restored. Résumé matching remains local to the browser.
+Static mode does not persist category corrections or refresh-run history. Résumé matching remains local to the browser. Users should treat résumé data entered on a shared device as visible to other users of that browser profile.
 
 ## Local checks
 
 Use Node.js 24 and pnpm 11.25.0. Run `pnpm install --frozen-lockfile`, `node scripts/verify-simplify.mjs`, `pnpm check`, and `pnpm build`. To try the sync against fixture files without network access, set `SIMPLIFY_INPUT_DIR` to a directory containing `new-grad.json` and `internships.json`, and `SIMPLIFY_OUTPUT` to a writable output path.
 
-Production deployments should be checked for a successful build, private sign-in, job pagination, priority labels, details, and the next GitHub Actions sync.
+Production deployments should be checked for a successful build, direct public access, job pagination, priority labels, details, blocked unauthenticated maintenance requests, and the next GitHub Actions sync.

@@ -13,6 +13,7 @@ on:
       - 'db/schema.sql'
       - 'components/resume-matcher.tsx'
       - 'scripts/verify-matching-deployment.py'
+      - 'scripts/verify-security.mjs'
       - '.github/workflows/verify-matching.yml'
 permissions:
   contents: read
@@ -34,6 +35,8 @@ jobs:
         run: corepack pnpm install --frozen-lockfile
       - name: Verify atomic PostgreSQL ingestion
         run: node scripts/verify-ingestion.mjs
+      - name: Verify updater authorization
+        run: node scripts/verify-security.mjs
       - name: Verify deterministic matcher
         run: node scripts/verify-matching.mjs
       - name: Verify collector and discovery

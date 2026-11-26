@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Earthwork · Tech Jobs",
-  description: "Private Canadian and US tech jobs, with Simplify listings and clear sponsorship signals.",
+  description: "Canadian and US tech jobs, with Simplify listings and clear sponsorship signals.",
   icons: {
     icon: "/favicon.svg",
     shortcut: "/favicon.svg",

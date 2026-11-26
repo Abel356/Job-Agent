@@ -6,15 +6,14 @@ import {decorate,CATEGORIES} from '@/lib/jobs';
 import updater from '@/lib/updater-source';
 import {deadlinePassed} from '@/lib/job-query';
 import {fetchSource} from '@/lib/public-fetch';
-import {authorized} from '@/lib/auth';
+import {updaterAuthorized} from '@/lib/auth';
 import {staticJobs,staticById,staticSettings,staticSources} from '@/lib/static-jobs';
 export const dynamic='force-dynamic';
 export const maxDuration=60;
 const response=(data:unknown,status=200)=>Response.json(data,{status,headers:{'Cache-Control':'private, no-store'}});
 function path(req:Request){return new URL(req.url).pathname.slice(5);}
 function rowJob(r:any){const j=decorate(JSON.parse(r.data));return {...j,first_seen:r.first_seen,last_seen:r.last_seen,category_override:r.category_override,categories:r.category_override?[r.category_override]:j.categories};}
-export async function GET(req:Request){if(!authorized(req))return response({error:'Please sign in.'},401);try{
- const p=path(req);
+export async function GET(req:Request){const p=path(req);if(p!=='jobs'&&p!=='sources'&&!p.startsWith('job/')&&!updaterAuthorized(req))return response({error:'Updater authorization required.'},401);try{
  if(process.env.USE_DATABASE!=='1'){
   if(p==='jobs'){
    const cursor=new URL(req.url).searchParams.get('after')||'';
@@ -45,8 +44,8 @@ export async function GET(req:Request){if(!authorized(req))return response({erro
  if(p==='updater')return new Response(updater,{headers:{'Content-Type':'text/plain; charset=utf-8','Cache-Control':'private, no-store'}});
  return response({error:'Not found'},404);
  }catch(e){console.error(e);const failure=storageError(e,'Job storage is temporarily unavailable. Please try again.',503);return response(failure.body,failure.status);}}
-export async function POST(req:Request){if(!authorized(req))return response({error:'Please sign in.'},401);try{
- // Maintenance uses a separate bearer secret; visitors use owner sessions.
+export async function POST(req:Request){if(!updaterAuthorized(req))return response({error:'Updater authorization required.'},401);try{
+ // Public visitors can read jobs; maintenance writes require the updater bearer secret.
  const origin=req.headers.get('origin');if(origin&&origin!==new URL(req.url).origin)return response({error:'Cross-origin write denied'},403);
  const p=path(req);
  if(process.env.USE_DATABASE!=='1')return response({error:'Persistent job edits are paused while the database is unavailable.'},503);

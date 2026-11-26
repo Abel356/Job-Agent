@@ -10,6 +10,7 @@ const sources=[
 const output=process.env.SIMPLIFY_OUTPUT||'data/simplify-jobs.json';
 const inputDir=process.env.SIMPLIFY_INPUT_DIR;
 const prior=JSON.parse(readFileSync(output,'utf8'));
+const sponsorEvidence=JSON.parse(readFileSync(new URL('../data/us-sponsor-evidence.json',import.meta.url),'utf8'));
 let upstreamShas;
 if(!inputDir){
   upstreamShas=Object.fromEntries(await Promise.all(sources.map(async ([repo])=>{
@@ -26,13 +27,14 @@ const newGradStage=/new grad|early career|college grad|entry level|founding|earl
 const canadian=/\bCanada\b|\bToronto\b|\bVancouver\b|\bMontr[eé]al\b|\bOttawa\b|\bCalgary\b|\bEdmonton\b|\bWaterloo\b|\bKitchener\b|\bOntario\b|\bQuebec\b|\bQu[eé]bec\b|\bBritish Columbia\b|\bAlberta\b|\bNova Scotia\b|\bManitoba\b|\bSaskatchewan\b/i;
 const us=/\b(?:USA|United States|US)\b|,\s*(?:AL|AK|AZ|AR|CA|CO|CT|DE|FL|GA|HI|ID|IL|IN|IA|KS|KY|LA|ME|MD|MA|MI|MN|MS|MO|MT|NE|NV|NH|NJ|NM|NY|NC|ND|OH|OK|OR|PA|RI|SC|SD|TN|TX|UT|VT|VA|WA|WV|WI|WY|DC)\b/i;
 function inCanada(location){return canadian.test(location.replace(/\b(?:Vancouver\s*,?\s*(?:WA|Washington)|Ontario\s*,?\s*(?:CA|California|OH|Ohio)|Waterloo\s*,?\s*(?:IA|Iowa)|Ottawa\s*,?\s*(?:IL|Illinois|KS|Kansas)|Halifax\s*,?\s*(?:VA|Virginia)|Toronto\s*,?\s*(?:OH|Ohio))\b/gi,''));}
-function priority(location,sponsorship,companyHasOffer){
+function priority(location,sponsorship,companyHasOffer,companyEvidence){
   if(inCanada(location))return {rank:0,label:'Canada role · you already have work authorization'};
   if(sponsorship==='U.S. Citizenship is Required')return {rank:4,label:'US citizenship required for this role'};
   if(sponsorship==='Does Not Offer Sponsorship')return {rank:4,label:'This role is marked as not offering sponsorship'};
   if(/remote/i.test(location)&&us.test(location))return {rank:1,label:'Remote US role · confirm Canada eligibility and US work authorization'};
   if(sponsorship==='Offers Sponsorship')return {rank:2,label:'Simplify lists sponsorship offered for this role · confirm with employer'};
   if(companyHasOffer)return {rank:3,label:'Company has another Simplify role marked sponsorship offered · this role is unconfirmed'};
+  if(companyEvidence)return {rank:3,label:`${companyEvidence.company} has published visa sponsorship guidance · this role is unconfirmed`};
   return {rank:4,label:'US role · sponsorship not known as of now'};
 }
 function cleanUrl(value){
@@ -59,9 +61,10 @@ const jobs=active.flatMap(row=>{
   const location=(Array.isArray(row.locations)?row.locations:[row.locations]).filter(Boolean).join('; ');
   if(!inCanada(location)&&!us.test(location))return [];
   const apply_url=cleanUrl(row.url),source_url=apply_url;
-  const p=priority(location,row.sponsorship,offers.has(row.company_name.toLowerCase().trim()));
+  const companyEvidence=sponsorEvidence[row.company_name.toLowerCase().trim()];
+  const p=priority(location,row.sponsorship,offers.has(row.company_name.toLowerCase().trim()),companyEvidence);
   const date=Number(row.date_posted)>0?new Date(Number(row.date_posted)*1000).toISOString().slice(0,10):'';
-  return [{id:createHash('sha256').update(`${row.source_repo}|${row.id||apply_url}`).digest('hex').slice(0,32),company:row.company_name,position:row.title,location,apply_url,source_url,source_label:row.source_label,source_repo:row.source_repo,posting_date:date,category,sponsorship_note:row.sponsorship||'Not known as of now',priority_rank:p.rank,priority_label:p.label,tech_stack:'Not known as of now'}];
+  return [{id:createHash('sha256').update(`${row.source_repo}|${row.id||apply_url}`).digest('hex').slice(0,32),company:row.company_name,position:row.title,location,apply_url,source_url,source_label:row.source_label,source_repo:row.source_repo,posting_date:date,category,sponsorship_note:companyEvidence&&p.rank===3?companyEvidence.note:row.sponsorship&&row.sponsorship!=='Other'?row.sponsorship:'Not known as of now',sponsorship_evidence_url:companyEvidence&&p.rank===3?companyEvidence.url:'',priority_rank:p.rank,priority_label:p.label,tech_stack:'Not known as of now'}];
 });
 jobs.sort((a,b)=>a.priority_rank-b.priority_rank||b.posting_date.localeCompare(a.posting_date)||a.company.localeCompare(b.company));
 if(jobs.length>3000)throw Error(`Refusing unexpectedly broad Simplify import: ${jobs.length} roles`);

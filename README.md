@@ -6,9 +6,10 @@ A private tech jobs board focused on Canadian roles, remote US roles, and US emp
 
 - Restored Canadian technology roles from the October 2, 2026 employer snapshot. These are historical listings: check the employer link before applying.
 - Active software, data, AI, product, quant, hardware, security, and related technology listings from the Simplify new-grad and Summer 2027 internship GitHub repositories.
-- Simplify listings are limited to Canada and the United States. Canada comes first, then remote US, then US roles marked by Simplify as offering sponsorship, then roles at employers with another Simplify posting marked as offering sponsorship, then other US roles.
+- Simplify listings are limited to Canada and the United States. Canada comes first, then remote US, then US roles marked by Simplify as offering sponsorship, then roles at employers with another Simplify posting marked as offering sponsorship or published company sponsorship guidance, then other US roles.
 - A company history or a Simplify sponsorship flag does not guarantee sponsorship for a specific application. Roles marked no sponsorship or US citizenship required remain labelled accordingly. Canadian roles are prioritized for this workspace because the owner does not need Canadian work authorization.
-- Company tech stack is displayed as `Not known as of now` until a reliable company source provides it. No stack is guessed from a job title.
+- Microsoft is the first company with separate primary-source sponsorship evidence: its [university internship FAQ](https://careers.microsoft.com/v2/global/en/universityinternship) says it provides visa sponsorship. Its US roles are ranked as company-known, but each role remains unconfirmed. The evidence is maintained in `data/us-sponsor-evidence.json`; a role's explicit no-sponsorship or citizenship restriction always overrides company evidence.
+- Company tech stack is displayed as `Not known as of now` unless the restored October employer posting explicitly described its stack. No stack is guessed from a job title.
 - Past unambiguous application deadlines are hidden. The old employer snapshot is not independently rechecked in static mode.
 
 Sources: [Simplify new-grad](https://github.com/SimplifyJobs/New-Grad-Positions) and [Simplify / Pitt CSC internships](https://github.com/SimplifyJobs/Summer2027-Internships). The structured `.github/scripts/listings.json` files on their `dev` branches provide active status, category, location, posting date, and sponsorship flags. Attribution is shown on the site.

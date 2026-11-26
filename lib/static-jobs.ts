@@ -4,7 +4,7 @@ import snapshot from '@/data/tech-snapshot.json';
 import {decorate,type Job} from './jobs';
 import {deadlinePassed} from './job-query';
 
-type Listed={company:string;position:string;location:string;apply_url:string;source_url:string;source_label:string;posting_date?:string;priority_rank?:number;priority_label?:string;sponsorship_note?:string;tech_stack?:string;id?:string};
+type Listed={company:string;position:string;location:string;apply_url:string;source_url:string;source_label:string;posting_date?:string;priority_rank?:number;priority_label?:string;sponsorship_note?:string;sponsorship_evidence_url?:string;tech_stack?:string;id?:string};
 const stackNames=['TypeScript','JavaScript','React','GraphQL','Node.js','PostgreSQL','Postgres','Redis','Python','Rust','Java','Kotlin','Swift','AWS','Azure','GCP','Docker','Kubernetes'];
 function inCanada(location:string){return /\bCanada\b|\bToronto\b|\bVancouver\b|\bMontr[eé]al\b|\bOttawa\b|\bCalgary\b|\bEdmonton\b|\bWaterloo\b|\bKitchener\b|\bOntario\b|\bQuebec\b|\bQu[eé]bec\b|\bBritish Columbia\b/i.test(location.replace(/\b(?:Vancouver\s*,?\s*(?:WA|Washington)|Ontario\s*,?\s*(?:CA|California|OH|Ohio)|Waterloo\s*,?\s*(?:IA|Iowa)|Ottawa\s*,?\s*(?:IL|Illinois|KS|Kansas)|Toronto\s*,?\s*(?:OH|Ohio))\b/gi,''));}
 const companyStacks=new Map<string,string>();
@@ -16,7 +16,7 @@ for(const row of snapshot.jobs as Partial<Job>[]){
 }
 function listedJob(row:Listed):Job{
  const id=row.id||createHash('sha256').update(`${row.company}|${row.position}|${row.apply_url}`).digest('hex').slice(0,32);
- return decorate({id,source_id:'simplify:github',company:row.company,position:row.position,location:row.location,other_locations:'',apply_url:row.apply_url,source_url:row.source_url,workplace:/remote/i.test(row.location)?'Remote':'',employment_type:row.source_label==='Internship'?'Internship':'FullTime',department:'',posting_date:row.posting_date||'',date_basis:row.posting_date?'Date listed by Simplify':'',deadline:'',deadline_evidence:'',canada_evidence:'',link_checked_at:'',description:'',priority_rank:row.priority_rank??(inCanada(row.location)?0:4),priority_label:row.priority_label||(inCanada(row.location)?'Canada role · you already have work authorization':'US role · sponsorship not known as of now'),sponsorship_note:row.sponsorship_note||'Not known as of now',tech_stack:row.tech_stack||'Not known as of now',source_label:row.source_label} as Partial<Job>);
+ return decorate({id,source_id:'simplify:github',company:row.company,position:row.position,location:row.location,other_locations:'',apply_url:row.apply_url,source_url:row.source_url,workplace:/remote/i.test(row.location)?'Remote':'',employment_type:row.source_label==='Internship'?'Internship':'FullTime',department:'',posting_date:row.posting_date||'',date_basis:row.posting_date?'Date listed by Simplify':'',deadline:'',deadline_evidence:'',canada_evidence:'',link_checked_at:'',description:'',priority_rank:row.priority_rank??(inCanada(row.location)?0:4),priority_label:row.priority_label||(inCanada(row.location)?'Canada role · you already have work authorization':'US role · sponsorship not known as of now'),sponsorship_note:row.sponsorship_note||'Not known as of now',sponsorship_evidence_url:row.sponsorship_evidence_url||'',tech_stack:row.tech_stack||'Not known as of now',source_label:row.source_label} as Partial<Job>);
 }
 function applicationKey(value:string){const url=new URL(value);return (url.hostname+url.pathname.replace(/\/(?:application|apply)$/i,'')).toLowerCase();}
 const urls=new Set<string>();

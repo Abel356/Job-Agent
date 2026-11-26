@@ -6,6 +6,7 @@ on:
     paths:
       - '.github/workflows/refresh-jobs.yml'
       - 'scripts/sync-simplify.mjs'
+      - 'data/us-sponsor-evidence.json'
   schedule:
     # Daily check at 5 p.m. Toronto, including daylight saving time.
     - cron: '0 17 * * *'

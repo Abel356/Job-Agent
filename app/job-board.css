@@ -80,8 +80,9 @@
 .job-card {border-radius: 11px; padding: 21px 23px; box-shadow: 0 2px 8px #27214305;}
 .job-card:hover {border-color: #bcb6e6; box-shadow: 0 8px 22px #2721430e;}
 .role-title {font-weight: 650; letter-spacing: -.025em;}
-.mobile-filters {width: min(92vw, 430px)!important; max-width: 430px!important; background: #fff; padding-bottom: 24px;}
-.mobile-filter-body {padding: 5px 24px 12px;}
+.mobile-filters {width: min(92vw, 430px)!important; max-width: 430px!important; background: #fff; overflow: hidden; padding-bottom: 20px;}
+.mobile-filter-body {flex: 1; min-height: 0; overflow-y: auto; padding: 5px 24px 12px;}
+.mobile-filters>button:not([aria-label]) {flex: none; width: calc(100% - 48px); min-height: 42px; margin: 0 24px;}
 .filter-heading {margin-bottom: 20px;}
 .filter-heading h2 {font: 700 20px Arial, Helvetica, sans-serif; letter-spacing: -.03em;}
 .filter-section>summary {font-size: 13px;}

@@ -39,6 +39,8 @@ jobs:
         run: node scripts/verify-security.mjs
       - name: Verify deterministic matcher
         run: node scripts/verify-matching.mjs
+      - name: Verify job filter combinations
+        run: node scripts/verify_international.mjs
       - name: Verify collector and discovery
         run: python scripts/verify_collector.py
       - name: Verify deployed tech jobs API and browser PDF asset

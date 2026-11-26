@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - 'lib/matching.ts'
+      - 'lib/job-query.ts'
       - 'lib/ingestion.ts'
       - 'app/api/**'
       - 'app/dashboard.tsx'
@@ -13,6 +14,7 @@ on:
       - 'db/schema.sql'
       - 'components/resume-matcher.tsx'
       - 'scripts/verify-matching-deployment.py'
+      - 'scripts/verify_international.mjs'
       - 'scripts/verify-security.mjs'
       - '.github/workflows/verify-matching.yml'
 permissions:

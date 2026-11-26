@@ -1,6 +1,8 @@
 // Runs on Vercel production builds so database setup requires no local API access.
 import {neon} from '@neondatabase/serverless';
-if(process.env.VERCEL_ENV!=='production'){
+if(process.env.USE_DATABASE!=='1'){
+ console.log('Serving the bounded tech-jobs snapshot and Simplify GitHub sync; database bootstrap skipped.');
+}else if(process.env.VERCEL_ENV!=='production'){
  console.log('Automatic database setup is reserved for production deployments.');
 }else{
  for(const [key,min] of [['DATABASE_URL',1],['APP_PASSWORD',16],['SESSION_SECRET',32],['UPDATER_SECRET',32]]){

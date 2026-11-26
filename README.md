@@ -1,86 +1,32 @@
-# Earthwork · Global Jobs
+# Earthwork · Tech Jobs
 
-A private jobs dashboard with an earthy, minimal interface, international location and employer-stated sponsorship filters, real application links, relevance search, salary/date sorting, and a scripted Daily refresh. Canada is the initial country filter; Clear all includes every country. No OpenAI API key or AI service is required. Applications are submitted by you on the employer's website.
+A private tech jobs board focused on Canadian roles, remote US roles, and US employers whose Simplify listings indicate sponsorship. Applications go to the employer site. The board is served from committed data so it remains usable while the previous Neon database is over quota.
 
-## Included data
+## Jobs shown
 
-`data/earthwork-snapshot.json.gz` is a complete database export from October 2, 2026: 1,603 job records, 1,801 careers sources, category overrides, first/last seen dates, four refresh runs, and settings. Full employer descriptions are included. It contains no account credentials. Listings are Canadian or explicitly Canada-eligible remote roles; future openings/talent pools and eligibility caveats are labelled. 1,512 application pages were reachable in the latest refresh; 91 retain their initial verification because a later source check was incomplete. A reachable page alone does not prove an employer is still reviewing applications.
+- Restored Canadian technology roles from the October 2, 2026 employer snapshot. These are historical listings: check the employer link before applying.
+- Active software, data, AI, product, quant, hardware, security, and related technology listings from the Simplify new-grad and Summer 2027 internship GitHub repositories.
+- Simplify listings are limited to Canada and the United States. Canada comes first, then remote US, then US roles marked by Simplify as offering sponsorship, then roles at employers with another Simplify posting marked as offering sponsorship, then other US roles.
+- A company history or a Simplify sponsorship flag does not guarantee sponsorship for a specific application. Roles marked no sponsorship or US citizenship required remain labelled accordingly. Canadian roles are prioritized for this workspace because the owner does not need Canadian work authorization.
+- Company tech stack is displayed as `Not known as of now` until a reliable company source provides it. No stack is guessed from a job title.
+- Past unambiguous application deadlines are hidden. The old employer snapshot is not independently rechecked in static mode.
 
-## Deploy to Vercel
+Sources: [Simplify new-grad](https://github.com/SimplifyJobs/New-Grad-Positions) and [Simplify / Pitt CSC internships](https://github.com/SimplifyJobs/Summer2027-Internships). The structured `.github/scripts/listings.json` files on their `dev` branches provide active status, category, location, posting date, and sponsorship flags. Attribution is shown on the site.
 
-1. Import this private GitHub repository into the intended Vercel team. Use the repository root, Next.js framework and Node.js 24.
-2. Connect a Neon Postgres database through Vercel Marketplace. Set its connection string as server-only `DATABASE_URL`.
-3. Set `APP_PASSWORD` (unique, at least 16 characters), `SESSION_SECRET` and a separate `UPDATER_SECRET` (random, at least 32 characters each). Set them in Production and Preview; keep preview isolated from production data if developing changes. Never expose these values through `NEXT_PUBLIC_*` or commit them.
-4. Link locally with `vercel link`, then pull the production environment with `vercel env pull .env.production.local --environment=production`. Confirm the correct project/team before running database commands.
-5. Production builds run `scripts/bootstrap-db.mjs` before Next.js: it verifies required server environment keys, applies the schema, and imports the complete snapshot once. A persisted completion marker prevents later deployments from reimporting data or resetting the schedule. If an initial import fails, its next build resumes safely while preserving already imported rows. Preview and local builds do not initialize a database automatically. To initialize a separate local database, run `node --env-file=.env.local scripts/migrate-db.mjs` and `node --env-file=.env.local scripts/seed-db.mjs`.
-6. Deploy through the Git integration or `vercel --prod`. Sign in with the workspace password. Verify that anonymous `/api/jobs` returns 401, authenticated jobs/details load, category correction persists, and filters/sorts work.
+## Independent refresh
 
-The app denies job/data access unless a valid owner session or updater bearer secret is present. Owner sessions use signed, secure, HttpOnly cookies; changing the workspace password invalidates them. Login attempts are limited in Postgres. The existing hosted site and its schedule should remain active until this migration is verified.
+[GitHub Actions](.github/workflows/refresh-jobs.yml) runs [scripts/sync-simplify.mjs](scripts/sync-simplify.mjs) daily at **5 p.m. America/Toronto** and polls every 15 minutes between daily checks. It does not use a ChatGPT automation or the old Neon-backed all-company collector. When the normalized data changes, the workflow commits `data/simplify-jobs.json` to `main`; the existing Vercel Git integration deploys that commit. GitHub scheduled jobs may start late, so updates are eventual rather than instantaneous. The workflow needs repository Actions to be enabled and permission for GitHub Actions to write to `main`.
 
-## Daily refresh
+The former all-employer collector remains in the repository for historical reference but is not scheduled. The October snapshot is not refreshed until an independent, bounded employer collector is added.
 
-The committed GitHub Actions workflow runs daily at **12 p.m. America/Toronto**, including daylight-saving changes, and supports **Run workflow** manually. Long crawling runs happen on GitHub Actions; Vercel serves the frontend and short database/API requests.
+## Deployment and access
 
-Add these repository Actions secrets:
+The existing Vercel project is `earthwork-jobs`, connected to this repository's `main` branch. Static mode is the default. The production build skips database bootstrap, avoiding the Neon quota error. The site still requires server-only `APP_PASSWORD` (at least 16 characters) and `SESSION_SECRET` (at least 32 characters) for its signed private session. Do not commit either value.
 
-| Secret | Value |
-|---|---|
-| `EARTHWORK_SITE_URL` | Optional override; defaults to `https://earthwork-jobs.vercel.app` |
-| `EARTHWORK_UPDATER_SECRET` | Exactly the server's `UPDATER_SECRET` |
-| `VERCEL_AUTOMATION_BYPASS_SECRET` | Optional Vercel protection bypass secret if Deployment Protection blocks the automation URL |
+Static mode does not persist category corrections or refresh-run history. Login attempts have a per-instance limit while Neon is unavailable; the previous database-wide limit resumes only if database mode is explicitly enabled after capacity is restored. Résumé matching remains local to the browser.
 
-Enable Actions, then run the workflow manually and verify its results in **Refresh & coverage** before retiring the old schedule. Schedule configuration is committed, but activation requires these secrets and a successful deployment/run. GitHub may delay scheduled runs.
+## Local checks
 
-The Python collector uses public Ashby, Greenhouse, Lever, Workable and Workday feeds and employer job metadata. It discovers additional ATS links, checks individual application pages, extracts supplied dates and compensation, and reports incomplete checks. In direct mode, owner/updater credentials are sent only to your Earthwork API; public employer requests never receive them. Set `PUBLIC_FETCH_MODE=proxy` only if the server-side allowlisted public-fetch fallback is needed.
+Use Node.js 24 and pnpm 11.25.0. Run `pnpm install --frozen-lockfile`, `node scripts/verify-simplify.mjs`, `pnpm check`, and `pnpm build`. To try the sync against fixture files without network access, set `SIMPLIFY_INPUT_DIR` to a directory containing `new-grad.json` and `internships.json`, and `SIMPLIFY_OUTPUT` to a writable output path.
 
-## Company discovery and international coverage
-
-- Production bootstrap idempotently registers the 321 Speedrun company profiles discovered on October 14, 2026, its directory, and all 500 companies in the 2026 Fortune 500 public directory. These are tracked sources, not a claim that 821 companies currently have accessible jobs. Existing records are preserved.
-- Every full Daily refresh paginates Speedrun's public directory across all cohorts and registers new profiles. Profile pages provide official employer websites; official careers links lead to supported ATS boards. The Fortune roster is dated 2026 and sourced from the public SheetSteps directory linked to Fortune company profiles. Public Fortune Company Information resolves official websites; saved websites are reused. Rankings and subscription content are not imported.
-- New employers found in JobPosting metadata and new ATS links in opportunities are persisted immediately. Discovery uses canonical website/board identities, not employer name alone. Jobs are retained across countries; job location is distinct from headquarters. Unclear locations remain unspecified.
-- Every failed employer source receives a final bounded Ashby lookup using name, case and slug variants. A healthy feed must pass an employer-identity check (registered official domain, or matching name plus an official-site backlink). A verified replacement preserves the original source ID, records the prior issue, and is used in later refreshes. Remaining application-link failures stay flagged. No verified replacement means the failure remains visible with the attempts recorded. UUID-only unknown names cannot be safely guessed.
-- The October 14 Ashby recheck covers all 308 saved failures. Production bootstrap applies its repair/history data only when the source URL, original check timestamp and error are unchanged and no newer fallback exists. Verified boards are labelled awaiting refresh; these probes do not import jobs or mark a complete refresh. Subsequent builds leave updated records alone.
-- The job list and existing-job state are paginated. Refresh writes are bounded batches; only the final batch advances coverage and missing-job checks. Large official ATS JSON feeds can be read up to 25 MB in direct mode; other pages remain limited to 5 MB.
-- Filters include country, explicit US sponsorship, general sponsorship (offered, unavailable, conditional, unknown), internships/co-ops, entry-level/new-grad, OPT/CPT mentions, remote geography, and stated citizenship/permanent-residency/clearance requirements. Evidence appears in job details. Missing or contradictory sponsorship wording remains unclear. Generic sponsorship on a multi-country role does not establish US sponsorship.
-- Labels describe employer wording, not immigration advice or a guarantee of eligibility. Canadian work authorization does not grant US work authorization. Remote work for a US employer from Canada is a separate location/employment question. OPT/CPT refers to US student programs.
-
-### Deadline and classification rules
-
-- A known, unambiguous deadline hides the job immediately when the dashboard loads and archives it during refresh. Date-only deadlines remain open through the Toronto calendar day; yearless/ambiguous dates are preserved.
-- Employer-confirmed closure hides a job during refresh. A missing role is archived after two successful source checks. Temporary website/network errors preserve existing roles and are flagged for review.
-- Categories use role-title rules, employer departments and reviewed corrections in `lib/reviewed-categories.ts`. Your manual category correction takes precedence and survives refreshes.
-- Highest compensation ranks the upper end of published annual ranges converted to CAD using Bank of Canada rates. It does not invent missing salaries or compare hourly pay with annual salary. Check the employer posting for commission and equity terms.
-
-## Development and checks
-
-Use Node.js 24 and pnpm 11.25.0. Copy `.env.example` to `.env.local` and set the server environment, migrate/seed a separate development Neon database, then `corepack pnpm dev`. To run the collector locally use `SITE_ORIGIN` and `UPDATER_SECRET` from a secure environment, then `python scripts/refresh_jobs.py`. `--source ashby:cohere` checks one registered source; `--limit 5` checks a bounded subset.
-
-Run `corepack pnpm check`, `python scripts/verify_collector.py`, and `corepack pnpm build`. The checks cover real-data filter results, relevance/date/salary ordering, deadline boundaries, private access, password/session revocation, SQL parameters, and public-request credential isolation. Database and deployed end-to-end checks require configured resources.
-
-An authenticated `GET /api/migration-export` returns all persisted jobs, sources, runs and settings for future backup or migration. Keep exports private. Runtime job changes live in Postgres; they do not require Git commits. Source code changes on `main` redeploy through Vercel's Git integration once connected.
-
-
-## Focused filters and direct major-employer sources
-
-Career-stage version 2 checks title and explicit description evidence for new graduates, including university-grad wording and zero-to-two-year requirements. Senior titles and mentoring references do not qualify. Cached version 1 records are reclassified from their stored descriptions when read. Engineering disciplines support multiple selections; company collections (Fortune 500, Speedrun, major employers) and ATS groups narrow a searchable multi-company picker, with zero-import companies clearly labelled.
-
-Dedicated collectors use Amazon's public careers search (US/Canada, paginated), Tesla's public careers index and job details (US/Canada), and Meta's public job sitemap plus JobPosting metadata (global). Amazon's 10,000-result cap or failed details mark coverage incomplete and preserve existing listings. A small live-verified initial sample is imported once without overwriting existing jobs; it is not full employer coverage. Daily refresh runs at noon Toronto time after the GitHub updater secret is configured. No AI service is used.
-
-
-## Résumé matching and employer discovery
-
-My résumé & matches reads text-based PDF (up to 3 MB / 15 pages), text files, or pasted text in the browser. Confirm skills, demonstrated skills, degree status, graduation year, relevant experience years and optional role preferences before saving. The original résumé and text are never submitted to the server. A versioned compact profile is stored in localStorage on that browser until Remove profile is used; it does not sync across devices. Matching uses no AI, embeddings or external résumé processing.
-
-Scores compare recognized skills (40), demonstrated experience/project skills (15), relevant years (10), career stage (10), selected role fields (10), degree (8), and graduation window (7). Unknown factors are excluded and the remaining weights normalized; the UI reports evidence coverage. Scores require at least 40 points of assessable weight and are not hiring probabilities. Sponsorship/citizenship notices are separate. Required/preferred extraction is conservative and a finite vocabulary cannot interpret every qualification; inspect the original posting.
-
-Daily noon Toronto collection reads public Simplify/Pitt CSC internship and Simplify new-grad directory employer names and direct ATS links. It does not mirror third-party job descriptions, dates, role lists or sponsorship assessments. Supported boards are deduplicated by provider and employer account, registered and then collected directly from employer feeds. The initial employer-link snapshot is in data/employer-discovery.json; future new links are found by each scheduled refresh. SmartRecruiters public postings now join Ashby, Greenhouse, Lever, Workday, Workable and existing direct integrations. Job identity strips tracking queries and apply/application suffixes. Feed failures never confirm closures.
-
-Production bootstrap inserts previously unknown boards and backfills compact non-personal match signals in batches. Existing source data is preserved. The build copies the installed PDF.js worker to public/pdf.worker.min.mjs.
-
-### Refresh write reliability
-
-Employer saves use bounded packets and a PostgreSQL transaction containing jobs, source status, run counters and a receipt. A transient network or server failure retries the same packet ID. Replays return the committed receipt without repeating counts or missing-posting checks. Only the final packet marks a source checked; incomplete employer checks cannot archive missing jobs. Final reconciliation uses SQL sets, so large boards do not return their entire stored job metadata for every packet. Receipts are retained for seven days; finished runs reject new writes.
-
-`node scripts/verify-ingestion.mjs` runs the production ingestion SQL in isolated PGlite PostgreSQL with rollback, lost-response replay, counter, deadline, incomplete-source and 12,000-job reconciliation cases. The collector checks the deployed ingestion protocol before writing.
-
-The browser displays jobs progressively while loading the full collection. Counts and rankings are labelled incomplete until all pages arrive. Continuation pages omit repeated refresh-summary database queries.
+Production deployments should be checked for a successful build, private sign-in, job pagination, priority labels, details, and the next GitHub Actions sync.

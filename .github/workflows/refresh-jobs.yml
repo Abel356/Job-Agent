@@ -1,61 +1,42 @@
-name: Daily company job refresh
+name: Sync tech jobs from Simplify
 on:
   workflow_dispatch:
-    inputs:
-      verify_only:
-        description: Verify refresh locking and expiration without collecting company feeds
-        type: boolean
-        default: false
   schedule:
-    - cron: '0 12 * * *'
+    # Daily check at 5 p.m. Toronto, including daylight saving time.
+    - cron: '0 17 * * *'
+      timezone: 'America/Toronto'
+    # Poll upstream between daily checks. GitHub schedules can run late.
+    - cron: '*/15 * * * *'
       timezone: 'America/Toronto'
 permissions:
-  contents: read
+  contents: write
 concurrency:
-  group: earthwork-refresh
+  group: earthwork-simplify-sync
   cancel-in-progress: false
 jobs:
-  refresh:
+  sync:
     if: github.ref == 'refs/heads/main'
-    environment: EARTHWORK_UPDATER_SECRET
     runs-on: ubuntu-latest
-    timeout-minutes: 90
-    env:
-      SITE_ORIGIN: ${{ secrets.EARTHWORK_SITE_URL || 'https://earthwork-jobs.vercel.app' }}
-      UPDATER_SECRET: ${{ secrets.EARTHWORK_UPDATER_SECRET }}
-      VERCEL_AUTOMATION_BYPASS_SECRET: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
-      PUBLIC_FETCH_MODE: direct
-      REFRESH_RUN_STATE: .earthwork-refresh-run-id
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v6
-      - uses: actions/setup-python@v6
         with:
-          python-version: '3.12'
-      - name: Check configuration
+          fetch-depth: 0
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+      - name: Check Simplify structured listings
+        run: node scripts/sync-simplify.mjs
+      - name: Publish changed job data
         run: |
-          python - <<'PY'
-          import os
-          assert os.environ.get('SITE_ORIGIN','').startswith('https://'), 'Set EARTHWORK_SITE_URL in repository secrets.'
-          assert len(os.environ.get('UPDATER_SECRET','')) >= 32, 'Set EARTHWORK_UPDATER_SECRET in the EARTHWORK_UPDATER_SECRET environment secrets.'
-          PY
-      - name: Verify collector before refreshing
-        run: python scripts/verify_collector.py
-      - name: Collect, verify and update company postings
-        if: ${{ !inputs.verify_only }}
-        run: python scripts/refresh_jobs.py
-      - name: Verify deployed refresh lifecycle
-        if: ${{ inputs.verify_only }}
-        run: python scripts/refresh_jobs.py --verify-lifecycle
-      - name: Release this workflow's unfinished refresh
-        if: ${{ always() }}
-        run: python scripts/refresh_jobs.py --cleanup
-      - name: Mark schedule connected
-        if: ${{ success() && !inputs.verify_only }}
-        run: |
-          python - <<'PY'
-          import importlib.util
-          s=importlib.util.spec_from_file_location('collector','scripts/refresh_jobs.py')
-          m=importlib.util.module_from_spec(s);s.loader.exec_module(m)
-          m.api('settings',{'schedule_enabled':True,'schedule_label':'Daily, 12 p.m. Toronto'})
-          PY
+          if git diff --quiet -- data/simplify-jobs.json; then
+            echo 'No role changes.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/simplify-jobs.json
+          git commit -m 'Sync Simplify tech roles'
+          git pull --rebase origin main
+          git push origin HEAD:main
 

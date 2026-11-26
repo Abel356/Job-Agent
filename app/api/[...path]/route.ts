@@ -7,6 +7,7 @@ import updater from '@/lib/updater-source';
 import {deadlinePassed} from '@/lib/job-query';
 import {fetchSource} from '@/lib/public-fetch';
 import {authorized} from '@/lib/auth';
+import {staticJobs,staticById,staticSettings,staticSources} from '@/lib/static-jobs';
 export const dynamic='force-dynamic';
 export const maxDuration=60;
 const response=(data:unknown,status=200)=>Response.json(data,{status,headers:{'Cache-Control':'private, no-store'}});
@@ -14,6 +15,16 @@ function path(req:Request){return new URL(req.url).pathname.slice(5);}
 function rowJob(r:any){const j=decorate(JSON.parse(r.data));return {...j,first_seen:r.first_seen,last_seen:r.last_seen,category_override:r.category_override,categories:r.category_override?[r.category_override]:j.categories};}
 export async function GET(req:Request){if(!authorized(req))return response({error:'Please sign in.'},401);try{
  const p=path(req);
+ if(process.env.USE_DATABASE!=='1'){
+  if(p==='jobs'){
+   const cursor=new URL(req.url).searchParams.get('after')||'';
+   const start=cursor?staticJobs.findIndex(j=>j.id>cursor):0;
+   const page=staticJobs.slice(start<0?staticJobs.length:start,(start<0?staticJobs.length:start)+250);
+   return response({jobs:page.map(({description,...j})=>j),next_cursor:page.length===250?page.at(-1)?.id:null,...(new URL(req.url).searchParams.get('summary')==='0'?{}:{settings:staticSettings,runs:[]})});
+  }
+  if(p.startsWith('job/'))return staticById.has(p.slice(4))?response(staticById.get(p.slice(4))):response({error:'Role not found'},404);
+  if(p==='sources')return response({sources:staticSources});
+ }
  if(p==='refresh-protocol')return response({version:2,atomic_ingest:true});
  if(p==='migration-export'){const [jobs,sources,runs,settings]=await Promise.all([all<any>('SELECT * FROM jobs'),all<any>('SELECT * FROM sources'),all<any>('SELECT * FROM runs'),all<any>('SELECT * FROM settings')]);return response({schema_version:1,exported_at:new Date().toISOString(),jobs,sources,runs,settings});}
  if(p==='jobs'){
@@ -37,7 +48,9 @@ export async function GET(req:Request){if(!authorized(req))return response({erro
 export async function POST(req:Request){if(!authorized(req))return response({error:'Please sign in.'},401);try{
  // Maintenance uses a separate bearer secret; visitors use owner sessions.
  const origin=req.headers.get('origin');if(origin&&origin!==new URL(req.url).origin)return response({error:'Cross-origin write denied'},403);
- const p=path(req),body:any=await req.json(),database=db();
+ const p=path(req);
+ if(process.env.USE_DATABASE!=='1')return response({error:'Persistent job edits are paused while the database is unavailable.'},503);
+ const body:any=await req.json(),database=db();
  if(p==='register-source'){const s=body.source;if(!s?.id||!s.name||!['ashby','greenhouse','lever','lever-eu','html','workday','workable','speedrun','speedrun-company','fortune-company','amazon','tesla','meta','smartrecruiters','employer-index'].includes(s.kind)||!/^https?:\/\//.test(s.url))return response({error:'Invalid source'},400);await database.prepare('INSERT INTO sources(id,data,status) VALUES(?,?,?) ON CONFLICT(id) DO NOTHING').bind(s.id,JSON.stringify(s),'New source').run();return response({saved:true});}
  if(p==='public-fetch'){
   if(typeof body.url!=='string'||typeof body.source_id!=='string')return response({error:'Invalid source request'},400);

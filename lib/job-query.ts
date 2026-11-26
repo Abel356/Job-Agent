@@ -20,6 +20,8 @@ export function sortJobs(jobs:Job[],sort:string,query=''){
   if(sort==='Relevance'){const diff=relevance(b,query)-relevance(a,query);if(diff)return diff;}
   if(sort==='Highest compensation'){const av=a.compensation?.annual_max_cad,bv=b.compensation?.annual_max_cad;if(av!==bv)return (bv??-1)-(av??-1);}
   if(sort==='Oldest'){const av=date(a),bv=date(b);if(!av||!bv)return av? -1:bv?1:0;return av-bv||a.position.localeCompare(b.position);}
+  const priority=(a.priority_rank??4)-(b.priority_rank??4);if(priority)return priority;
+  const historical=Number(Boolean(a.source_label?.startsWith('Restored')))-Number(Boolean(b.source_label?.startsWith('Restored')));if(historical)return historical;
   return date(b)-date(a)||a.company.localeCompare(b.company)||a.position.localeCompare(b.position);
  });
 }

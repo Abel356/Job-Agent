@@ -11,6 +11,9 @@ const snapshot=JSON.parse(readFileSync('data/tech-snapshot.json','utf8')).jobs;
 const evidence=JSON.parse(readFileSync('data/us-sponsor-evidence.json','utf8'));
 const MAX_SOURCES=100,MAX_JOBS=2500;
 const TECH=/\b(?:software|full[ -]?stack|front[ -]?end|back[ -]?end|web|mobile|ios|android|platform|cloud|devops|site reliability|sre|security|cybersecurity|data (?:engineer|scientist|analyst)|machine learning|ml engineer|ai engineer|research (?:engineer|scientist)|product (?:manager|designer|engineer|analyst)|ux|ui|hardware|firmware|embedded|quant(?:itative)? (?:developer|researcher|trader)|solutions? architect|technical product|developer experience|database|infrastructure|qa automation|test automation)\b/i;
+const NONTECH=/\b(?:marketing|sales|revenue|business development|go-to-market|partnerships? (?:lead|manager|specialist)|adoption specialist|physical security)\b/i;
+const CORE_TECH=/\b(?:software|engineer(?:ing)?|developer|data (?:engineer|scientist|analyst)|solutions? architect|cloud architect|product (?:manager|designer|engineer|analyst))\b/i;
+const isTech=title=>TECH.test(title)&&(!NONTECH.test(title)||CORE_TECH.test(title));
 const CANADA=/\b(?:Canada|Canadian|Toronto|Vancouver|Montreal|Montréal|Ottawa|Calgary|Edmonton|Waterloo|Kitchener|Mississauga|Winnipeg|Halifax|Québec|Quebec|Ontario|British Columbia|Alberta|Manitoba|Saskatchewan|Nova Scotia|New Brunswick|Newfoundland|Prince Edward Island)\b/i;
 const US=/\b(?:United States|USA|U\.S\.|US)\b|,\s*(?:AL|AK|AZ|AR|CA|CO|CT|DE|FL|GA|HI|ID|IL|IN|IA|KS|KY|LA|ME|MD|MA|MI|MN|MS|MO|MT|NE|NV|NH|NJ|NM|NY|NC|ND|OH|OK|OR|PA|RI|SC|SD|TN|TX|UT|VT|VA|WA|WV|WI|WY|DC)\b/i;
 const stackNames=['TypeScript','JavaScript','React','GraphQL','Node.js','PostgreSQL','Redis','Python','Rust','Java','Kotlin','Swift','AWS','Azure','GCP','Docker','Kubernetes'];
@@ -63,7 +66,7 @@ async function fetchBoard(s){
 }
 function normalize(j,s,checked){
  const title=clean(j.title),location=clean(j.location),description=clean(j.description),url=j.url;
- if(!TECH.test(title)||!key(url))return null;
+ if(!isTech(title)||!key(url))return null;
  const safeLocation=location.replace(/\b(?:Vancouver,? (?:WA|Washington)|Ontario,? (?:CA|California|OH|Ohio)|Waterloo,? (?:IA|Iowa)|Ottawa,? (?:IL|Illinois|KS|Kansas)|Toronto,? (?:OH|Ohio))\b/gi,'');
  const canada=CANADA.test(safeLocation),us=US.test(location),remote=Boolean(j.remote)||/\bremote\b/i.test(location);
  if(!canada&&!us)return null;
@@ -94,7 +97,7 @@ await Promise.all(Array.from({length:Math.min(6,selected.length)},worker));
 const finalSources=results.map(r=>r.source).sort((a,b)=>a.name.localeCompare(b.name));
 const jobs=[];
 for(const result of results){const seen=new Set();if(result.jobs){for(const job of result.jobs){seen.add(job.id);jobs.push({...job,missing_count:0});}}
- for(const old of previous.values())if(old.source_id===result.source.id){if(!result.jobs){jobs.push(old);continue;}if(seen.has(old.id))continue;const missed=(old.missing_count||0)+1;if(missed<2)jobs.push({...old,missing_count:missed});}
+ for(const old of previous.values())if(old.source_id===result.source.id){if(!isTech(old.position))continue;if(!result.jobs){jobs.push(old);continue;}if(seen.has(old.id))continue;const missed=(old.missing_count||0)+1;if(missed<2)jobs.push({...old,missing_count:missed});}
 }
 if(jobs.length>MAX_JOBS)throw Error(`Refusing employer import of ${jobs.length} jobs`);
 if((prior.jobs||[]).length>50&&jobs.length<(prior.jobs.length*0.7))throw Error('Refusing sudden loss of employer jobs');

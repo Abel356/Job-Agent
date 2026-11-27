@@ -46,9 +46,9 @@ function sourceList(){
 }
 async function getJson(url,sourceId){
  if(input)return JSON.parse(readFileSync(`${input}/${sourceId.replace(/[^\w.-]/g,'_')}.json`,'utf8'));
- const r=await fetch(url,{headers:{'User-Agent':'Earthwork-Jobs-Collector/1.0','Accept':'application/json'},signal:AbortSignal.timeout(20000)});
+ const r=await fetch(url,{headers:{'User-Agent':'Earthwork-Jobs-Collector/1.0','Accept':'application/json'},signal:AbortSignal.timeout(30000)});
  if(!r.ok)throw Error(`HTTP ${r.status}`);
- const raw=await r.text();if(raw.length>12_000_000)throw Error('Feed exceeds 12 MB');return JSON.parse(raw);
+ const raw=await r.text();if(raw.length>25_000_000)throw Error('Feed exceeds 25 MB');return JSON.parse(raw);
 }
 async function fetchBoard(s){
  if(s.kind==='smartrecruiters'){
@@ -59,14 +59,14 @@ async function fetchBoard(s){
  const d=await getJson(s.url,s.id),rows=s.kind==='ashby'?d.jobs:s.kind==='greenhouse'?d.jobs:d;
  if(!Array.isArray(rows)||rows.length>5000)throw Error('Unexpected feed size or format');
  return rows.map(j=>{
-  if(s.kind==='ashby')return {title:j.title,location:[j.location,...(j.secondaryLocations||[]).map(x=>x.location)].filter(Boolean).join('; '),url:j.applyUrl||j.jobUrl,posted:j.publishedAt,description:clean(j.descriptionPlain||j.descriptionHtml),department:j.department||'',remote:j.isRemote,employment:j.employmentType||''};
+  if(s.kind==='ashby')return {title:j.title,location:[j.location,...(j.secondaryLocations||[]).map(x=>x.location)].filter(Boolean).join('; '),url:j.applyUrl||j.jobUrl,posted:j.publishedAt,description:clean(j.descriptionPlain||j.descriptionHtml),department:j.department||'',remote:j.isRemote,employment:j.employmentType||'',unlisted:j.isListed===false};
   if(s.kind==='greenhouse')return {title:j.title,location:j.location?.name||'',url:j.absolute_url,posted:j.first_published||j.updated_at,description:clean(j.content),department:j.departments?.map(x=>x.name).join(', ')||''};
   return {title:j.text,location:j.categories?.allLocations?.join('; ')||j.categories?.location||'',url:j.hostedUrl,posted:j.createdAt?new Date(j.createdAt).toISOString():'',description:clean(j.descriptionPlain||j.description),department:j.categories?.department||'',remote:j.workplaceType==='remote',employment:j.categories?.commitment||''};
  });
 }
 function normalize(j,s,checked){
  const title=clean(j.title),location=clean(j.location),description=clean(j.description),url=j.url;
- if(!isTech(title)||!key(url))return null;
+ if(j.unlisted||!isTech(title)||!key(url))return null;
  const safeLocation=location.replace(/\b(?:Vancouver,? (?:WA|Washington)|Ontario,? (?:CA|California|OH|Ohio)|Waterloo,? (?:IA|Iowa)|Ottawa,? (?:IL|Illinois|KS|Kansas)|Toronto,? (?:OH|Ohio))\b/gi,'');
  const canada=CANADA.test(safeLocation),us=US.test(location),remote=Boolean(j.remote)||/\bremote\b/i.test(location);
  if(!canada&&!us)return null;
@@ -91,13 +91,13 @@ async function worker(){while(next<selected.length){const s=selected[next++],che
  const raw=await fetchBoard(s);if(raw.length===0)throw Error('Empty employer feed');
  const found=raw.map(j=>normalize(j,s,checked)).filter(Boolean);
  if(found.length>350)throw Error('Unexpectedly broad tech import');
- results.push({source:{...s,status:'Checked',checked,error:''},jobs:found});
+ results.push({source:{...s,status:'Checked',checked,error:''},jobs:found,unlisted:new Set(raw.filter(j=>j.unlisted).map(j=>key(j.url)))});
  }catch(e){results.push({source:{...s,status:'Check incomplete',checked,error:String(e.message||e).slice(0,140)},jobs:null});}}}
 await Promise.all(Array.from({length:Math.min(6,selected.length)},worker));
 const finalSources=results.map(r=>r.source).sort((a,b)=>a.name.localeCompare(b.name));
 const jobs=[];
 for(const result of results){const seen=new Set();if(result.jobs){for(const job of result.jobs){seen.add(job.id);jobs.push({...job,missing_count:0});}}
- for(const old of previous.values())if(old.source_id===result.source.id){if(!isTech(old.position))continue;if(!result.jobs){jobs.push(old);continue;}if(seen.has(old.id))continue;const missed=(old.missing_count||0)+1;if(missed<2)jobs.push({...old,missing_count:missed});}
+ for(const old of previous.values())if(old.source_id===result.source.id){if(!isTech(old.position)||result.unlisted?.has(key(old.apply_url)))continue;if(!result.jobs){jobs.push(old);continue;}if(seen.has(old.id))continue;const missed=(old.missing_count||0)+1;if(missed<2)jobs.push({...old,missing_count:missed});}
 }
 if(jobs.length>MAX_JOBS)throw Error(`Refusing employer import of ${jobs.length} jobs`);
 if((prior.jobs||[]).length>50&&jobs.length<(prior.jobs.length*0.7))throw Error('Refusing sudden loss of employer jobs');

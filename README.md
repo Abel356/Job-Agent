@@ -4,7 +4,8 @@ A tech jobs board without an application password, focused on Canadian roles, re
 
 ## Jobs shown
 
-- Restored Canadian technology roles from the October 2, 2026 employer snapshot. These are historical listings: check the employer link before applying.
+- Current technology roles from selected employer career boards, checked daily where a public feed is available.
+- Restored Canadian technology roles from the October 2, 2026 employer snapshot where no current employer feed has replaced them. These are historical listings: check the employer link before applying.
 - Active software, data, AI, product, quant, hardware, security, and related technology listings from the Simplify new-grad and Summer 2027 internship GitHub repositories.
 - Simplify listings are limited to Canada and the United States. Canada comes first, then remote US, then US roles marked by Simplify as offering sponsorship, then roles at employers with another Simplify posting marked as offering sponsorship or published company sponsorship guidance, then other US roles.
 - A company history or a Simplify sponsorship flag does not guarantee sponsorship for a specific application. Roles marked no sponsorship or US citizenship required remain labelled accordingly. Canadian roles are prioritized for this workspace because the owner does not need Canadian work authorization.
@@ -14,11 +15,15 @@ A tech jobs board without an application password, focused on Canadian roles, re
 
 Sources: [Simplify new-grad](https://github.com/SimplifyJobs/New-Grad-Positions) and [Simplify / Pitt CSC internships](https://github.com/SimplifyJobs/Summer2027-Internships). The structured `.github/scripts/listings.json` files on their `dev` branches provide active status, category, location, posting date, and sponsorship flags. Attribution is shown on the site.
 
+Employers can [submit a tech role](app/submit-job/page.tsx) for review. The form opens the sender's email app with the role details; submission does not automatically publish a listing.
+
 ## Independent refresh
 
 [GitHub Actions](.github/workflows/refresh-jobs.yml) runs [scripts/sync-simplify.mjs](scripts/sync-simplify.mjs) daily at **5 p.m. America/Toronto** and polls every 15 minutes between daily checks. It does not use a ChatGPT automation or the old Neon-backed all-company collector. When the normalized data changes, the workflow commits `data/simplify-jobs.json` to `main`; the existing Vercel Git integration deploys that commit. GitHub scheduled jobs may start late, so updates are eventual rather than instantaneous. The workflow needs repository Actions to be enabled and permission for GitHub Actions to write to `main`.
 
-The former all-employer collector remains in the repository for historical reference but is not scheduled. The October snapshot is not refreshed until an independent, bounded employer collector is added.
+[GitHub Actions](.github/workflows/refresh-employers.yml) also runs [scripts/sync-employers.mjs](scripts/sync-employers.mjs) daily at **5 p.m. America/Toronto**. It selects up to 100 employer boards from the Canadian tech snapshot, priority Simplify roles, and the reviewed [employer source list](data/employer-sources.json), then reads public Ashby, Greenhouse, Lever, and SmartRecruiters feeds. Add an employer board to that list as `{"name":"Company","url":"https://jobs.ashbyhq.com/company"}` after checking its identity. It keeps only technology titles in Canada, remote US roles, and US roles with sponsorship evidence. The generated `data/employer-jobs.json` is committed to `main` only when roles or source status change, which triggers the same Vercel deployment. A failed source retains its prior jobs; a missing job is removed only after two successful checks. Sudden large drops and unusually broad imports stop publication. Employer jobs take precedence over duplicate Simplify or historical listings.
+
+The former database-backed all-employer collector remains in the repository for historical reference but is not scheduled. Workday and careers-page fallback support remain in that collector and are not yet part of the bounded static feed. The employer submission form requires an email application on the sender's device.
 
 ## Deployment and access
 

@@ -9,6 +9,10 @@ on:
       - 'lib/ingestion.ts'
       - 'app/api/**'
       - 'app/dashboard.tsx'
+      - 'app/submit-job/**'
+      - 'lib/static-jobs.ts'
+      - 'scripts/sync-employers.mjs'
+      - 'scripts/verify-employers.mjs'
       - 'scripts/refresh_jobs.py'
       - 'scripts/verify-ingestion.mjs'
       - 'db/schema.sql'
@@ -45,6 +49,8 @@ jobs:
         run: node scripts/verify_international.mjs
       - name: Verify collector and discovery
         run: python scripts/verify_collector.py
+      - name: Verify bounded employer feeds
+        run: node scripts/verify-employers.mjs
       - name: Verify deployed tech jobs API and browser PDF asset
         env:
           SITE_ORIGIN: ${{ secrets.EARTHWORK_SITE_URL || 'https://earthwork-jobs.vercel.app' }}

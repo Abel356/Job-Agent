@@ -10,7 +10,7 @@
     "build": "node scripts/prepare-pdf.mjs && next build",
     "start": "next start",
     "lint": "eslint .",
-    "check": "tsc --noEmit && node scripts/verify_jobs.mjs && node scripts/verify_international.mjs && node scripts/verify-security.mjs && python scripts/verify_collector.py && node scripts/verify-matching.mjs && node scripts/verify-ingestion.mjs",
+    "check": "tsc --noEmit && node scripts/verify_jobs.mjs && node scripts/verify_international.mjs && node scripts/verify-security.mjs && python scripts/verify_collector.py && node scripts/verify-matching.mjs && node scripts/verify-ingestion.mjs && node scripts/verify-employers.mjs",
     "db:migrate": "node scripts/migrate-db.mjs",
     "db:seed": "node scripts/seed-db.mjs"
   },

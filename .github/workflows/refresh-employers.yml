@@ -1,0 +1,45 @@
+name: Sync employer tech jobs
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'data/employer-sources.json'
+      - 'scripts/sync-employers.mjs'
+      - '.github/workflows/refresh-employers.yml'
+  schedule:
+    - cron: '0 17 * * *'
+      timezone: 'America/Toronto'
+permissions:
+  contents: write
+concurrency:
+  group: earthwork-job-sync
+  cancel-in-progress: false
+jobs:
+  sync:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+      - name: Verify employer filtering and failure handling
+        run: node scripts/verify-employers.mjs
+      - name: Check selected public employer feeds
+        run: node scripts/sync-employers.mjs
+      - name: Publish changed employer jobs
+        run: |
+          if git diff --quiet -- data/employer-jobs.json; then
+            echo 'No employer role changes.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/employer-jobs.json
+          git commit -m 'Sync employer tech roles'
+          git pull --rebase origin main
+          git push origin HEAD:main

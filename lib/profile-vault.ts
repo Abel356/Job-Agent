@@ -4,7 +4,7 @@ export const LEGACY_PROFILE_KEY='earthwork.match-profile.v1';
 export const profileStorageKey=(owner:string)=>`earthwork.match-profile.v2:${owner}`;
 
 function bytesToBase64(bytes:Uint8Array){let text='';for(const byte of bytes)text+=String.fromCharCode(byte);return btoa(text);}
-function base64ToBytes(text:string){return Uint8Array.from(atob(text),char=>char.charCodeAt(0));}
+function base64ToBytes(text:string){return Uint8Array.from(atob(text.replace(/-/g,'+').replace(/_/g,'/')),char=>char.charCodeAt(0));}
 async function keyFrom(secret:string){return crypto.subtle.importKey('raw',base64ToBytes(secret),'AES-GCM',false,['encrypt','decrypt']);}
 
 export async function encryptProfile(profile:MatchProfile,owner:string,secret:string){

@@ -16,7 +16,7 @@ try{
  const {emptyProfile}=require(join(temp,'matching.cjs'));
  const {encryptProfile,decryptProfile,profileStorageKey}=require(join(temp,'profile-vault.cjs'));
  const alice=emptyProfile();alice.skills=['Python'];
- const key=Buffer.alloc(32,7).toString('base64');
+ const key=Buffer.alloc(32,251).toString('base64url');
  const blob=await encryptProfile(alice,'google-alice',key);
  assert(!blob.includes('Python'),'Saved profile must not be readable in browser storage');
  assert.deepEqual(await decryptProfile(blob,'google-alice',key),alice);

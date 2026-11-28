@@ -8,7 +8,7 @@ A tech jobs board without an application password, focused on Canadian roles, re
 - Restored Canadian technology roles from the October 2, 2026 employer snapshot where no current employer feed has replaced them. These are historical listings: check the employer link before applying.
 - Active software, data, AI, product, quant, hardware, security, and related technology listings from the Simplify new-grad and Summer 2027 internship GitHub repositories.
 - Simplify listings are limited to Canada and the United States. Canada comes first, then remote US, then US roles marked by Simplify as offering sponsorship, then roles at employers with another Simplify posting marked as offering sponsorship or published company sponsorship guidance, then other US roles.
-- A company history or a Simplify sponsorship flag does not guarantee sponsorship for a specific application. Roles marked no sponsorship or US citizenship required remain labelled accordingly. Canadian roles are prioritized for this workspace because the owner does not need Canadian work authorization.
+- A company history or a Simplify sponsorship flag does not guarantee sponsorship for a specific application. Roles marked no sponsorship or US citizenship required remain labelled accordingly. Canadian roles are prioritized, but each visitor must check their own work authorization.
 - Microsoft is the first company with separate primary-source sponsorship evidence: its [university internship FAQ](https://careers.microsoft.com/v2/global/en/universityinternship) says it provides visa sponsorship. Its US roles are ranked as company-known, but each role remains unconfirmed. The evidence is maintained in `data/us-sponsor-evidence.json`; a role's explicit no-sponsorship or citizenship restriction always overrides company evidence.
 - Company tech stack is displayed as `Not known as of now` unless the restored October employer posting explicitly described its stack. No stack is guessed from a job title.
 - Past unambiguous application deadlines are hidden. The old employer snapshot is not independently rechecked in static mode.
@@ -29,7 +29,9 @@ The former database-backed all-employer collector remains in the repository for 
 
 The existing Vercel project is `earthwork-jobs`, connected to this repository's `main` branch. Static mode is the default. The production build skips database bootstrap, avoiding the Neon quota error. The job board, job details, and source list require no application password. Vercel Authentication is a separate project setting and may still require a Vercel sign-in. Maintenance endpoints and every write require the server-only `UPDATER_SECRET` bearer token. Do not commit that value.
 
-Static mode does not persist category corrections or refresh-run history. Résumé matching remains local to the browser. Users should treat résumé data entered on a shared device as visible to other users of that browser profile.
+Static mode does not persist category corrections or refresh-run history. Google sign-in uses Auth.js encrypted, stateless sessions and requires `AUTH_GOOGLE_ID`, `AUTH_GOOGLE_SECRET`, and `AUTH_SECRET` in Vercel production. Configure a Google OAuth Web client with redirect URI `https://earthwork-jobs.vercel.app/api/auth/callback/google` and publish its consent screen. The board remains public without signing in.
+
+Confirmed matching preferences are encrypted in browser storage using an account-specific key. Résumé files and pasted text are processed only in the browser and are never uploaded. Profiles do not sync across devices; there is no profile database or storage bill. The previous unscoped browser profile is deleted on first visit under this version to prevent shared-browser disclosure. Signing out hides the profile; a signed-in visitor can remove it from the matching tab. Rotating `AUTH_SECRET` invalidates sessions and makes saved local profiles unreadable.
 
 ## Local checks
 

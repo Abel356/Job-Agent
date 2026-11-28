@@ -1,4 +1,7 @@
+overrides:
+  browserslist: ^4.28.7
+  source-map-js: ^1.2.2
 allowBuilds:
   esbuild: true
-  unrs-resolver: true
   sharp: true
+  unrs-resolver: true

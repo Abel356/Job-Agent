@@ -28,7 +28,7 @@ const canadian=/\bCanada\b|\bToronto\b|\bVancouver\b|\bMontr[eé]al\b|\bOttawa\b
 const us=/\b(?:USA|United States|US)\b|,\s*(?:AL|AK|AZ|AR|CA|CO|CT|DE|FL|GA|HI|ID|IL|IN|IA|KS|KY|LA|ME|MD|MA|MI|MN|MS|MO|MT|NE|NV|NH|NJ|NM|NY|NC|ND|OH|OK|OR|PA|RI|SC|SD|TN|TX|UT|VT|VA|WA|WV|WI|WY|DC)\b/i;
 function inCanada(location){return canadian.test(location.replace(/\b(?:Vancouver\s*,?\s*(?:WA|Washington)|Ontario\s*,?\s*(?:CA|California|OH|Ohio)|Waterloo\s*,?\s*(?:IA|Iowa)|Ottawa\s*,?\s*(?:IL|Illinois|KS|Kansas)|Halifax\s*,?\s*(?:VA|Virginia)|Toronto\s*,?\s*(?:OH|Ohio))\b/gi,''));}
 function priority(location,sponsorship,companyHasOffer,companyEvidence){
-  if(inCanada(location))return {rank:0,label:'Canada role · you already have work authorization'};
+  if(inCanada(location))return {rank:0,label:'Canada role · check your work authorization'};
   if(sponsorship==='U.S. Citizenship is Required')return {rank:4,label:'US citizenship required for this role'};
   if(sponsorship==='Does Not Offer Sponsorship')return {rank:4,label:'This role is marked as not offering sponsorship'};
   if(/remote/i.test(location)&&us.test(location))return {rank:1,label:'Remote US role · confirm Canada eligibility and US work authorization'};

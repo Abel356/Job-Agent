@@ -75,7 +75,7 @@ function normalize(j,s,checked){
  const denied=/\b(?:no|not|without) (?:visa|work authorization) sponsorship\b|\bmust (?:already )?be (?:legally )?authorized to work in the (?:US|United States) without sponsorship\b/i.test(description);
  if(!canada&&!remote&&!offer&&!companyEvidence)return null;
  let rank,label,note='Not known as of now',evidenceUrl='';
- if(canada){rank=0;label='Canada role · you already have work authorization';}
+ if(canada){rank=0;label='Canada role · check your work authorization';}
  else if(denied){rank=4;label='This role states sponsorship is not offered';note='Employer posting states no sponsorship';}
  else if(remote&&us){rank=1;label='Remote US role · confirm Canada eligibility and US work authorization';}
  else if(offer){rank=2;label='Employer posting mentions visa sponsorship · confirm eligibility';note='Employer posting mentions sponsorship';evidenceUrl=url;}
